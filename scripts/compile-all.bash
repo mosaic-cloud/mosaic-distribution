@@ -5,26 +5,31 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
-"${_repositories}/mosaic-erlang-tools/scripts/compile"
+env "${_scripts_env[@]}" "${_scripts}/compile-ninja"
+env "${_scripts_env[@]}" "${_scripts}/compile-vbs"
+env "${_scripts_env[@]}" "${_scripts}/compile-zeromq"
+env "${_scripts_env[@]}" "${_scripts}/compile-jzmq"
 
-"${_repositories}/mosaic-node/scripts/compile"
+env "${_scripts_env[@]}" "${_repositories}/mosaic-erlang-tools/scripts/compile"
 
-"${_repositories}/mosaic-components-rabbitmq/scripts/compile"
-"${_repositories}/mosaic-components-riak-kv/scripts/compile"
-"${_repositories}/mosaic-components-httpg/scripts/compile"
+env "${_scripts_env[@]}" "${_repositories}/mosaic-node/scripts/compile"
 
-"${_repositories}/mosaic-erlang-drivers/scripts/compile"
+env "${_scripts_env[@]}" "${_repositories}/mosaic-components-rabbitmq/scripts/compile"
+env "${_scripts_env[@]}" "${_repositories}/mosaic-components-riak-kv/scripts/compile"
+env "${_scripts_env[@]}" "${_repositories}/mosaic-components-httpg/scripts/compile"
 
-if test "${_mosaic_do_all_java:-${_mosaic_do_all:-false}}" == true ; then
-	"${_repositories}/mosaic-java-platform/components-container/scripts/compile"
-	"${_repositories}/mosaic-java-platform/cloudlets/scripts/compile"
-	"${_repositories}/mosaic-java-platform/drivers-stubs/amqp/scripts/compile"
-	"${_repositories}/mosaic-java-platform/drivers-stubs/riak/scripts/compile"
+env "${_scripts_env[@]}" "${_repositories}/mosaic-erlang-drivers/scripts/compile"
+
+if test "${_mosaic_do_all_java:-${_mosaic_do_all:-true}}" == true ; then
+	env "${_scripts_env[@]}" "${_repositories}/mosaic-java-platform/components-container/scripts/compile"
+	env "${_scripts_env[@]}" "${_repositories}/mosaic-java-platform/cloudlets/scripts/compile"
+	env "${_scripts_env[@]}" "${_repositories}/mosaic-java-platform/drivers-stubs/amqp/scripts/compile"
+	env "${_scripts_env[@]}" "${_repositories}/mosaic-java-platform/drivers-stubs/riak/scripts/compile"
 fi
 
-if test "${_mosaic_do_all_examples:-${_mosaic_do_all:-false}}" == true ; then
-	"${_repositories}/mosaic-examples-realtime-feeds/frontend/scripts/compile"
-	"${_repositories}/mosaic-java-platform/examples/realtime-feeds-indexer/scripts/compile"
+if test "${_mosaic_do_all_examples:-${_mosaic_do_all:-true}}" == true ; then
+	env "${_scripts_env[@]}" "${_repositories}/mosaic-examples-realtime-feeds/frontend/scripts/compile"
+	env "${_scripts_env[@]}" "${_repositories}/mosaic-java-platform/examples/realtime-feeds-indexer/scripts/compile"
 fi
 
 exit 0

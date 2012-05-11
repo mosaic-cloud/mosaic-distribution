@@ -8,4 +8,8 @@ fi
 "${_git_bin}" submodule init --quiet
 "${_git_bin}" submodule update --quiet
 
+if test ! -e "${_repositories}/mosaic-java-platform/.lib" ; then
+	ln -s -T -- "${_tools}/lib" "${_repositories}/mosaic-java-platform/.lib"
+fi
+
 exit 0

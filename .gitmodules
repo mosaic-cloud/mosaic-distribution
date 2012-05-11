@@ -112,3 +112,6 @@
 [submodule "repositories/ninja"]
 	path = repositories/ninja
 	url = git://github.com/cipriancraciun/ninja.git
+[submodule "repositories/zeromq"]
+	path = repositories/zeromq
+	url = git://github.com/zeromq/zeromq2-x.git
