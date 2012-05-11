@@ -1,0 +1,111 @@
+[submodule "repositories/basho-stats"]
+	path = repositories/basho-stats
+	url = git://github.com/basho/basho_stats.git
+[submodule "repositories/bitcask"]
+	path = repositories/bitcask
+	url = git://github.com/basho/bitcask.git
+[submodule "repositories/cluster-info"]
+	path = repositories/cluster-info
+	url = git://github.com/basho/cluster_info.git
+[submodule "repositories/ebloom"]
+	path = repositories/ebloom
+	url = git://github.com/basho/ebloom.git
+[submodule "repositories/eper"]
+	path = repositories/eper
+	url = git://github.com/dizzyd/eper.git
+[submodule "repositories/erlang-js"]
+	path = repositories/erlang-js
+	url = git://github.com/basho/erlang_js.git
+[submodule "repositories/erlang-protobuffs"]
+	path = repositories/erlang-protobuffs
+	url = git://github.com/basho/erlang_protobuffs.git
+[submodule "repositories/erlzmq2"]
+	path = repositories/erlzmq2
+	url = git://github.com/zeromq/erlzmq2.git
+[submodule "repositories/jzmq"]
+	path = repositories/jzmq
+	url = git://github.com/zeromq/jzmq.git
+[submodule "repositories/luke"]
+	path = repositories/luke
+	url = git://github.com/basho/luke.git
+[submodule "repositories/luwak"]
+	path = repositories/luwak
+	url = git://github.com/basho/luwak.git
+[submodule "repositories/misultin"]
+	path = repositories/misultin
+	url = git://github.com/ostinelli/misultin.git
+[submodule "repositories/mochiweb"]
+	path = repositories/mochiweb
+	url = git://github.com/mochi/mochiweb.git
+[submodule "repositories/rabbitmq-codegen"]
+	path = repositories/rabbitmq-codegen
+	url = git://github.com/rabbitmq/rabbitmq-codegen.git
+[submodule "repositories/rabbitmq-erlang-client"]
+	path = repositories/rabbitmq-erlang-client
+	url = git://github.com/rabbitmq/rabbitmq-erlang-client.git
+[submodule "repositories/rabbitmq-management"]
+	path = repositories/rabbitmq-management
+	url = git://github.com/rabbitmq/rabbitmq-management.git
+[submodule "repositories/rabbitmq-management-agent"]
+	path = repositories/rabbitmq-management-agent
+	url = git://github.com/rabbitmq/rabbitmq-management-agent.git
+[submodule "repositories/rabbitmq-mochiweb"]
+	path = repositories/rabbitmq-mochiweb
+	url = git://github.com/rabbitmq/rabbitmq-mochiweb.git
+[submodule "repositories/rabbitmq-server"]
+	path = repositories/rabbitmq-server
+	url = git://github.com/cipriancraciun/rabbitmq-server.git
+[submodule "repositories/riak"]
+	path = repositories/riak
+	url = git://github.com/basho/riak.git
+[submodule "repositories/riak-core"]
+	path = repositories/riak-core
+	url = git://github.com/cipriancraciun/riak_core.git
+[submodule "repositories/riak-erlang-client"]
+	path = repositories/riak-erlang-client
+	url = git://github.com/basho/riak-erlang-client.git
+[submodule "repositories/riak-err"]
+	path = repositories/riak-err
+	url = git://github.com/basho/riak_err.git
+[submodule "repositories/riak-kv"]
+	path = repositories/riak-kv
+	url = git://github.com/basho/riak_kv.git
+[submodule "repositories/skerl"]
+	path = repositories/skerl
+	url = git://github.com/basho/skerl.git
+[submodule "repositories/vbs"]
+	path = repositories/vbs
+	url = git://github.com/cipriancraciun/volution-build-system.git
+[submodule "repositories/webmachine"]
+	path = repositories/webmachine
+	url = git://github.com/cipriancraciun/webmachine.git
+[submodule "repositories/mosaic-components-httpg"]
+	path = repositories/mosaic-components-httpg
+	url = git://github.com/cipriancraciun/mosaic-components-httpg.git
+[submodule "repositories/mosaic-components-rabbitmq"]
+	path = repositories/mosaic-components-rabbitmq
+	url = git://github.com/cipriancraciun/mosaic-components-rabbitmq.git
+[submodule "repositories/mosaic-components-riak-kv"]
+	path = repositories/mosaic-components-riak-kv
+	url = git://github.com/cipriancraciun/mosaic-components-riak-kv.git
+[submodule "repositories/mosaic-erlang-drivers"]
+	path = repositories/mosaic-erlang-drivers
+	url = git://github.com/cipriancraciun/mosaic-erlang-drivers.git
+[submodule "repositories/mosaic-erlang-tools"]
+	path = repositories/mosaic-erlang-tools
+	url = git://github.com/cipriancraciun/mosaic-erlang-tools.git
+[submodule "repositories/mosaic-examples-realtime-feeds"]
+	path = repositories/mosaic-examples-realtime-feeds
+	url = git://github.com/cipriancraciun/mosaic-examples-realtime-feeds.git
+[submodule "repositories/mosaic-java-platform"]
+	path = repositories/mosaic-java-platform
+	url = git://github.com/cipriancraciun/mosaic-java-platform.git
+[submodule "repositories/mosaic-node"]
+	path = repositories/mosaic-node
+	url = git://github.com/cipriancraciun/mosaic-node.git
+[submodule "repositories/mosaic-node-wui"]
+	path = repositories/mosaic-node-wui
+	url = git://github.com/cipriancraciun/mosaic-node-wui.git
+[submodule "repositories/mosaic-python-platform"]
+	path = repositories/mosaic-python-platform
+	url = git://github.com/cipriancraciun/mosaic-python-platform.git
