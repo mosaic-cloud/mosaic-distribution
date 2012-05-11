@@ -30,7 +30,7 @@
 	url = git://github.com/basho/luke.git
 [submodule "repositories/luwak"]
 	path = repositories/luwak
-	url = git://github.com/basho/luwak.git
+	url = git://github.com/cipriancraciun/luwak.git
 [submodule "repositories/misultin"]
 	path = repositories/misultin
 	url = git://github.com/ostinelli/misultin.git
