@@ -1,9 +1,10 @@
 #!/dev/null
 
 _workbench="$( readlink -e -- . )"
-_repositories="${_workbench}/.repositories"
+_repositories="${_workbench}/repositories"
 _scripts="${_workbench}/scripts"
 _tools="${_workbench}/.tools"
+_outputs="${_workbench}/.outputs"
 
 _PATH="${_tools}/bin:${PATH}"
 
