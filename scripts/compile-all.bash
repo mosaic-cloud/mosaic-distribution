@@ -14,6 +14,8 @@ env "${_scripts_env[@]}" "${_repositories}/mosaic-erlang-tools/scripts/compile"
 
 env "${_scripts_env[@]}" "${_repositories}/mosaic-node/scripts/compile"
 
+env "${_scripts_env[@]}" "${_repositories}/mosaic-node-wui/scripts/npm" install -q .
+
 env "${_scripts_env[@]}" "${_repositories}/mosaic-components-rabbitmq/scripts/compile"
 env "${_scripts_env[@]}" "${_repositories}/mosaic-components-riak-kv/scripts/compile"
 env "${_scripts_env[@]}" "${_repositories}/mosaic-components-httpg/scripts/compile"
@@ -28,6 +30,7 @@ if test "${_mosaic_do_all_java:-${_mosaic_do_all:-true}}" == true ; then
 fi
 
 if test "${_mosaic_do_all_examples:-${_mosaic_do_all:-true}}" == true ; then
+	env "${_scripts_env[@]}" "${_repositories}/mosaic-examples-realtime-feeds/backend/scripts/npm" install -q .
 	env "${_scripts_env[@]}" "${_repositories}/mosaic-examples-realtime-feeds/frontend/scripts/compile"
 	env "${_scripts_env[@]}" "${_repositories}/mosaic-java-platform/examples/realtime-feeds-indexer/scripts/compile"
 fi

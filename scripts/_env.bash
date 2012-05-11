@@ -16,6 +16,7 @@ fi
 
 _distribution_version=0.2.0_mosaic_dev
 _distribution_cook=cook@agent1.builder.mosaic.ieat.ro.
+_distribution_local_os=unknown
 
 _scripts_env=(
 	PATH="${_PATH}"
