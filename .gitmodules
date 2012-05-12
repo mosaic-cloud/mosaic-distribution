@@ -24,7 +24,7 @@
 	url = git://github.com/zeromq/erlzmq2.git
 [submodule "repositories/jzmq"]
 	path = repositories/jzmq
-	url = git://github.com/zeromq/jzmq.git
+	url = git://github.com/cipriancraciun/jzmq.git
 [submodule "repositories/luke"]
 	path = repositories/luke
 	url = git://github.com/basho/luke.git
@@ -63,7 +63,7 @@
 	url = git://github.com/cipriancraciun/riak_core.git
 [submodule "repositories/riak-erlang-client"]
 	path = repositories/riak-erlang-client
-	url = git://github.com/basho/riak-erlang-client.git
+	url = git://github.com/cipriancraciun/riak-erlang-client.git
 [submodule "repositories/riak-err"]
 	path = repositories/riak-err
 	url = git://github.com/basho/riak_err.git
