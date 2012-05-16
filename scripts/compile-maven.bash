@@ -29,4 +29,8 @@ fi
 mkdir -p -- "${_tools}/bin"
 ln -s -T -- "${_tools}/pkg/mvn/bin/mvn" "${_tools}/bin/mvn"
 
+#echo "[ii] preparing..." >&2
+
+"${_tools}/bin/mvn" --quiet help:help
+
 exit 0
