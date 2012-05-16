@@ -10,6 +10,7 @@ case "${_distribution_local_os}" in
 		_mos_dependencies=(
 				git
 				perl
+				gcc
 				mosaic-sun-jdk-7u1
 				mosaic-nodejs-0.6.15
 				mosaic-erlang-r15b01
@@ -30,7 +31,7 @@ case "${_distribution_local_os}" in
 				coreutils-file-summarize
 				coreutils-line
 				coreutils-numeric
-				coreutils-operations
+				coreutils-operations-8.12.1
 				coreutils-path
 				coreutils-redirection
 		)
