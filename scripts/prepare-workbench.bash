@@ -8,12 +8,12 @@ fi
 case "${_distribution_local_os}" in
 	( mos )
 		_mos_dependencies=(
-				git
-				perl
-				gcc
+			# mOSAIC custom packages
 				mosaic-sun-jdk-7u1
 				mosaic-nodejs-0.6.15
 				mosaic-erlang-r15b01
+				coreutils-operations-8.12.1
+			# Slitaz generic packages
 				coreutils
 				coreutils-character
 				coreutils-command
@@ -31,9 +31,26 @@ case "${_distribution_local_os}" in
 				coreutils-file-summarize
 				coreutils-line
 				coreutils-numeric
-				coreutils-operations-8.12.1
 				coreutils-path
 				coreutils-redirection
+				findutils
+				grep
+				sed
+				awk
+				tar
+				zip
+				wget
+				curl
+			# Slitaz development packages
+				perl
+				gcc
+				libtool
+				autoconf
+				automake
+				pkg-config
+				util-linux-ng-uuid-dev
+			# Slitaz miscellaneous packages
+				git
 		)
 		for _mos_dependency in "${_mos_dependencies[@]}" ; do
 			tazpkg get-install "${_mos_dependency}"

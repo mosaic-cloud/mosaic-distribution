@@ -7,6 +7,8 @@ _tools="${_workbench}/.tools"
 _outputs="${_workbench}/.outputs"
 
 _PATH="${_tools}/bin:${PATH}"
+_CFLAGS="-I${_tools}/include"
+_LDFLAGS="-L${_tools}/lib"
 
 _git_bin="$( PATH="${_PATH}" type -P -- git || true )"
 if test -z "${_git_bin}" ; then
@@ -25,6 +27,9 @@ fi
 
 _scripts_env=(
 	PATH="${_PATH}"
+	mosaic_CFLAGS="${_CFLAGS}"
+	mosaic_LDFLAGS="${_LDFLAGS}"
+	mosaic_pkg_zeromq="${_tools}/pkg/zeromq"
 	mosaic_distribution_version="${_distribution_version}"
 	mosaic_distribution_cook="${_distribution_cook}"
 )
