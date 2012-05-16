@@ -11,6 +11,7 @@ env "${_scripts_env[@]}" "${_scripts}/compile-ninja"
 env "${_scripts_env[@]}" "${_scripts}/compile-vbs"
 env "${_scripts_env[@]}" "${_scripts}/compile-zeromq"
 env "${_scripts_env[@]}" "${_scripts}/compile-jzmq"
+env "${_scripts_env[@]}" "${_scripts}/compile-maven"
 
 env "${_scripts_env[@]}" "${_repositories}/mosaic-erlang-tools/scripts/prepare"
 

@@ -31,6 +31,7 @@ _scripts_env=(
 	mosaic_CFLAGS="${_CFLAGS}"
 	mosaic_LDFLAGS="${_LDFLAGS}"
 	mosaic_LIBS="${_LIBS}"
+	mosaic_pkg_erlang="${_tools}/pkg/erlang"
 	mosaic_pkg_zeromq="${_tools}/pkg/zeromq"
 	mosaic_distribution_version="${_distribution_version}"
 	mosaic_distribution_cook="${_distribution_cook}"

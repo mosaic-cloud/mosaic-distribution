@@ -6,7 +6,9 @@ if ! test "${#}" -eq 0 ; then
 fi
 
 case "${_distribution_local_os}" in
+	
 	( mos )
+		
 		_mos_dependencies=(
 			# mOSAIC custom packages
 				mosaic-sun-jdk-7u1
@@ -36,13 +38,14 @@ case "${_distribution_local_os}" in
 				findutils
 				grep
 				sed
-				awk
+				gawk
 				tar
 				zip
 				wget
 				curl
 			# Slitaz development packages
 				perl
+				python
 				gcc
 				libtool
 				autoconf
@@ -52,12 +55,24 @@ case "${_distribution_local_os}" in
 			# Slitaz miscellaneous packages
 				git
 		)
+		
 		for _mos_dependency in "${_mos_dependencies[@]}" ; do
 			tazpkg get-install "${_mos_dependency}"
 		done
+		
+		if test ! -e "${_tools}/pkg/erlang" ; then
+			ln -s -T -- /opt/mosaic-erlang-r15b01/lib/erlang "${_tools}/pkg/erlang"
+		fi
+		
+		if test ! -e "${_tools}/bin/python2" ; then
+			ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
+		fi
+		
 	;;
+	
 	( unknown )
 	;;
+	
 	( * )
 		echo "[ee] invalid local OS \`${_distribution_local_os}\`; aborting!" >&2
 		exit 1
