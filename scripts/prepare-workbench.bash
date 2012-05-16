@@ -35,7 +35,7 @@ case "${_distribution_local_os}" in
 				coreutils-redirection
 		)
 		for _mos_dependency in "${_mos_dependencies[@]}" ; do
-			tazpgk get-install "${_mos_dependency}"
+			tazpkg get-install "${_mos_dependency}"
 		done
 	;;
 	( unknown )
