@@ -20,6 +20,6 @@ _distribution_local_os=unknown
 
 _scripts_env=(
 	PATH="${_PATH}"
-	_mosaic_distribution_version="${_distribution_version}"
-	_mosaic_distribution_cook="${_distribution_cook}"
+	mosaic_distribution_version="${_distribution_version}"
+	mosaic_distribution_cook="${_distribution_cook}"
 )
