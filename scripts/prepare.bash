@@ -5,11 +5,12 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
-"${_git_bin}" submodule init --quiet
-"${_git_bin}" submodule update --quiet
+"${_git_bin}" submodule update --quiet --init --recursive
+"${_git_bin}" submodule foreach --quiet --recursive 'chmod -R +w . && git reset -q --hard HEAD && git clean -q -f -d -x'
 
 case "${_distribution_local_os}" in
 	( mos )
+		tazpkg get-install git
 		tazpkg get-install mosaic-sun-jdk-7u1
 		tazpkg get-install mosaic-nodejs-0.6.15
 		tazpkg get-install mosaic-erlang-r15b01
