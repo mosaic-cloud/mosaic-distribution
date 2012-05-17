@@ -35,7 +35,7 @@ done
 _dependencies=(
 		git
 )
-for _mos_dependency in "${_dependencies[@]}" ; do
+for _dependency in "${_dependencies[@]}" ; do
 	yes | apt-get install -y "${_dependency}"
 done
 )
