@@ -7,57 +7,15 @@ fi
 
 case "${_distribution_local_os}" in
 	
-	( mos )
+	( mos::* )
 		
-		_mos_dependencies=(
-			# mOSAIC custom packages
-				mosaic-sun-jdk-7u1
-				mosaic-nodejs-0.6.15
-				mosaic-erlang-r15b01
-				coreutils-operations-8.12.1
-			# Slitaz generic packages
-				coreutils
-				coreutils-character
-				coreutils-command
-				coreutils-conditions
-				coreutils-context-system
-				coreutils-context-user
-				coreutils-context-working
-				coreutils-directory
-				coreutils-file-attributes
-				coreutils-file-format
-				coreutils-file-output-full
-				coreutils-file-output-part
-				coreutils-file-sort
-				coreutils-file-special
-				coreutils-file-summarize
-				coreutils-line
-				coreutils-numeric
-				coreutils-path
-				coreutils-redirection
-				findutils
-				grep
-				sed
-				gawk
-				tar
-				zip
-				wget
-				curl
-			# Slitaz development packages
-				perl
-				python
-				gcc
-				libtool
-				autoconf
-				automake
-				pkg-config
-				util-linux-ng-uuid-dev
-			# Slitaz miscellaneous packages
-				git
-		)
+		. "${_scripts}/prepare-workbench-env-mos.bash"
 		
-		for _mos_dependency in "${_mos_dependencies[@]}" ; do
-			tazpkg get-install "${_mos_dependency}"
+		tazpkg recharge
+		tazpkg upgrade <<<y
+		
+		for _dependency in "${_distribution_mos_dependencies[@]}" ; do
+			tazpkg get-install "${_dependency}"
 		done
 		
 		if test ! -e "${_tools}/pkg/erlang" ; then
@@ -67,10 +25,30 @@ case "${_distribution_local_os}" in
 		if test ! -e "${_tools}/bin/python2" ; then
 			ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
 		fi
-		
 	;;
 	
-	( unknown )
+	( ubuntu::12.04 )
+		
+		. "${_scripts}/prepare-workbench-env-mos.bash"
+		
+		apt-get update -y
+		apt-get upgrade -y
+		
+		for _dependency in "${_distribution_ubuntu_dependencies[@]}" ; do
+			apt-get install -y "${_dependency}"
+		done
+		
+		if test ! -e "${_tools}/pkg/erlang" ; then
+			ln -s -T -- /usr/lib/erlang "${_tools}/pkg/erlang"
+		fi
+		
+		if test ! -e "${_tools}/bin/python2" ; then
+			ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
+		fi
+	;;
+	
+	( unknown::* | archlinux::* )
+		echo "[ww] unknown local OS \`${_distribution_local_os}\`; proceeding!" >&2
 	;;
 	
 	( * )

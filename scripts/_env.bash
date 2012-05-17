@@ -21,10 +21,22 @@ _distribution_version=0.2.0_mosaic_dev
 _distribution_cook=cook@agent1.builder.mosaic.ieat.ro.
 
 if test -e /etc/mos-release ; then
-	_distribution_local_os=mos
+	_distribution_local_os_identifier="$( tr ':' '\n' </etc/mos-release | tail -n +2 | head -n 1 )"
+	_distribution_local_os_version="$( tr ':' '\n' </etc/mos-release | tail -n +3 | head -n 1 )"
+elif test -e /etc/slitaz-release ; then
+	_distribution_local_os_identifier=slitaz
+	_distribution_local_os_version="$( cat /etc/slitaz-release )"
+elif test -e /etc/lsb-release ; then
+	_distribution_local_os_identifier="$( . /etc/lsb-release ; echo "${DISTRIB_ID:-}" )"
+	_distribution_local_os_version="$( . /etc/lsb-release ; echo "${DISTRIB_RELEASE:-}" )"
 else
-	_distribution_local_os=unknown
+	_distribution_local_os_identifier=
+	_distribution_local_os_version=
 fi
+
+_distribution_local_os_identifier="${_distribution_local_os_identifier,,}"
+_distribution_local_os_version="${_distribution_local_os_version,,}"
+_distribution_local_os="${_distribution_local_os_identifier:-unknown}::${_distribution_local_os_version:-unknown}"
 
 _scripts_env=(
 	PATH="${_PATH}"
