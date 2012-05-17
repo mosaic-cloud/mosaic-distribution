@@ -5,20 +5,28 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
+
 if test ! -e "${_tools}" ; then
 	mkdir "${_tools}"
 	mkdir "${_tools}/bin"
 	mkdir "${_tools}/lib"
+	mkdir "${_tools}/include"
 	mkdir "${_tools}/pkg"
 fi
+
 
 case "${_distribution_local_os}" in
 	
 	( mos::* )
 		
+		echo "[ii] preparing `mos` environment..." >&2
+		
 		. "${_scripts}/prepare-workbench-env-mos.bash"
 		
-		if test -e "${_tools}/.os-prepared" ; then break ; fi
+		if test -e "${_tools}/.os-prepared" ; then
+			echo "[ii] skipping..." >&2
+			break
+		fi
 		
 		tazpkg recharge
 		tazpkg upgrade <<<y
@@ -35,14 +43,23 @@ case "${_distribution_local_os}" in
 			ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
 		fi
 		
+		if test ! -e "${_tools}/pkg/java" -o ! -l "${_tools}/pkg/java" ; then
+			ln -s -T -- /opt/jdk1.7.0_01 "${_tools}/pkg/java"
+		fi
+		
 		touch "${_tools}/.os-prepared"
 	;;
 	
 	( ubuntu::12.04 )
 		
+		echo "[ii] preparing `ubuntu` environment..." >&2
+		
 		. "${_scripts}/prepare-workbench-env-ubuntu.bash"
 		
-		if test -e "${_tools}/.os-prepared" ; then break ; fi
+		if test -e "${_tools}/.os-prepared" ; then
+			echo "[ii] skipping..." >&2
+			break
+		fi
 		
 		apt-get update -y
 		yes | apt-get upgrade -y
@@ -59,6 +76,10 @@ case "${_distribution_local_os}" in
 			ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
 		fi
 		
+		if test ! -e "${_tools}/pkg/java" -o ! -l "${_tools}/pkg/java" ; then
+			ln -s -T -- /opt/jdk1.7.0_01 "${_tools}/pkg/java"
+		fi
+		
 		touch "${_tools}/.os-prepared"
 	;;
 	
@@ -72,8 +93,14 @@ case "${_distribution_local_os}" in
 	;;
 esac
 
+
+echo "[ii] preparing repositories..." >&2
+
 "${_git_bin}" submodule update --quiet --init --recursive
 "${_git_bin}" submodule foreach --quiet --recursive 'chmod -R +w . && git reset -q --hard HEAD && git clean -q -f -d -x'
+
+
+echo "[ii] preparing miscellaneous..." >&2
 
 if test ! -e "${_repositories}/mosaic-java-platform/.lib" ; then
 	ln -s -T -- "${_tools}/lib" "${_repositories}/mosaic-java-platform/.lib"
@@ -82,5 +109,6 @@ fi
 if test ! -e "${_repositories}/mosaic-examples-realtime-feeds/.lib" ; then
 	ln -s -T -- "${_tools}/lib" "${_repositories}/mosaic-examples-realtime-feeds/.lib"
 fi
+
 
 exit 0

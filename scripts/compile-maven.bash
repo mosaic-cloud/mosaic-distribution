@@ -5,31 +5,26 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
-#echo "[ii] building \`mvn\` (Maven)..." >&2
+echo "[ii] preparing \`mvn\` (Maven)..." >&2
 
 if test -e "${_tools}/pkg/mvn" ; then
-	#echo "[ww] \`mvn\` package already exists; aborting!" >&2
-	#echo "[ww] (to force the build remove the folder \`${_tools}/pkg/mvn\`)" >&2
+	echo "[ii] \`mvn\` package already exists; aborting!" >&2
+	echo "[ii] (to force the build remove the folder \`${_tools}/pkg/mvn\`)" >&2
 	exit 0
 fi
 
-#echo "[ii] fetching and deploying..." >&2
+echo "[ii] fetching..." >&2
 
-(
-	mkdir -p "${_tools}/pkg/mvn" || exit 1
-	curl -s 'http://mirrors.hostingromania.ro/apache.org/maven/binaries/apache-maven-3.0.4-bin.tar.gz' \
-	| tar -xz -C "${_tools}/pkg/mvn" --strip-components 1 \
-	|| exit 1
-	exit 0
-) 2>&1 \
-| sed -u -r -e 's!^.*$![  ] &!g' >&2
+mkdir -- "${_tools}/pkg/mvn"
 
-#echo "[ii] deploying..." >&2
+curl -s 'http://mirrors.hostingromania.ro/apache.org/maven/binaries/apache-maven-3.0.4-bin.tar.gz' \
+| tar -xz -C "${_tools}/pkg/mvn" --strip-components 1 \
 
-mkdir -p -- "${_tools}/bin"
+echo "[ii] deploying..." >&2
+
 ln -s -T -- "${_tools}/pkg/mvn/bin/mvn" "${_tools}/bin/mvn"
 
-#echo "[ii] preparing..." >&2
+echo "[ii] preparing..." >&2
 
 "${_tools}/bin/mvn" --quiet help:help
 

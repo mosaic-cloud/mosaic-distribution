@@ -7,14 +7,11 @@ _tools="${_workbench}/.tools"
 _outputs="${_workbench}/.outputs"
 
 _PATH="${_tools}/bin:${PATH}"
-_CFLAGS="-I${_tools}/include"
-_LDFLAGS="-L${_tools}/lib"
-_LIBS=
 
 _git_bin="$( PATH="${_PATH}" type -P -- git || true )"
 if test -z "${_git_bin}" ; then
-	echo "[ee] missing \`git\` (Git DSCV) executable in path: \`${_PATH}\`; ignoring!" >&2
-	exit 1
+	echo "[ww] missing \`git\` (Git DSCV) executable in path: \`${_PATH}\`; ignoring!" >&2
+	_git_bin=git
 fi
 
 _distribution_version=0.2.0_mosaic_dev
@@ -39,12 +36,26 @@ _distribution_local_os_version="${_distribution_local_os_version,,}"
 _distribution_local_os="${_distribution_local_os_identifier:-unknown}::${_distribution_local_os_version:-unknown}"
 
 _scripts_env=(
-	PATH="${_PATH}"
-	mosaic_CFLAGS="${_CFLAGS}"
-	mosaic_LDFLAGS="${_LDFLAGS}"
-	mosaic_LIBS="${_LIBS}"
-	mosaic_pkg_erlang="${_tools}/pkg/erlang"
-	mosaic_pkg_zeromq="${_tools}/pkg/zeromq"
+	
 	mosaic_distribution_version="${_distribution_version}"
 	mosaic_distribution_cook="${_distribution_cook}"
+	
+	mosaic_local_os_identifier="${_distribution_local_os_identifier}"
+	mosaic_local_os_version="${_distribution_local_os_version}"
+	mosaic_local_os="${_distribution_local_os}"
+	
+	mosaic_pkg_erlang="${_tools}/pkg/erlang"
+	mosaic_pkg_zeromq="${_tools}/pkg/zeromq"
+	mosaic_pkg_java="${_tools}/pkg/java"
+	mosaic_pkg_mvn="${_tools}/pkg/mvn"
+	mosaic_pkg_jzmq="${_tools}/pkg/jzmq"
+	
+	mosaic_CFLAGS="-I${_tools}/include"
+	mosaic_LDFLAGS="-L${_tools}/lib"
+	mosaic_LIBS=
+	
+	PATH="${_PATH}"
+	JAVA_HOME="${_tools}/pkg/java"
+	MAVEN_HOME="${_tools}/pkg/mvn"
+	M2_HOME="${_tools}/pkg/mvn"
 )
