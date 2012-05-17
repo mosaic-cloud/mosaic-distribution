@@ -59,3 +59,18 @@ _scripts_env=(
 	MAVEN_HOME="${_tools}/pkg/mvn"
 	M2_HOME="${_tools}/pkg/mvn"
 )
+
+function _script_exec () {
+	test "${#}" -ge 1
+	echo "[ii] executing script \`${@:1}\`..." >&2
+	env "${_scripts_env[@]}" "${@}" || _outcome="${?}"
+	_outcome=0
+	if test "${_outcome}" -ne 0 ; then
+		echo "[ww] failed with ${_outcome}" >&2
+		echo "[--]" >&2
+		return "${_outcome}"
+	else
+		echo "[--]" >&2
+		return 0
+	fi
+}

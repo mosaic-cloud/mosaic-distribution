@@ -17,73 +17,100 @@ fi
 
 case "${_distribution_local_os}" in
 	
-	( mos::* )
+	( mos::0.8 )
 		
-		echo "[ii] preparing `mos` environment..." >&2
+		echo "[ii] preparing \`mos\` environment..." >&2
 		
 		. "${_scripts}/prepare-workbench-env-mos.bash"
 		
 		if test -e "${_tools}/.os-prepared" ; then
 			echo "[ii] skipping..." >&2
 			break
+		else
+			
+			tazpkg recharge
+			tazpkg upgrade <<<y
+			
+			for _dependency in "${_distribution_mos_dependencies[@]}" ; do
+				tazpkg get-install "${_dependency}"
+			done
+			
+			if test ! -e "${_tools}/pkg/erlang" -a ! -L "${_tools}/pkg/erlang" ; then
+				ln -s -T -- /opt/mosaic-erlang-r15b01/lib/erlang "${_tools}/pkg/erlang"
+			fi
+			
+			if test ! -e "${_tools}/bin/python2" -a ! -L "${_tools}/bin/python2" ; then
+				ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
+			fi
+			
+			if test ! -e "${_tools}/pkg/java" -a ! -L "${_tools}/pkg/java" ; then
+				ln -s -T -- /opt/jdk1.7.0_01 "${_tools}/pkg/java"
+			fi
+			
+			touch "${_tools}/.os-prepared"
 		fi
-		
-		tazpkg recharge
-		tazpkg upgrade <<<y
-		
-		for _dependency in "${_distribution_mos_dependencies[@]}" ; do
-			tazpkg get-install "${_dependency}"
-		done
-		
-		if test ! -e "${_tools}/pkg/erlang" -o ! -l "${_tools}/pkg/erlang" ; then
-			ln -s -T -- /opt/mosaic-erlang-r15b01/lib/erlang "${_tools}/pkg/erlang"
-		fi
-		
-		if test ! -e "${_tools}/bin/python2" -o ! -l "${_tools}/bin/python2" ; then
-			ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
-		fi
-		
-		if test ! -e "${_tools}/pkg/java" -o ! -l "${_tools}/pkg/java" ; then
-			ln -s -T -- /opt/jdk1.7.0_01 "${_tools}/pkg/java"
-		fi
-		
-		touch "${_tools}/.os-prepared"
 	;;
 	
 	( ubuntu::12.04 )
 		
-		echo "[ii] preparing `ubuntu` environment..." >&2
+		echo "[ii] preparing \`ubuntu\` environment..." >&2
 		
 		. "${_scripts}/prepare-workbench-env-ubuntu.bash"
 		
 		if test -e "${_tools}/.os-prepared" ; then
 			echo "[ii] skipping..." >&2
-			break
+		else
+			
+			apt-get update -y
+			yes | apt-get upgrade -y
+			
+			for _dependency in "${_distribution_ubuntu_dependencies[@]}" ; do
+				yes | apt-get install -y "${_dependency}"
+			done
+			
+			if test ! -e "${_tools}/pkg/erlang" -a ! -L "${_tools}/pkg/erlang" ; then
+				ln -s -T -- /usr/lib/erlang "${_tools}/pkg/erlang"
+			fi
+			
+			if test ! -e "${_tools}/bin/python2" -a ! -L "${_tools}/bin/python2" ; then
+				ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
+			fi
+			
+			if test ! -e "${_tools}/pkg/java" -a ! -L "${_tools}/pkg/java" ; then
+				ln -s -T -- /opt/jdk1.7.0_01 "${_tools}/pkg/java"
+			fi
+			
+			touch "${_tools}/.os-prepared"
 		fi
-		
-		apt-get update -y
-		yes | apt-get upgrade -y
-		
-		for _dependency in "${_distribution_ubuntu_dependencies[@]}" ; do
-			yes | apt-get install -y "${_dependency}"
-		done
-		
-		if test ! -e "${_tools}/pkg/erlang" -o ! -l "${_tools}/pkg/erlang" ; then
-			ln -s -T -- /usr/lib/erlang "${_tools}/pkg/erlang"
-		fi
-		
-		if test ! -e "${_tools}/bin/python2" -o ! -l "${_tools}/bin/python2" ; then
-			ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
-		fi
-		
-		if test ! -e "${_tools}/pkg/java" -o ! -l "${_tools}/pkg/java" ; then
-			ln -s -T -- /opt/jdk1.7.0_01 "${_tools}/pkg/java"
-		fi
-		
-		touch "${_tools}/.os-prepared"
 	;;
 	
-	( unknown::* | archlinux::* )
+	( archlinux::rolling )
+		
+		echo "[ii] preparing \`archlinux\` environment..." >&2
+		
+		. "${_scripts}/prepare-workbench-env-ubuntu.bash"
+		
+		if test -e "${_tools}/.os-prepared" ; then
+			echo "[ii] skipping..." >&2
+		else
+			
+			if test ! -e "${_tools}/pkg/erlang" -a ! -L "${_tools}/pkg/erlang" ; then
+				ln -s -T -- /usr/lib/erlang "${_tools}/pkg/erlang"
+			fi
+			
+			if test ! -e "${_tools}/bin/python2" -a ! -L "${_tools}/bin/python2" ; then
+				ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
+			fi
+			
+			if test ! -e "${_tools}/pkg/java" -o ! -L "${_tools}/pkg/java" ; then
+				ln -s -T -- /opt/java "${_tools}/pkg/java"
+			fi
+			
+			touch "${_tools}/.os-prepared"
+		fi
+	;;
+	
+	( unknown::* )
 		echo "[ww] unknown local OS \`${_distribution_local_os}\`; proceeding!" >&2
 	;;
 	
