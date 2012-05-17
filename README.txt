@@ -21,14 +21,28 @@
 ~~~~
 ( set -e -E -C -u -o pipefail || exit 1
 _dependencies=(
-		...
-		# put here the packages listed in
-		# `./scripts/prepare-workbench-env-mos.bash`
-		# under the section `Slitaz generic packages`
-		# and the section `Slitaz miscellaneous packages`
+	
+	# put here the packages listed in
+	# `./scripts/prepare-workbench-env-mos.bash`
+	# under the section `Slitaz generic packages`
+	# and the section `Slitaz miscellaneous packages`
+	
+	# Slitaz generic packages
+		coreutils coreutils-character coreutils-command
+		coreutils-conditions coreutils-context-system
+		coreutils-context-user coreutils-context-working
+		coreutils-directory coreutils-file-attributes
+		coreutils-file-format coreutils-file-output-full
+		coreutils-file-output-part coreutils-file-sort
+		coreutils-file-special coreutils-file-summarize
+		coreutils-line coreutils-numeric coreutils-path
+		coreutils-redirection
+		findutils grep sed gawk
+	# Slitaz miscellaneous packages
+		perl python git tar zip wget curl
 )
 for _dependency in "${_dependencies[@]}" ; do
-	tazpgk get-install "${_dependency}"
+	tazpkg get-install "${_dependency}"
 done
 )
 ~~~~
