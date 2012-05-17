@@ -38,11 +38,12 @@ _distribution_mos_dependencies=(
 		perl
 		python
 		gcc
-		make
-		scons
+		binutils
 		libtool
 		autoconf
 		automake
+		make
+		scons
 		pkg-config
 		jansson
 		libxml2-dev

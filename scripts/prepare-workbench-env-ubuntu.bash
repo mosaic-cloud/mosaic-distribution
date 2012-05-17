@@ -1,6 +1,6 @@
 #!/dev/null
 
-_distribution_mos_dependencies=(
+_distribution_ubuntu_dependencies=(
 	# mOSAIC custom packages
 		mosaic-sun-jdk-7u1 #### missing
 		mosaic-nodejs-0.6.15 #### missing
@@ -15,11 +15,12 @@ _distribution_mos_dependencies=(
 		python
 		gcc
 		g++
-		make
-		scons
+		binutils
 		libtool
 		autoconf
 		automake
+		make
+		scons
 		pkg-config
 		jansson #### missing
 		libxml2-dev

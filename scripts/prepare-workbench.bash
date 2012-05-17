@@ -5,11 +5,20 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
+if test ! -e "${_tools}" ; then
+	mkdir "${_tools}"
+	mkdir "${_tools}/bin"
+	mkdir "${_tools}/lib"
+	mkdir "${_tools}/pkg"
+fi
+
 case "${_distribution_local_os}" in
 	
 	( mos::* )
 		
 		. "${_scripts}/prepare-workbench-env-mos.bash"
+		
+		if test -e "${_tools}/.os-prepared" ; then break ; fi
 		
 		tazpkg recharge
 		tazpkg upgrade <<<y
@@ -18,33 +27,39 @@ case "${_distribution_local_os}" in
 			tazpkg get-install "${_dependency}"
 		done
 		
-		if test ! -e "${_tools}/pkg/erlang" ; then
+		if test ! -e "${_tools}/pkg/erlang" -o ! -l "${_tools}/pkg/erlang" ; then
 			ln -s -T -- /opt/mosaic-erlang-r15b01/lib/erlang "${_tools}/pkg/erlang"
 		fi
 		
-		if test ! -e "${_tools}/bin/python2" ; then
+		if test ! -e "${_tools}/bin/python2" -o ! -l "${_tools}/bin/python2" ; then
 			ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
 		fi
+		
+		touch "${_tools}/.os-prepared"
 	;;
 	
 	( ubuntu::12.04 )
 		
-		. "${_scripts}/prepare-workbench-env-mos.bash"
+		. "${_scripts}/prepare-workbench-env-ubuntu.bash"
+		
+		if test -e "${_tools}/.os-prepared" ; then break ; fi
 		
 		apt-get update -y
-		apt-get upgrade -y
+		yes | apt-get upgrade -y
 		
 		for _dependency in "${_distribution_ubuntu_dependencies[@]}" ; do
-			apt-get install -y "${_dependency}"
+			yes | apt-get install -y "${_dependency}"
 		done
 		
-		if test ! -e "${_tools}/pkg/erlang" ; then
+		if test ! -e "${_tools}/pkg/erlang" -o ! -l "${_tools}/pkg/erlang" ; then
 			ln -s -T -- /usr/lib/erlang "${_tools}/pkg/erlang"
 		fi
 		
-		if test ! -e "${_tools}/bin/python2" ; then
+		if test ! -e "${_tools}/bin/python2" -o ! -l "${_tools}/bin/python2" ; then
 			ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
 		fi
+		
+		touch "${_tools}/.os-prepared"
 	;;
 	
 	( unknown::* | archlinux::* )

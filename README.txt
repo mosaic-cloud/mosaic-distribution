@@ -20,11 +20,23 @@
  * if you are running `mos`:
 ~~~~
 ( set -e -E -C -u -o pipefail || exit 1
-_mos_dependencies=(
-		... # put here the packages listed in `./scripts/prepare-workbench.bash`
+_dependencies=(
+		... # put here the packages listed in `./scripts/prepare-workbench-env-mos.bash`
 )
-for _mos_dependency in "${_mos_dependencies[@]}" ; do
-	tazpgk get-install "${_mos_dependency}"
+for _dependency in "${_dependencies[@]}" ; do
+	tazpgk get-install "${_dependency}"
+done
+)
+~~~~
+
+ * if you are running `Ubuntu` (12.04):
+~~~~
+( set -e -E -C -u -o pipefail || exit 1
+_dependencies=(
+		git
+)
+for _mos_dependency in "${_dependencies[@]}" ; do
+	yes | apt-get install -y "${_dependency}"
 done
 )
 ~~~~
