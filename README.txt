@@ -21,7 +21,11 @@
 ~~~~
 ( set -e -E -C -u -o pipefail || exit 1
 _dependencies=(
-		... # put here the packages listed in `./scripts/prepare-workbench-env-mos.bash`
+		...
+		# put here the packages listed in
+		# `./scripts/prepare-workbench-env-mos.bash`
+		# under the section `Slitaz generic packages`
+		# and the section `Slitaz miscellaneous packages`
 )
 for _dependency in "${_dependencies[@]}" ; do
 	tazpgk get-install "${_dependency}"

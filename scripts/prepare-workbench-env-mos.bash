@@ -30,13 +30,15 @@ _distribution_mos_dependencies=(
 		grep
 		sed
 		gawk
+	# Slitaz miscellaneous packages
+		perl
+		python
+		git
 		tar
 		zip
 		wget
 		curl
 	# Slitaz development packages
-		perl
-		python
 		gcc
 		binutils
 		libtool
@@ -48,6 +50,4 @@ _distribution_mos_dependencies=(
 		jansson
 		libxml2-dev
 		util-linux-ng-uuid-dev
-	# Slitaz miscellaneous packages
-		git
 )

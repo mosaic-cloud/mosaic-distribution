@@ -5,14 +5,15 @@ _distribution_ubuntu_dependencies=(
 		mosaic-sun-jdk-7u1 #### missing
 		mosaic-nodejs-0.6.15 #### missing
 		mosaic-erlang-r15b01 #### missing
-	# Ubuntu generic packages
+	# Ubuntu miscellaneous packages
+		perl
+		python
+		git
 		tar
 		zip
 		wget
 		curl
-	# Slitaz development packages
-		perl
-		python
+	# Ubuntu development packages
 		gcc
 		g++
 		binutils
@@ -25,6 +26,4 @@ _distribution_ubuntu_dependencies=(
 		jansson #### missing
 		libxml2-dev
 		uuid-dev
-	# Slitaz miscellaneous packages
-		git
 )
