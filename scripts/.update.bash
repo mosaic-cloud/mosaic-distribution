@@ -15,7 +15,11 @@ fi
 	if test "${sha1}" != "${origin_sha1}" ; then
 		echo "# ${name} -> ${origin_sha1}"
 		( cd "${path}" ; exec git fetch ; )
-		( cd "${path}" ; exec git checkout "${origin_sha1}" ; )
+		if ( cd "${path}" ; exec git cat-file -e "${origin_sha1}" ; ) ; then
+			( cd "${path}" ; exec git checkout "${origin_sha1}" ; )
+		else
+			echo "#### !!!!" >&2
+		fi
 	fi
 done
 
