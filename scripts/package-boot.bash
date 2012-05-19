@@ -43,10 +43,44 @@ export PATH="$(
 		| tr '\n' ':'
 ):${PATH:-}"
 
-export mosaic_node_fqdn="$( hostname -f | tr ' ' '\n' | head -n 1 || true )"
-export mosaic_node_ip="$( hostname -i | tr ' ' '\n' | head -n 1 || true )"
-export mosaic_temporary=/tmp/mosaic
-export mosaic_log="${mosaic_temporary}/log.txt"
+if test -n "${mos_application_private_fqdn:-}" ; then
+	mosaic_application_fqdn="${mos_application_private_fqdn}"
+elif test -n "${mos_application_public_fqdn:-}" ; then
+	mosaic_application_fqdn="${mos_application_public_fqdn}"
+else
+	mosaic_application_fqdn=
+fi
+
+if test -n "${mos_node_private_fqdn:-}" ; then
+	mosaic_node_fqdn="${mos_node_private_fqdn}"
+elif test -n "${mos_node_public_fqdn:-}" ; then
+	mosaic_node_fqdn="${mos_node_public_fqdn}"
+else
+	mosaic_node_fqdn="$( hostname -f | tr ' ' '\n' | head -n 1 || true )"
+fi
+
+if test -n "${mos_node_private_ip:-}" ; then
+	mosaic_node_ip="${mos_node_private_ip}"
+elif test -n "${mos_node_public_ip:-}" ; then
+	mosaic_node_ip="${mos_node_public_ip}"
+else
+	mosaic_node_ip="$( hostname -i | tr ' ' '\n' | head -n 1 || true )"
+fi
+
+mosaic_temporary="${mos_fs_tmp:-/tmp/mosaic}/platform"
+mosaic_log="${mos_fs_log:-${mos_fs_tmp:-/tmp/mosaic}}/platform.txt"
+
+if test -n "${mosaic_application_fqdn}" ; then
+	export mosaic_application_fqdn
+fi
+if test -n "${mosaic_node_fqdn}" ; then
+	export mosaic_node_fqdn
+fi
+if test -n "${mosaic_node_ip}" ; then
+	export mosaic_node_ip
+fi
+export mosaic_temporary
+export mosaic_log
 
 if test ! -e "${mosaic_temporary}" ; then
 	mkdir -- "${mosaic_temporary}"
