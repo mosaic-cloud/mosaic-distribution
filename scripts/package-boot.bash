@@ -83,7 +83,7 @@ export mosaic_temporary
 export mosaic_log
 
 if test ! -e "${mosaic_temporary}" ; then
-	mkdir -- "${mosaic_temporary}"
+	mkdir -p -- "${mosaic_temporary}"
 fi
 
 exec </dev/null >/dev/null 2>|"${mosaic_log}" 1>&2
