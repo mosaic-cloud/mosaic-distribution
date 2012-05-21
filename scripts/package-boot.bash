@@ -68,7 +68,7 @@ else
 fi
 
 mosaic_temporary="${mos_fs_tmp:-/tmp/mosaic}/platform"
-mosaic_log="${mos_fs_log:-${mos_fs_tmp:-/tmp/mosaic}}/platform.txt"
+mosaic_log="${mos_fs_log:-${mos_fs_tmp:-/tmp/mosaic}}/platform.log"
 
 if test -n "${mosaic_application_fqdn}" ; then
 	export mosaic_application_fqdn
