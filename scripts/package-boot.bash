@@ -7,7 +7,7 @@ fi
 
 _outputs="${_outputs}/mosaic-node-boot"
 _package_name=mosaic-node-boot
-_package_version=0.2.0_mosaic_dev
+_package_version="${_distribution_version}"
 
 if test -e "${_outputs}/package" ; then
 	chmod +w -- "${_outputs}/package"
