@@ -1,3 +1,6 @@
+[submodule "repositories/mosaic-dependencies"]
+	path = repositories/mosaic-dependencies
+	url = git://github.com/cipriancraciun/mosaic-distribution-dependencies.git
 [submodule "repositories/basho-stats"]
 	path = repositories/basho-stats
 	url = git://github.com/basho/basho_stats.git
