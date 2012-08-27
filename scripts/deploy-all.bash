@@ -10,6 +10,7 @@ _script_exec "${_repositories}/mosaic-node/scripts/deploy"
 _script_exec "${_repositories}/mosaic-node-wui/scripts/deploy"
 _script_exec "${_repositories}/mosaic-components-rabbitmq/scripts/deploy"
 _script_exec "${_repositories}/mosaic-components-riak-kv/scripts/deploy"
+_script_exec "${_repositories}/mosaic-components-couchdb/scripts/deploy"
 _script_exec "${_repositories}/mosaic-components-httpg/scripts/deploy"
 _script_exec "${_repositories}/mosaic-erlang-drivers/scripts/deploy"
 

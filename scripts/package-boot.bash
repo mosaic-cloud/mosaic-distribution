@@ -117,6 +117,7 @@ tazpkg get-install mosaic-node-@{_package_version} --forced
 tazpkg get-install mosaic-node-wui-@{_package_version} --forced
 tazpkg get-install mosaic-components-rabbitmq-@{_package_version} --forced
 tazpkg get-install mosaic-components-riak-kv-@{_package_version} --forced
+tazpkg get-install mosaic-components-couchdb-@{_package_version} --forced
 tazpkg get-install mosaic-components-httpg-@{_package_version} --forced
 tazpkg get-install mosaic-components-java-component-container-@{_package_version} --forced
 tazpkg get-install mosaic-components-java-driver-container-@{_package_version} --forced
@@ -167,6 +168,7 @@ cat >"${_outputs}/package/pkg.json" <<EOS
 		"mosaic-node-wui-${_package_version}",
 		"mosaic-components-rabbitmq-${_package_version}",
 		"mosaic-components-riak-kv-${_package_version}",
+		"mosaic-components-couchdb-${_package_version}",
 		"mosaic-components-httpg-${_package_version}",
 		"mosaic-components-java-component-container-${_package_version}",
 		"mosaic-components-java-cloudlet-container-${_package_version}",

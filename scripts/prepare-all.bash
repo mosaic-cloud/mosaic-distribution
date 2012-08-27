@@ -18,6 +18,7 @@ _script_exec "${_repositories}/mosaic-node/scripts/prepare"
 _script_exec "${_repositories}/mosaic-node-wui/scripts/prepare"
 _script_exec "${_repositories}/mosaic-components-rabbitmq/scripts/prepare"
 _script_exec "${_repositories}/mosaic-components-riak-kv/scripts/prepare"
+_script_exec "${_repositories}/mosaic-components-couchdb/scripts/prepare"
 _script_exec "${_repositories}/mosaic-components-httpg/scripts/prepare"
 _script_exec "${_repositories}/mosaic-erlang-drivers/scripts/prepare"
 

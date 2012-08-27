@@ -9,6 +9,7 @@ _script_exec "${_repositories}/mosaic-erlang-tools/scripts/compile"
 _script_exec "${_repositories}/mosaic-node/scripts/compile"
 _script_exec "${_repositories}/mosaic-components-rabbitmq/scripts/compile"
 _script_exec "${_repositories}/mosaic-components-riak-kv/scripts/compile"
+_script_exec "${_repositories}/mosaic-components-couchdb/scripts/compile"
 _script_exec "${_repositories}/mosaic-components-httpg/scripts/compile"
 _script_exec "${_repositories}/mosaic-erlang-drivers/scripts/compile"
 
