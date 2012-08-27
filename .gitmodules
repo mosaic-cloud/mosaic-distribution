@@ -109,9 +109,6 @@
 [submodule "repositories/mosaic-node-wui"]
 	path = repositories/mosaic-node-wui
 	url = git://github.com/cipriancraciun/mosaic-node-wui.git
-[submodule "repositories/mosaic-python-platform"]
-	path = repositories/mosaic-python-platform
-	url = git://github.com/cipriancraciun/mosaic-python-platform.git
 [submodule "repositories/ninja"]
 	path = repositories/ninja
 	url = git://github.com/cipriancraciun/ninja.git
