@@ -91,6 +91,9 @@
 [submodule "repositories/mosaic-components-riak-kv"]
 	path = repositories/mosaic-components-riak-kv
 	url = git://github.com/cipriancraciun/mosaic-components-riak-kv.git
+[submodule "repositories/mosaic-components-couchdb"]
+	path = repositories/mosaic-components-couchdb
+	url = git://github.com/cipriancraciun/mosaic-components-couchdb.git
 [submodule "repositories/mosaic-erlang-drivers"]
 	path = repositories/mosaic-erlang-drivers
 	url = git://github.com/cipriancraciun/mosaic-erlang-drivers.git
