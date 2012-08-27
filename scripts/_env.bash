@@ -14,7 +14,7 @@ if test -z "${_git_bin}" ; then
 	_git_bin=git
 fi
 
-_distribution_version=0.2.1_mosaic_dev
+_distribution_version="$( cat "${_workbench}/version.txt" )"
 _distribution_cook=cook@agent1.builder.mosaic.ieat.ro.
 
 if test -e /etc/mos-release ; then
