@@ -22,10 +22,14 @@ _script_exec "${_repositories}/mosaic-components-couchdb/scripts/prepare"
 _script_exec "${_repositories}/mosaic-components-httpg/scripts/prepare"
 _script_exec "${_repositories}/mosaic-erlang-drivers/scripts/prepare"
 
+_script_exec "${_repositories}/mosaic-java-platform/artifacts/scripts/prepare"
 _script_exec "${_repositories}/mosaic-java-platform/components-container/scripts/prepare"
 _script_exec "${_repositories}/mosaic-java-platform/cloudlets/scripts/prepare"
 _script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/amqp/scripts/prepare"
 _script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/riak/scripts/prepare"
+
+_script_exec "${_repositories}/mosaic-java-drivers-hdfs/scripts/prepare"
+_script_exec "${_repositories}/mosaic-java-connectors-dfs/artifacts/scripts/prepare"
 
 _script_exec "${_repositories}/mosaic-examples-realtime-feeds/backend/scripts/prepare"
 _script_exec "${_repositories}/mosaic-examples-realtime-feeds/frontend/scripts/prepare"

@@ -13,10 +13,14 @@ _script_exec "${_repositories}/mosaic-components-couchdb/scripts/compile"
 _script_exec "${_repositories}/mosaic-components-httpg/scripts/compile"
 _script_exec "${_repositories}/mosaic-erlang-drivers/scripts/compile"
 
+_script_exec "${_repositories}/mosaic-java-platform/artifacts/scripts/compile"
 _script_exec "${_repositories}/mosaic-java-platform/components-container/scripts/compile"
 _script_exec "${_repositories}/mosaic-java-platform/cloudlets/scripts/compile"
 _script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/amqp/scripts/compile"
 _script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/riak/scripts/compile"
+
+_script_exec "${_repositories}/mosaic-java-drivers-hdfs/scripts/compile"
+_script_exec "${_repositories}/mosaic-java-connectors-dfs/artifacts/scripts/compile"
 
 _script_exec "${_repositories}/mosaic-examples-realtime-feeds/frontend/scripts/compile"
 _script_exec "${_repositories}/mosaic-java-platform/examples/realtime-feeds-indexer/scripts/compile"
