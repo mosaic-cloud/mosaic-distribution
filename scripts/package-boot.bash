@@ -120,8 +120,10 @@ tazpkg get-install mosaic-components-riak-kv-@{_package_version} --forced
 tazpkg get-install mosaic-components-couchdb-@{_package_version} --forced
 tazpkg get-install mosaic-components-httpg-@{_package_version} --forced
 tazpkg get-install mosaic-components-java-component-container-@{_package_version} --forced
-tazpkg get-install mosaic-components-java-driver-container-@{_package_version} --forced
 tazpkg get-install mosaic-components-java-cloudlet-container-@{_package_version} --forced
+tazpkg get-install mosaic-components-java-driver-amqp-@{_package_version} --forced
+tazpkg get-install mosaic-components-java-driver-riak-@{_package_version} --forced
+tazpkg get-install mosaic-components-java-driver-hdfs-@{_package_version} --forced
 tazpkg get-install mosaic-examples-realtime-feeds-backend-@{_package_version} --forced
 tazpkg get-install mosaic-examples-realtime-feeds-frontend-java-@{_package_version} --forced
 tazpkg get-install mosaic-examples-realtime-feeds-indexer-java-@{_package_version} --forced
@@ -174,6 +176,7 @@ cat >"${_outputs}/package/pkg.json" <<EOS
 		"mosaic-components-java-cloudlet-container-${_package_version}",
 		"mosaic-components-java-driver-amqp-${_package_version}",
 		"mosaic-components-java-driver-riak-${_package_version}",
+		"mosaic-components-java-driver-hdfs-${_package_version}",
 		"mosaic-examples-realtime-feeds-backend-${_package_version}",
 		"mosaic-examples-realtime-feeds-frontend-java-${_package_version}",
 		"mosaic-examples-realtime-feeds-indexer-java-${_package_version}"
