@@ -13,7 +13,7 @@
   * `gcc` / `g++` (4.x);
   * `java` (1.7);
   * `erlang` (r15);
-  * `nodejs` (0.6);
+  * `nodejs` (0.8.x);
 
 == Preparing ==
 
