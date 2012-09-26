@@ -86,6 +86,11 @@ if test ! -e "${mosaic_temporary}" ; then
 	mkdir -p -- "${mosaic_temporary}"
 fi
 
+if test ! -e "${mosaic_temporary}/.iptables" ; then
+	touch "${mosaic_temporary}/.iptables"
+	iptables -t nat -A PREROUTING -p tcp --dport 80 -m state --state NEW -j DNAT --to :31000
+fi
+
 exec </dev/null >/dev/null 2>|"${mosaic_log}" 1>&2
 
 if test "${#}" -eq 0 ; then
@@ -166,6 +171,7 @@ cat >"${_outputs}/package/pkg.json" <<EOS
 		"coreutils-print",
 		"coreutils-redirection",
 		"socat",
+		"iptables",
 		"mosaic-node-${_package_version}",
 		"mosaic-node-wui-${_package_version}",
 		"mosaic-components-rabbitmq-${_package_version}",
