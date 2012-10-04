@@ -118,6 +118,7 @@ if test "${0}" != /tmp/@{_package_name}--upgrade ; then
 fi
 
 tazpkg recharge mosaic-mshell
+tazpkg get-install mosaic-utils --forced
 tazpkg get-install mosaic-node-@{_package_version} --forced
 tazpkg get-install mosaic-node-wui-@{_package_version} --forced
 tazpkg get-install mosaic-components-rabbitmq-@{_package_version} --forced
@@ -147,31 +148,7 @@ cat >"${_outputs}/package/pkg.json" <<EOS
 	"description" : "mOSAIC node boot",
 	"directories" : [ "bin" ],
 	"depends" : [
-		"bash",
-		"coreutils",
-		"coreutils-character",
-		"coreutils-command",
-		"coreutils-conditions",
-		"coreutils-context-system",
-		"coreutils-context-user",
-		"coreutils-context-working",
-		"coreutils-directory",
-		"coreutils-disk",
-		"coreutils-file-attributes",
-		"coreutils-file-format",
-		"coreutils-file-output-full",
-		"coreutils-file-output-part",
-		"coreutils-file-sort",
-		"coreutils-file-special",
-		"coreutils-file-summarize",
-		"coreutils-line",
-		"coreutils-numeric",
-		"coreutils-operations",
-		"coreutils-path",
-		"coreutils-print",
-		"coreutils-redirection",
-		"socat",
-		"iptables",
+		"mosaic-utils",
 		"mosaic-node-${_package_version}",
 		"mosaic-node-wui-${_package_version}",
 		"mosaic-components-rabbitmq-${_package_version}",
@@ -185,7 +162,8 @@ cat >"${_outputs}/package/pkg.json" <<EOS
 		"mosaic-components-java-driver-hdfs-${_package_version}",
 		"mosaic-examples-realtime-feeds-backend-${_package_version}",
 		"mosaic-examples-realtime-feeds-frontend-java-${_package_version}",
-		"mosaic-examples-realtime-feeds-indexer-java-${_package_version}"
+		"mosaic-examples-realtime-feeds-indexer-java-${_package_version}",
+		"iptables"
 	]
 }
 EOS
