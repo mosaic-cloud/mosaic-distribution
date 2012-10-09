@@ -30,6 +30,8 @@ sed -r \
 
 set -e -E -u -o pipefail || exit 1
 
+export PATH="/opt/mosaic-utils-@{_package_version}/bin:${PATH:-}"
+
 _self_basename="$( basename -- "${0}" )"
 _self_realpath="$( readlink -e -- "${0}" )"
 cd "$( dirname -- "${_self_realpath}" )"
