@@ -63,9 +63,11 @@ _scripts_env=(
 	mosaic_LIBS=
 	
 	PATH="${_PATH}"
+	HOME="${_tools}/home"
 	JAVA_HOME="${_tools}/pkg/java"
 	MAVEN_HOME="${_tools}/pkg/mvn"
 	M2_HOME="${_tools}/pkg/mvn"
+	TMPDIR="${_temporary}"
 )
 
 function _script_exec () {

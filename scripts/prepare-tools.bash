@@ -16,6 +16,7 @@ if test ! -e "${_tools}/.prepared" ; then
 		mkdir -- "${_tools}/lib"
 		mkdir -- "${_tools}/include"
 		mkdir -- "${_tools}/pkg"
+		mkdir -- "${_tools}/home"
 	fi
 	
 	case "${_distribution_local_os}" in
