@@ -18,9 +18,5 @@ if test ! -e "${_repositories}/mosaic-java-platform/.lib" ; then
 	ln -s -T -- "${_tools}/lib" "${_repositories}/mosaic-java-platform/.lib"
 fi
 
-if test ! -e "${_repositories}/mosaic-examples-realtime-feeds/.lib" ; then
-	ln -s -T -- "${_tools}/lib" "${_repositories}/mosaic-examples-realtime-feeds/.lib"
-fi
-
 
 exit 0
