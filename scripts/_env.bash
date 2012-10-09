@@ -1,12 +1,18 @@
 #!/dev/null
 
+set -e -E -u -o pipefail -o noclobber -o noglob +o braceexpand || exit 1
+trap 'printf "[ee] failed: %s\n" "${BASH_COMMAND}" >&2' ERR || exit 1
+
 _workbench="$( readlink -e -- . )"
 _repositories="${_workbench}/repositories"
 _scripts="${_workbench}/scripts"
-_tools="${_workbench}/.tools"
 _outputs="${_workbench}/.outputs"
+_tools="${_workbench}/.tools"
+_temporary="/tmp"
 
-_PATH="${_tools}/bin:${PATH}"
+_PATH_EXTRA="${PATH_EXTRA:-}"
+_PATH_CLEAN="/opt/bin:/usr/local/bin:/usr/bin:/bin"
+_PATH="$( echo "${_tools}/bin:${_PATH_EXTRA}:${_PATH_CLEAN}" | tr -s ':' )"
 
 _git_bin="$( PATH="${_PATH}" type -P -- git || true )"
 if test -z "${_git_bin}" ; then
@@ -39,6 +45,8 @@ _scripts_env=(
 	
 	mosaic_distribution_version="${_distribution_version}"
 	mosaic_distribution_cook="${_distribution_cook}"
+	mosaic_distribution_tools="${_tools}"
+	mosaic_distribution_temporary="${_temporary}"
 	
 	mosaic_local_os_identifier="${_distribution_local_os_identifier}"
 	mosaic_local_os_version="${_distribution_local_os_version}"
@@ -63,7 +71,7 @@ _scripts_env=(
 function _script_exec () {
 	test "${#}" -ge 1
 	echo "[ii] executing script \`${@:1}\`..." >&2
-	env "${_scripts_env[@]}" "${@}" || _outcome="${?}"
+	env -i "${_scripts_env[@]}" "${@}" || _outcome="${?}"
 	_outcome=0
 	if test "${_outcome}" -ne 0 ; then
 		echo "[ww] failed with ${_outcome}" >&2

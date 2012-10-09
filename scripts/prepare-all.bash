@@ -6,6 +6,8 @@ if ! test "${#}" -eq 0 ; then
 fi
 
 "${_scripts}/prepare-workbench"
+"${_scripts}/prepare-tools"
+"${_scripts}/prepare-repositories"
 
 _script_exec "${_scripts}/compile-ninja"
 _script_exec "${_scripts}/compile-vbs"

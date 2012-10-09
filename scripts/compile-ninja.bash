@@ -13,7 +13,15 @@ if test -e "${_tools}/bin/ninja" ; then
 	exit 0
 fi
 
-cd -- "${_repositories}/ninja"
+_outputs="${_outputs}/ninja--build"
+_repository="${_repositories}/ninja"
+
+echo "[ii] preparing..." >&2
+
+mkdir -- "${_outputs}"
+cd -- "${_repository}"
+find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
+cd -- "${_outputs}"
 
 _CFLAGS="${mosaic_CFLAGS}"
 _LDFLAGS="-static ${mosaic_LDFLAGS}"
@@ -34,7 +42,6 @@ cp -T -- "./ninja" "${_tools}/bin/ninja"
 
 echo "[ii] cleaning..." >&2
 
-"${_git_bin}" reset -q --hard
-"${_git_bin}" clean -q -f -d -x
+rm -R -- "${_outputs}"
 
 exit 0

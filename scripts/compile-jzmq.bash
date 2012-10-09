@@ -13,7 +13,15 @@ if test -e "${_tools}/pkg/jzmq" ; then
 	exit 0
 fi
 
-cd -- "${_repositories}/jzmq"
+_outputs="${_outputs}/jzmq--build"
+_repository="${_repositories}/jzmq"
+
+echo "[ii] preparing..." >&2
+
+mkdir -- "${_outputs}"
+cd -- "${_repository}"
+find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
+cd -- "${_outputs}"
 
 _PATH="${JAVA_HOME}/bin:${_PATH}"
 _CFLAGS="-I${JAVA_HOME}/include ${mosaic_CFLAGS}"
@@ -46,7 +54,6 @@ ln -s -T -- "${_tools}/pkg/jzmq/lib/libjzmq.so" "${_tools}/lib/libjzmq.so"
 
 echo "[ii] cleaning..." >&2
 
-"${_git_bin}" reset -q --hard
-"${_git_bin}" clean -q -f -d -x
+rm -R -- "${_outputs}"
 
 exit 0

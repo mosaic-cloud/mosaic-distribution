@@ -13,7 +13,15 @@ if test -e "${_tools}/pkg/zeromq" ; then
 	exit 0
 fi
 
-cd -- "${_repositories}/zeromq"
+_outputs="${_outputs}/zeromq--build"
+_repository="${_repositories}/zeromq"
+
+echo "[ii] preparing..." >&2
+
+mkdir -- "${_outputs}"
+cd -- "${_repository}"
+find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
+cd -- "${_outputs}"
 
 _CFLAGS="${mosaic_CFLAGS}"
 _LDFLAGS="${mosaic_LDFLAGS}"
@@ -45,7 +53,6 @@ ln -s -T -- "${_tools}/pkg/zeromq/lib/libzmq.so.1" "${_tools}/lib/libzmq.so.1"
 
 echo "[ii] cleaning..." >&2
 
-"${_git_bin}" reset -q --hard
-"${_git_bin}" clean -q -f -d -x
+rm -R -- "${_outputs}"
 
 exit 0

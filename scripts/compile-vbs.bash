@@ -13,7 +13,15 @@ if test -e "${_tools}/bin/vbs" ; then
 	exit 0
 fi
 
-cd -- "${_repositories}/vbs"
+_outputs="${_outputs}/vbs--build"
+_repository="${_repositories}/vbs"
+
+echo "[ii] preparing..." >&2
+
+mkdir -- "${_outputs}"
+cd -- "${_repository}"
+find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
+cd -- "${_outputs}"
 
 echo "[ii] building..." >&2
 
@@ -32,7 +40,6 @@ cp -T -- "./.outputs/vbs.elf" "${_tools}/bin/vbs"
 
 echo "[ii] cleaning..." >&2
 
-"${_git_bin}" reset -q --hard
-"${_git_bin}" clean -q -f -d -x
+rm -R -- "${_outputs}"
 
 exit 0
