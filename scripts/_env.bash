@@ -8,7 +8,7 @@ _repositories="${_workbench}/repositories"
 _scripts="${_workbench}/scripts"
 _outputs="${_workbench}/.outputs"
 _tools="${_workbench}/.tools"
-_temporary="/tmp"
+_temporary="/tmp/$( basename -- "${_workbench}" )--$( readlink -e -- "${_workbench}" | tr -d '\n' | md5sum -t | tr -d ' \n-' )"
 
 _PATH_EXTRA="${PATH_EXTRA:-}"
 _PATH_CLEAN="/opt/bin:/usr/local/bin:/usr/bin:/bin"
@@ -63,7 +63,7 @@ _scripts_env=(
 	mosaic_LIBS=
 	
 	PATH="${_PATH}"
-	HOME="${_tools}/home"
+	HOME="${HOME:-${_tools}/home}"
 	JAVA_HOME="${_tools}/pkg/java"
 	MAVEN_HOME="${_tools}/pkg/mvn"
 	M2_HOME="${_tools}/pkg/mvn"
@@ -73,8 +73,8 @@ _scripts_env=(
 function _script_exec () {
 	test "${#}" -ge 1
 	echo "[ii] executing script \`${@:1}\`..." >&2
-	env -i "${_scripts_env[@]}" "${@}" || _outcome="${?}"
 	_outcome=0
+	env -i "${_scripts_env[@]}" "${@}" || _outcome="${?}"
 	if test "${_outcome}" -ne 0 ; then
 		echo "[ww] failed with ${_outcome}" >&2
 		echo "[--]" >&2

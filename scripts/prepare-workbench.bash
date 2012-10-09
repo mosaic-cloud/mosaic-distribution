@@ -6,6 +6,18 @@ if ! test "${#}" -eq 0 ; then
 fi
 
 
+if test ! -e "${_temporary}" ; then
+	if test -L "${_temporary}" ; then
+		_temporary_store="$( readlink -- "${_temporary}" )"
+	else
+		_temporary_store="${_temporary}"
+	fi
+	if test ! -e "${_temporary_store}" ; then
+		mkdir -- "${_temporary_store}"
+	fi
+fi
+
+
 if test ! -e "${_outputs}" ; then
 	if test -L "${_outputs}" ; then
 		_outputs_store="$( readlink -- "${_outputs}" )"
