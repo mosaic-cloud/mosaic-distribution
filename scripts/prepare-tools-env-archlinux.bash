@@ -1,5 +1,5 @@
 #!/dev/null
 
-_distribution_ubuntu_dependencies=(
+_distribution_archlinux_dependencies=(
 		...
 )

@@ -27,12 +27,18 @@ if test ! -e "${_tools}/.prepared" ; then
 			
 			. "${_scripts}/prepare-tools-env-mos.bash"
 			
-			tazpkg recharge
-			tazpkg upgrade <<<y
-			
-			for _dependency in "${_distribution_mos_dependencies[@]}" ; do
-				tazpkg get-install "${_dependency}"
-			done
+			if test "${UID}" -eq 0 ; then
+				
+				tazpkg recharge
+				yes | tazpkg upgrade
+				
+				for _dependency in "${_distribution_mos_dependencies[@]}" ; do
+					tazpkg get-install "${_dependency}"
+				done
+				
+			else
+				echo "[ww] running without root priviledges; skipping!" >&2
+			fi
 			
 			if test ! -e "${_tools}/bin/python2" -a ! -L "${_tools}/bin/python2" ; then
 				ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
@@ -53,12 +59,18 @@ if test ! -e "${_tools}/.prepared" ; then
 			
 			. "${_scripts}/prepare-tools-env-ubuntu.bash"
 			
-			apt-get update -y
-			yes | apt-get upgrade -y
-			
-			for _dependency in "${_distribution_ubuntu_dependencies[@]}" ; do
-				yes | apt-get install -y "${_dependency}"
-			done
+			if test "${UID}" -eq 0 ; then
+				
+				apt-get update -y
+				yes | apt-get upgrade -y
+				
+				for _dependency in "${_distribution_ubuntu_dependencies[@]}" ; do
+					yes | apt-get install -y "${_dependency}"
+				done
+				
+			else
+				echo "[ww] running without root priviledges; skipping!" >&2
+			fi
 			
 			if test ! -e "${_tools}/bin/python2" -a ! -L "${_tools}/bin/python2" ; then
 				ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
@@ -78,6 +90,19 @@ if test ! -e "${_tools}/.prepared" ; then
 			echo "[ii] preparing \`archlinux\` environment..." >&2
 			
 			. "${_scripts}/prepare-tools-env-archlinux.bash"
+			
+			if test "${UID}" -eq 0 ; then
+				
+				pacman -Sy --noconfirm
+				pacman -Su --noconfirm
+				
+				for _dependency in "${_distribution_archlinux_dependencies[@]}" ; do
+					pacman -S --noconfirm "${_dependency}"
+				done
+				
+			else
+				echo "[ww] running without root priviledges; skipping!" >&2
+			fi
 			
 			if test ! -e "${_tools}/bin/python2" -a ! -L "${_tools}/bin/python2" ; then
 				ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
