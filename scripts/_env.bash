@@ -29,6 +29,9 @@ if test -e /etc/mos-release ; then
 elif test -e /etc/slitaz-release ; then
 	_distribution_local_os_identifier=slitaz
 	_distribution_local_os_version="$( cat /etc/slitaz-release )"
+elif test -e /etc/arch-release ; then
+	_distribution_local_os_identifier=archlinux
+	_distribution_local_os_version=rolling
 elif test -e /etc/lsb-release ; then
 	_distribution_local_os_identifier="$( . /etc/lsb-release ; echo "${DISTRIB_ID:-}" )"
 	_distribution_local_os_version="$( . /etc/lsb-release ; echo "${DISTRIB_RELEASE:-}" )"
