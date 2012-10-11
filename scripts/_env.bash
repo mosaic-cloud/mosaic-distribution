@@ -70,6 +70,13 @@ _scripts_env=(
 	TMPDIR="${_temporary}"
 )
 
+if test "${_mosaic_deploy_skip:-false}" != true ; then
+	_scripts_env+=(
+		_mosaic_deploy_cook=false
+		_mosaic_deploy_artifactory=false
+	)
+fi
+
 function _script_exec () {
 	test "${#}" -ge 1
 	echo "[ii] executing script \`${@:1}\`..." >&2

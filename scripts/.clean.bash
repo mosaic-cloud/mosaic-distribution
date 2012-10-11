@@ -5,6 +5,9 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
-_script_exec "${_repositories}/mosaic-node/scripts/run-node"
+if test -e "${_temporary}" ; then
+	chmod -R o+w -- "${_temporary}"
+	rm -Rf -- "${_temporary}"
+fi
 
 exit 0
