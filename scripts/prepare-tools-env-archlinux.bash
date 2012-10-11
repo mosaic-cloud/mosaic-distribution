@@ -2,18 +2,24 @@
 
 _distribution_archlinux_dependencies=(
 	# mOSAIC custom packages
-	# Archlinux miscellaneous packages
-		python2
-		git
+	# Archlinux tools packages
 		zip
-	# Archlinux development packages
+	# Archlinux language packages
+		erlang
+		nodejs
+		jdk7-openjdk
+		python2
+		perl
 		gcc
+	# Archlinux development packages
+		git
 		binutils
 		libtool
 		autoconf
 		automake
-		make
 		pkg-config
+		make
+	# Archlinux library packages
 		jansson
 		libxml2
 )

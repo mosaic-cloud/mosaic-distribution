@@ -53,6 +53,38 @@ if test ! -e "${_tools}/.prepared" ; then
 			fi
 		;;
 		
+		( archlinux::rolling )
+			
+			echo "[ii] preparing \`archlinux\` environment..." >&2
+			
+			. "${_scripts}/prepare-tools-env-archlinux.bash"
+			
+			if test "${UID}" -eq 0 ; then
+				
+				pacman -Sy --noconfirm
+				pacman -Su --noconfirm
+				
+				for _dependency in "${_distribution_archlinux_dependencies[@]}" ; do
+					pacman -S --noconfirm --needed "${_dependency}"
+				done
+				
+			else
+				echo "[ww] running without root priviledges; skipping!" >&2
+			fi
+			
+			if test ! -e "${_tools}/bin/python2" -a ! -L "${_tools}/bin/python2" ; then
+				ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
+			fi
+			
+			if test ! -e "${_tools}/pkg/erlang" -a ! -L "${_tools}/pkg/erlang" ; then
+				ln -s -T -- /usr/lib/erlang "${_tools}/pkg/erlang"
+			fi
+			
+			if test ! -e "${_tools}/pkg/java" -o ! -L "${_tools}/pkg/java" ; then
+				ln -s -T -- /opt/java "${_tools}/pkg/java"
+			fi
+		;;
+		
 		( ubuntu::12.04 )
 			
 			echo "[ii] preparing \`ubuntu\` environment..." >&2
@@ -82,38 +114,6 @@ if test ! -e "${_tools}/.prepared" ; then
 			
 			if test ! -e "${_tools}/pkg/java" -a ! -L "${_tools}/pkg/java" ; then
 				ln -s -T -- /opt/jdk1.7.0_01 "${_tools}/pkg/java"
-			fi
-		;;
-		
-		( archlinux::rolling )
-			
-			echo "[ii] preparing \`archlinux\` environment..." >&2
-			
-			. "${_scripts}/prepare-tools-env-archlinux.bash"
-			
-			if test "${UID}" -eq 0 ; then
-				
-				pacman -Sy --noconfirm
-				pacman -Su --noconfirm
-				
-				for _dependency in "${_distribution_archlinux_dependencies[@]}" ; do
-					pacman -S --noconfirm "${_dependency}"
-				done
-				
-			else
-				echo "[ww] running without root priviledges; skipping!" >&2
-			fi
-			
-			if test ! -e "${_tools}/bin/python2" -a ! -L "${_tools}/bin/python2" ; then
-				ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
-			fi
-			
-			if test ! -e "${_tools}/pkg/erlang" -a ! -L "${_tools}/pkg/erlang" ; then
-				ln -s -T -- /usr/lib/erlang "${_tools}/pkg/erlang"
-			fi
-			
-			if test ! -e "${_tools}/pkg/java" -o ! -L "${_tools}/pkg/java" ; then
-				ln -s -T -- /opt/java "${_tools}/pkg/java"
 			fi
 		;;
 		

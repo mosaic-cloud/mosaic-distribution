@@ -3,32 +3,31 @@
 _distribution_mos_dependencies=(
 	# mOSAIC custom packages
 		mosaic-utils-0.0.2
-		mosaic-sun-jdk-7u1
-		mosaic-nodejs-0.6.15
 		mosaic-erlang-r15b01
-		coreutils-operations-8.12.1
-	# Slitaz generic packages
+		mosaic-nodejs-0.8.4
+		mosaic-sun-jdk-7u1
+	# Slitaz tools packages
 		findutils
 		grep
 		sed
 		gawk
-	# Slitaz miscellaneous packages
-		perl
-		python
-		git
 		tar
 		zip
 		wget
 		curl
-	# Slitaz development packages
+	# Slitaz language packages
+		python
+		perl
 		gcc
+	# Slitaz development packages
+		git
 		binutils
 		libtool
 		autoconf
 		automake
-		make
-		scons
 		pkg-config
+		make
+	# Slitaz library packages
 		jansson
 		libxml2-dev
 		util-linux-ng-uuid-dev
