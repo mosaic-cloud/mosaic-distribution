@@ -8,6 +8,7 @@ fi
 _outputs="${_outputs}/mosaic-node-boot"
 _package_name=mosaic-node-boot
 _package_version="${_distribution_version}"
+_utils_version="0.0.2"
 
 if test -e "${_outputs}/package" ; then
 	chmod +w -- "${_outputs}/package"
@@ -25,12 +26,13 @@ mkdir -- "${_outputs}/package/bin"
 sed -r \
 		-e 's|@\{_package_name\}|'"${_package_name}"'|g' \
 		-e 's|@\{_package_version\}|'"${_package_version}"'|g' \
+		-e 's|@\{_utils_version\}|'"${_utils_version}"'|g' \
 	>"${_outputs}/package/bin/run" <<'EOS'
 #!/bin/bash
 
 set -e -E -u -o pipefail || exit 1
 
-export PATH="/opt/mosaic-utils-@{_package_version}/bin:${PATH:-}"
+export PATH="/opt/mosaic-utils-@{_utils_version}/bin:${PATH:-}"
 
 _self_basename="$( basename -- "${0}" )"
 _self_realpath="$( readlink -e -- "${0}" )"
@@ -109,6 +111,7 @@ chmod +x -- "${_outputs}/package/bin/run"
 sed -r \
 		-e 's|@\{_package_name\}|'"${_package_name}"'|g' \
 		-e 's|@\{_package_version\}|'"${_package_version}"'|g' \
+		-e 's|@\{_utils_version\}|'"${_utils_version}"'|g' \
 	>"${_outputs}/package/bin/upgrade" <<'EOS'
 #!/bin/bash
 
@@ -120,7 +123,7 @@ if test "${0}" != /tmp/@{_package_name}--upgrade ; then
 fi
 
 tazpkg recharge mosaic-mshell
-tazpkg get-install mosaic-utils --forced
+tazpkg get-install mosaic-utils-@{_utils_version} --forced
 tazpkg get-install mosaic-node-@{_package_version} --forced
 tazpkg get-install mosaic-node-wui-@{_package_version} --forced
 tazpkg get-install mosaic-components-rabbitmq-@{_package_version} --forced
@@ -150,7 +153,7 @@ cat >"${_outputs}/package/pkg.json" <<EOS
 	"description" : "mOSAIC node boot",
 	"directories" : [ "bin" ],
 	"depends" : [
-		"mosaic-utils",
+		"mosaic-utils-${_utils_version}",
 		"mosaic-node-${_package_version}",
 		"mosaic-node-wui-${_package_version}",
 		"mosaic-components-rabbitmq-${_package_version}",
