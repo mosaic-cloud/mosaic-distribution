@@ -73,11 +73,15 @@ _scripts_env=(
 	TMPDIR="${_temporary}"
 )
 
-if test "${_mosaic_deploy_skip:-false}" != true ; then
+if test "${_mosaic_deploy_skip:-false}" == true ; then
 	_scripts_env+=(
 		_mosaic_deploy_cook=false
 		_mosaic_deploy_artifactory=false
 	)
+fi
+
+if test -n "${SSH_AUTH_SOCK:-}" ; then
+	_scripts_env+=( SSH_AUTH_SOCK="${SSH_AUTH_SOCK}" )
 fi
 
 function _script_exec () {
