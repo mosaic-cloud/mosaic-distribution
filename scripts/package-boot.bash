@@ -11,11 +11,11 @@ _package_version="${_distribution_version}"
 _utils_version="0.0.2"
 
 if test -e "${_outputs}/package" ; then
-	chmod +w -- "${_outputs}/package"
+	chmod -R u+w -- "${_outputs}/package"
 	rm -R -- "${_outputs}/package"
 fi
 if test -e "${_outputs}/package.tar.gz" ; then
-	chmod +w -- "${_outputs}/package.tar.gz"
+	chmod u+w -- "${_outputs}/package.tar.gz"
 	rm -- "${_outputs}/package.tar.gz"
 fi
 

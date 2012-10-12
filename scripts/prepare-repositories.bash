@@ -9,7 +9,7 @@ fi
 echo "[ii] preparing repositories (cleaning)..." >&2
 
 "${_git_bin}" submodule update --quiet --init --recursive
-"${_git_bin}" submodule foreach --quiet --recursive 'chmod -R +w . && git reset -q --hard HEAD && git clean -q -f -d -x'
+"${_git_bin}" submodule foreach --quiet --recursive 'git reset -q --hard HEAD && git clean -q -f -d -x'
 
 
 echo "[ii] preparing repositories (linking)..." >&2
