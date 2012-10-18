@@ -7,6 +7,7 @@ fi
 
 _script_exec "${_repositories}/mosaic-erlang-tools/scripts/compile"
 _script_exec "${_repositories}/mosaic-node/scripts/compile"
+_script_exec "${_repositories}/mosaic-node-wui/scripts/compile"
 _script_exec "${_repositories}/mosaic-components-rabbitmq/scripts/compile"
 _script_exec "${_repositories}/mosaic-components-riak-kv/scripts/compile"
 _script_exec "${_repositories}/mosaic-components-couchdb/scripts/compile"
@@ -22,6 +23,7 @@ _script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/riak/scripts/c
 _script_exec "${_repositories}/mosaic-java-drivers-hdfs/scripts/compile"
 _script_exec "${_repositories}/mosaic-java-connectors-dfs/artifacts/scripts/compile"
 
+_script_exec "${_repositories}/mosaic-examples-realtime-feeds/backend/scripts/compile"
 _script_exec "${_repositories}/mosaic-examples-realtime-feeds/frontend/scripts/compile"
 _script_exec "${_repositories}/mosaic-java-platform/examples/realtime-feeds-indexer/scripts/compile"
 

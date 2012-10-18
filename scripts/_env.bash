@@ -2,6 +2,7 @@
 
 set -e -E -u -o pipefail -o noclobber -o noglob +o braceexpand || exit 1
 trap 'printf "[ee] failed: %s\n" "${BASH_COMMAND}" >&2' ERR || exit 1
+export -n BASH_ENV
 
 _workbench="$( readlink -e -- . )"
 _repositories="${_workbench}/repositories"
@@ -88,7 +89,9 @@ function _script_exec () {
 	test "${#}" -ge 1
 	echo "[ii] executing script \`${@:1}\`..." >&2
 	_outcome=0
-	env -i "${_scripts_env[@]}" "${@}" || _outcome="${?}"
+	env -i "${_scripts_env[@]}" "${@}" 2>&1 \
+	| sed -u -r -e 's!^.*$![  ] &!g' >&2 \
+	|| _outcome="${?}"
 	if test "${_outcome}" -ne 0 ; then
 		echo "[ww] failed with ${_outcome}" >&2
 		echo "[--]" >&2
