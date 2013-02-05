@@ -15,26 +15,34 @@ _script_exec "${_scripts}/compile-zeromq"
 _script_exec "${_scripts}/compile-jzmq"
 _script_exec "${_scripts}/compile-maven"
 
-_script_exec "${_repositories}/mosaic-erlang-tools/scripts/prepare"
-_script_exec "${_repositories}/mosaic-node/scripts/prepare"
-_script_exec "${_repositories}/mosaic-node-wui/scripts/prepare"
+if test "${_mosaic_do_node}" == true ; then
+	_script_exec "${_repositories}/mosaic-erlang-tools/scripts/prepare"
+	_script_exec "${_repositories}/mosaic-node/scripts/prepare"
+	_script_exec "${_repositories}/mosaic-node-wui/scripts/prepare"
+fi
 
-_script_exec "${_repositories}/mosaic-components-rabbitmq/scripts/prepare"
-_script_exec "${_repositories}/mosaic-components-riak-kv/scripts/prepare"
-_script_exec "${_repositories}/mosaic-components-couchdb/scripts/prepare"
-_script_exec "${_repositories}/mosaic-components-httpg/scripts/prepare"
-_script_exec "${_repositories}/mosaic-erlang-drivers/scripts/prepare"
+if test "${_mosaic_do_components}" == true ; then
+	_script_exec "${_repositories}/mosaic-components-rabbitmq/scripts/prepare"
+	_script_exec "${_repositories}/mosaic-components-riak-kv/scripts/prepare"
+	_script_exec "${_repositories}/mosaic-components-couchdb/scripts/prepare"
+	_script_exec "${_repositories}/mosaic-components-httpg/scripts/prepare"
+	_script_exec "${_repositories}/mosaic-erlang-drivers/scripts/prepare"
+fi
 
-_script_exec "${_repositories}/mosaic-java-platform/artifacts/scripts/prepare"
-_script_exec "${_repositories}/mosaic-java-platform/components-container/scripts/prepare"
-_script_exec "${_repositories}/mosaic-java-platform/cloudlets/scripts/prepare"
-_script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/amqp/scripts/prepare"
-_script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/riak/scripts/prepare"
-_script_exec "${_repositories}/mosaic-java-drivers-hdfs/scripts/prepare"
-_script_exec "${_repositories}/mosaic-java-connectors-dfs/artifacts/scripts/prepare"
+if test "${_mosaic_do_java}" == true ; then
+	_script_exec "${_repositories}/mosaic-java-platform/artifacts/scripts/prepare"
+	_script_exec "${_repositories}/mosaic-java-platform/components-container/scripts/prepare"
+	_script_exec "${_repositories}/mosaic-java-platform/cloudlets/scripts/prepare"
+	_script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/amqp/scripts/prepare"
+	_script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/riak/scripts/prepare"
+	_script_exec "${_repositories}/mosaic-java-drivers-hdfs/scripts/prepare"
+	_script_exec "${_repositories}/mosaic-java-connectors-dfs/artifacts/scripts/prepare"
+fi
 
-_script_exec "${_repositories}/mosaic-examples-realtime-feeds/backend/scripts/prepare"
-_script_exec "${_repositories}/mosaic-examples-realtime-feeds/frontend/scripts/prepare"
-_script_exec "${_repositories}/mosaic-java-platform/examples/realtime-feeds-indexer/scripts/prepare"
+if test "${_mosaic_do_feeds}" == true ; then
+	_script_exec "${_repositories}/mosaic-examples-realtime-feeds/backend/scripts/prepare"
+	_script_exec "${_repositories}/mosaic-examples-realtime-feeds/frontend/scripts/prepare"
+	_script_exec "${_repositories}/mosaic-java-platform/examples/realtime-feeds-indexer/scripts/prepare"
+fi
 
 exit 0
