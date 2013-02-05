@@ -18,6 +18,7 @@ _script_exec "${_scripts}/compile-maven"
 _script_exec "${_repositories}/mosaic-erlang-tools/scripts/prepare"
 _script_exec "${_repositories}/mosaic-node/scripts/prepare"
 _script_exec "${_repositories}/mosaic-node-wui/scripts/prepare"
+
 _script_exec "${_repositories}/mosaic-components-rabbitmq/scripts/prepare"
 _script_exec "${_repositories}/mosaic-components-riak-kv/scripts/prepare"
 _script_exec "${_repositories}/mosaic-components-couchdb/scripts/prepare"
@@ -29,7 +30,6 @@ _script_exec "${_repositories}/mosaic-java-platform/components-container/scripts
 _script_exec "${_repositories}/mosaic-java-platform/cloudlets/scripts/prepare"
 _script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/amqp/scripts/prepare"
 _script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/riak/scripts/prepare"
-
 _script_exec "${_repositories}/mosaic-java-drivers-hdfs/scripts/prepare"
 _script_exec "${_repositories}/mosaic-java-connectors-dfs/artifacts/scripts/prepare"
 

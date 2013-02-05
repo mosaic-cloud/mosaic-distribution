@@ -74,6 +74,14 @@ _scripts_env=(
 	TMPDIR="${_temporary}"
 )
 
+if test "${_mosaic_do_all:-true}" == false ; then
+	_mosaic_do_node="${_mosaic_do_node:-false}"
+	_mosaic_do_components="${_mosaic_do_components:-false}"
+	_mosaic_do_java="${_mosaic_do_java:-false}"
+	_mosaic_do_examples="${_mosaic_do_examples:-false}"
+	_mosaic_do_feeds="${_mosaic_do_feeds:-false}"
+fi
+
 if test "${_mosaic_deploy_skip:-false}" == true ; then
 	_scripts_env+=(
 		_mosaic_deploy_cook=false
