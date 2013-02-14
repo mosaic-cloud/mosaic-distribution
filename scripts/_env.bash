@@ -80,6 +80,12 @@ if test "${_mosaic_do_all:-true}" == false ; then
 	_mosaic_do_java="${_mosaic_do_java:-false}"
 	_mosaic_do_examples="${_mosaic_do_examples:-false}"
 	_mosaic_do_feeds="${_mosaic_do_feeds:-false}"
+else
+	_mosaic_do_node="${_mosaic_do_node:-true}"
+	_mosaic_do_components="${_mosaic_do_components:-true}"
+	_mosaic_do_java="${_mosaic_do_java:-true}"
+	_mosaic_do_examples="${_mosaic_do_examples:-true}"
+	_mosaic_do_feeds="${_mosaic_do_feeds:-true}"
 fi
 
 if test "${_mosaic_deploy_skip:-false}" == true ; then
