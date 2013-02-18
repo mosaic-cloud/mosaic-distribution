@@ -100,9 +100,9 @@
 [submodule "repositories/mosaic-erlang-tools"]
 	path = repositories/mosaic-erlang-tools
 	url = git://github.com/cipriancraciun/mosaic-erlang-tools.git
-[submodule "repositories/mosaic-examples-realtime-feeds"]
-	path = repositories/mosaic-examples-realtime-feeds
-	url = git://github.com/cipriancraciun/mosaic-examples-realtime-feeds.git
+[submodule "repositories/mosaic-applications-realtime-feeds"]
+	path = repositories/mosaic-applications-realtime-feeds
+	url = git://github.com/cipriancraciun/mosaic-applications-realtime-feeds.git
 [submodule "repositories/mosaic-java-platform"]
 	path = repositories/mosaic-java-platform
 	url = git://github.com/cipriancraciun/mosaic-java-platform.git
