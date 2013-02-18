@@ -1,10 +1,5 @@
 #!/dev/null
 
-if ! test "${#}" -eq 0 ; then
-	echo "[ee] invalid arguments; aborting!" >&2
-	exit 1
-fi
-
 _scripts_env=(
 	PATH="$(
 			find "${_repositories}" \
@@ -17,6 +12,10 @@ _scripts_env=(
 	TMPDIR="${_temporary}"
 )
 
-exec env -i "${_scripts_env[@]}" mosaic-node--run-node
+if test "${#}" -eq 0 ; then
+	exec env -i "${_scripts_env[@]}" mosaic-node--run-node
+else
+	exec env -i "${_scripts_env[@]}" mosaic-node--run-node "${@}"
+fi
 
 exit 1
