@@ -90,8 +90,8 @@ fi
 
 if test "${_mosaic_deploy_skip:-false}" == true ; then
 	_scripts_env+=(
-		_mosaic_deploy_cook=false
-		_mosaic_deploy_artifactory=false
+		_mosaic_deploy_cook="${_mosaic_deploy_cook:-false}"
+		_mosaic_deploy_artifactory="${_mosaic_deploy_artifactory:-false}"
 	)
 else
 	_scripts_env+=(
