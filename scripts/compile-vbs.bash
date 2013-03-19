@@ -13,8 +13,8 @@ if test -e "${_tools}/bin/vbs" ; then
 	exit 0
 fi
 
-_outputs="${_outputs}/vbs--build"
-_repository="${_repositories}/vbs"
+_outputs="${_outputs}/volution-build-system--build"
+_repository="${_repositories}/volution-build-system"
 
 echo "[ii] preparing..." >&2
 

@@ -76,8 +76,8 @@
 [submodule "repositories/skerl"]
 	path = repositories/skerl
 	url = git://github.com/basho/skerl.git
-[submodule "repositories/vbs"]
-	path = repositories/vbs
+[submodule "repositories/volution-build-system"]
+	path = repositories/volution-build-system
 	url = git://github.com/cipriancraciun/volution-build-system.git
 [submodule "repositories/webmachine"]
 	path = repositories/webmachine
