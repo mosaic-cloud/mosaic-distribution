@@ -10,6 +10,9 @@ fi
 	path="$( readlink -e "${name}" )"
 	name="$( basename "${name}" )"
 	orig_path="$( readlink -e ../mosaic-repositories )/${name}"
+	if test "${orig_path}" == "${path}" ; then
+		continue
+	fi
 	if test ! -e "${orig_path}" ; then
 		echo "[ww] ?? ${name}" >&2
 		continue
