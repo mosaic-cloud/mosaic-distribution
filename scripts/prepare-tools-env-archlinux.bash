@@ -5,8 +5,6 @@ _distribution_archlinux_dependencies=(
 	# Archlinux tools packages
 		zip
 	# Archlinux language packages
-		erlang
-		nodejs
 		jdk7-openjdk
 		python2
 		perl

@@ -40,16 +40,24 @@ if test ! -e "${_tools}/.prepared" ; then
 				echo "[ww] running without root priviledges; skipping!" >&2
 			fi
 			
-			if test ! -e "${_tools}/bin/python2" -a ! -L "${_tools}/bin/python2" ; then
-				ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
-			fi
-			
 			if test ! -e "${_tools}/pkg/erlang" -a ! -L "${_tools}/pkg/erlang" ; then
 				ln -s -T -- /opt/mosaic-erlang-r15b01/lib/erlang "${_tools}/pkg/erlang"
 			fi
 			
+			if test ! -e "${_tools}/pkg/nodejs" -a ! -L "${_tools}/pkg/nodejs" ; then
+				ln -s -T -- /opt/mosaic-nodejs-0.8.4/lib/nodejs "${_tools}/pkg/nodejs"
+			fi
+			
 			if test ! -e "${_tools}/pkg/java" -a ! -L "${_tools}/pkg/java" ; then
 				ln -s -T -- /opt/jdk1.7.0_01 "${_tools}/pkg/java"
+			fi
+			
+			if test ! -e "${_tools}/pkg/python" -a ! -L "${_tools}/pkg/python" ; then
+				mkdir -- "${_tools}/pkg/python"
+				mkdir -- "${_tools}/pkg/python/bin"
+				ln -s -T -- /usr/bin/python2.7 "${_tools}/pkg/python/bin/python2.7"
+				ln -s -T -- /usr/bin/python2.7 "${_tools}/pkg/python/bin/python2"
+				ln -s -T -- /usr/bin/python2.7 "${_tools}/pkg/python/bin/python"
 			fi
 		;;
 		
@@ -72,16 +80,16 @@ if test ! -e "${_tools}/.prepared" ; then
 				echo "[ww] running without root priviledges; skipping!" >&2
 			fi
 			
-			if test ! -e "${_tools}/bin/python2" -a ! -L "${_tools}/bin/python2" ; then
-				ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
-			fi
-			
-			if test ! -e "${_tools}/pkg/erlang" -a ! -L "${_tools}/pkg/erlang" ; then
-				ln -s -T -- /usr/lib/erlang "${_tools}/pkg/erlang"
-			fi
-			
 			if test ! -e "${_tools}/pkg/java" -o ! -L "${_tools}/pkg/java" ; then
 				ln -s -T -- /opt/java "${_tools}/pkg/java"
+			fi
+			
+			if test ! -e "${_tools}/pkg/python" -a ! -L "${_tools}/pkg/python" ; then
+				mkdir -- "${_tools}/pkg/python"
+				mkdir -- "${_tools}/pkg/python/bin"
+				ln -s -T -- /usr/bin/python2.7 "${_tools}/pkg/python/bin/python2.7"
+				ln -s -T -- /usr/bin/python2.7 "${_tools}/pkg/python/bin/python2"
+				ln -s -T -- /usr/bin/python2.7 "${_tools}/pkg/python/bin/python"
 			fi
 		;;
 		
@@ -104,16 +112,16 @@ if test ! -e "${_tools}/.prepared" ; then
 				echo "[ww] running without root priviledges; skipping!" >&2
 			fi
 			
-			if test ! -e "${_tools}/bin/python2" -a ! -L "${_tools}/bin/python2" ; then
-				ln -s -T -- /usr/bin/python2.7 "${_tools}/bin/python2"
-			fi
-			
-			if test ! -e "${_tools}/pkg/erlang" -a ! -L "${_tools}/pkg/erlang" ; then
-				ln -s -T -- /usr/lib/erlang "${_tools}/pkg/erlang"
-			fi
-			
 			if test ! -e "${_tools}/pkg/java" -a ! -L "${_tools}/pkg/java" ; then
 				ln -s -T -- /opt/jdk1.7.0_01 "${_tools}/pkg/java"
+			fi
+			
+			if test ! -e "${_tools}/pkg/python" -a ! -L "${_tools}/pkg/python" ; then
+				mkdir -- "${_tools}/pkg/python"
+				mkdir -- "${_tools}/pkg/python/bin"
+				ln -s -T -- /usr/bin/python2.7 "${_tools}/pkg/python/bin/python2.7"
+				ln -s -T -- /usr/bin/python2.7 "${_tools}/pkg/python/bin/python2"
+				ln -s -T -- /usr/bin/python2.7 "${_tools}/pkg/python/bin/python"
 			fi
 		;;
 		
@@ -129,10 +137,14 @@ if test ! -e "${_tools}/.prepared" ; then
 		
 	esac
 	
-	find -H "${_tools}/pkg/erlang/bin" "${_tools}/pkg/java/bin" -xtype f -executable \
+	for _package in erlang nodejs java python ; do
+		if test ! -e "${_tools}/pkg/${_package}/bin" ; then
+			continue
+		fi
+		find -H "${_tools}/pkg/${_package}/bin" \
+			-xtype f -executable \
 			-exec ln -s -t "${_tools}/bin" {} \;
-	
-	ln -s -T -- "${_tools}/bin/python2" "${_tools}/bin/python"
+	done
 	
 	touch "${_tools}/.prepared"
 fi

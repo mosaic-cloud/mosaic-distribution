@@ -9,11 +9,13 @@ fi
 "${_scripts}/prepare-tools"
 "${_scripts}/prepare-repositories"
 
-_script_exec "${_scripts}/compile-ninja"
-_script_exec "${_scripts}/compile-vbs"
+_script_exec "${_scripts}/compile-erlang"
+_script_exec "${_scripts}/compile-nodejs"
+_script_exec "${_scripts}/compile-maven"
 _script_exec "${_scripts}/compile-zeromq"
 _script_exec "${_scripts}/compile-jzmq"
-_script_exec "${_scripts}/compile-maven"
+_script_exec "${_scripts}/compile-ninja"
+_script_exec "${_scripts}/compile-vbs"
 
 if test "${_mosaic_do_node}" == true ; then
 	_script_exec "${_repositories}/mosaic-erlang-tools/scripts/prepare"

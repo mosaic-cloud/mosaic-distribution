@@ -57,9 +57,10 @@ _scripts_env=(
 	mosaic_local_os="${_distribution_local_os}"
 	
 	mosaic_pkg_erlang="${_tools}/pkg/erlang"
-	mosaic_pkg_zeromq="${_tools}/pkg/zeromq"
+	mosaic_pkg_nodejs="${_tools}/pkg/nodejs"
 	mosaic_pkg_java="${_tools}/pkg/java"
 	mosaic_pkg_mvn="${_tools}/pkg/mvn"
+	mosaic_pkg_zeromq="${_tools}/pkg/zeromq"
 	mosaic_pkg_jzmq="${_tools}/pkg/jzmq"
 	
 	mosaic_CFLAGS="-I${_tools}/include"
