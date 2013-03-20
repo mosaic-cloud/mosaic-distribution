@@ -5,7 +5,7 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
-echo "[ii] preparing \`ninja\` (Ninja build tool)..." >&2
+echo "[ii] building \`ninja\` (Ninja build tool)..." >&2
 
 if test -e "${_tools}/bin/ninja" ; then
 	echo "[ii] \`ninja\` executable already exists; aborting!" >&2

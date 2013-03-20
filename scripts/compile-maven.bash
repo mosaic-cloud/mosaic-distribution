@@ -5,7 +5,7 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
-echo "[ii] preparing \`mvn\` (Maven)..." >&2
+echo "[ii] building \`mvn\` (Maven)..." >&2
 
 if test -e "${_tools}/pkg/mvn" ; then
 	echo "[ii] \`mvn\` package already exists; aborting!" >&2
