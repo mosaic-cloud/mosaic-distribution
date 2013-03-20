@@ -48,6 +48,8 @@ mkdir -- "${_tools}/pkg/erlang"
 ) 2>&1 \
 | sed -u -r -e 's!^.*$![  ] &!g' >&2
 
+ln -s -T -- "${_tools}/pkg/erlang/lib/erlang/usr" "${_tools}/pkg/erlang/usr"
+
 find -H "${_tools}/pkg/erlang/bin" -xtype f -executable \
 		-exec ln -s -t "${_tools}/bin" {} \;
 
