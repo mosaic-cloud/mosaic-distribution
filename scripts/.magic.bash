@@ -1,13 +1,15 @@
 #!/dev/null
 
-if ! test "${#}" -eq 1 ; then
+if ! test "${#}" -le 1 ; then
 	echo "[ee] invalid arguments; aborting!" >&2
 	exit 1
 fi
 
-echo "[ii] releasing \`${1}\`..." >&2
+if test "${#}" -ge 1 ; then
+	echo "${1}" >|"${_workbench}/version.txt"
+fi
 
-echo "${1}" >|"${_workbench}/version.txt"
+echo "[ii] releasing \`$( cat "${_workbench}/version.txt" )\`..." >&2
 
 echo "[ii] cleaning..." >&2
 "${_scripts}/.clean"
