@@ -44,7 +44,7 @@ fi
 if test "${_mosaic_do_feeds}" == true ; then
 	_script_exec "${_repositories}/mosaic-applications-realtime-feeds/backend/scripts/prepare"
 	_script_exec "${_repositories}/mosaic-applications-realtime-feeds/frontend/scripts/prepare"
-	_script_exec "${_repositories}/mosaic-java-platform/examples/realtime-feeds-indexer/scripts/prepare"
+	_script_exec "${_repositories}/mosaic-applications-realtime-feeds/indexer/scripts/prepare"
 fi
 
 exit 0
