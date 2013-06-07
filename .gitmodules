@@ -127,3 +127,6 @@
 [submodule "repositories/mosaic-java-connectors-dfs"]
 	path = repositories/mosaic-java-connectors-dfs
 	url = git://github.com/cipriancraciun/mosaic-java-connectors-dfs.git
+[submodule "repositories/mosaic-credentials-service"]
+	path = repositories/mosaic-credentials-service
+	url = git://github.com/cipriancraciun/mosaic-credentials-service.git

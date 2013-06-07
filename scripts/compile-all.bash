@@ -17,6 +17,7 @@ if test "${_mosaic_do_components}" == true ; then
 	_script_exec "${_repositories}/mosaic-components-couchdb/scripts/compile"
 	_script_exec "${_repositories}/mosaic-components-httpg/scripts/compile"
 	_script_exec "${_repositories}/mosaic-erlang-drivers/scripts/compile"
+	_script_exec "${_repositories}/mosaic-credentials-service/scripts/compile"
 fi
 
 if test "${_mosaic_do_java}" == true ; then
