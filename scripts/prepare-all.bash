@@ -28,8 +28,6 @@ if test "${_mosaic_do_components}" == true ; then
 	_script_exec "${_repositories}/mosaic-components-riak-kv/scripts/prepare"
 	_script_exec "${_repositories}/mosaic-components-couchdb/scripts/prepare"
 	_script_exec "${_repositories}/mosaic-components-httpg/scripts/prepare"
-	_script_exec "${_repositories}/mosaic-erlang-drivers/scripts/prepare"
-	_script_exec "${_repositories}/mosaic-credentials-service/scripts/prepare"
 fi
 
 if test "${_mosaic_do_java}" == true ; then
