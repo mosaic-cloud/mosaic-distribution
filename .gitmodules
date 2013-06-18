@@ -94,9 +94,6 @@
 [submodule "repositories/mosaic-components-couchdb"]
 	path = repositories/mosaic-components-couchdb
 	url = git://github.com/cipriancraciun/mosaic-components-couchdb.git
-[submodule "repositories/mosaic-erlang-drivers"]
-	path = repositories/mosaic-erlang-drivers
-	url = git://github.com/cipriancraciun/mosaic-erlang-drivers.git
 [submodule "repositories/mosaic-erlang-tools"]
 	path = repositories/mosaic-erlang-tools
 	url = git://github.com/cipriancraciun/mosaic-erlang-tools.git
@@ -127,6 +124,3 @@
 [submodule "repositories/mosaic-java-connectors-dfs"]
 	path = repositories/mosaic-java-connectors-dfs
 	url = git://github.com/cipriancraciun/mosaic-java-connectors-dfs.git
-[submodule "repositories/mosaic-credentials-service"]
-	path = repositories/mosaic-credentials-service
-	url = git://github.com/cipriancraciun/mosaic-credentials-service.git
