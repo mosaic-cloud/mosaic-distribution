@@ -118,9 +118,3 @@
 [submodule "repositories/couchdb"]
 	path = repositories/couchdb
 	url = git://github.com/cipriancraciun/couchdb.git
-[submodule "repositories/mosaic-java-drivers-hdfs"]
-	path = repositories/mosaic-java-drivers-hdfs
-	url = git://github.com/cipriancraciun/mosaic-java-drivers-hdfs.git
-[submodule "repositories/mosaic-java-connectors-dfs"]
-	path = repositories/mosaic-java-connectors-dfs
-	url = git://github.com/cipriancraciun/mosaic-java-connectors-dfs.git
