@@ -96,6 +96,11 @@ if test "${_mosaic_deploy_skip:-false}" == true ; then
 		_mosaic_deploy_cook="${_mosaic_deploy_cook:-false}"
 		_mosaic_deploy_artifactory="${_mosaic_deploy_artifactory:-false}"
 	)
+elif test "${_mosaic_deploy_all:-false}" == true ; then
+	_scripts_env+=(
+		_mosaic_deploy_cook="${_mosaic_deploy_cook:-true}"
+		_mosaic_deploy_artifactory="${_mosaic_deploy_artifactory:-true}"
+	)
 else
 	_scripts_env+=(
 		_mosaic_deploy_cook="${_mosaic_deploy_cook:-true}"
