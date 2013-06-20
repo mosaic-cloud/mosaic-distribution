@@ -25,8 +25,6 @@ if test "${_mosaic_do_java}" == true ; then
 	_script_exec "${_repositories}/mosaic-java-platform/cloudlets/scripts/deploy"
 	_script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/amqp/scripts/deploy"
 	_script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/riak/scripts/deploy"
-	_script_exec "${_repositories}/mosaic-java-drivers-hdfs/scripts/deploy"
-	_script_exec "${_repositories}/mosaic-java-connectors-dfs/artifacts/scripts/deploy"
 fi
 
 if test "${_mosaic_do_feeds}" == true ; then

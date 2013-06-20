@@ -39,8 +39,6 @@ if test "${_mosaic_do_java}" == true ; then
 	_script_exec "${_repositories}/mosaic-java-platform/cloudlets/scripts/prepare"
 	_script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/amqp/scripts/prepare"
 	_script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/riak/scripts/prepare"
-	_script_exec "${_repositories}/mosaic-java-drivers-hdfs/scripts/prepare"
-	_script_exec "${_repositories}/mosaic-java-connectors-dfs/artifacts/scripts/prepare"
 fi
 
 if test "${_mosaic_do_feeds}" == true ; then
