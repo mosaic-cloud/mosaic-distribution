@@ -62,6 +62,7 @@ _scripts_env=(
 	mosaic_pkg_mvn="${_tools}/pkg/mvn"
 	mosaic_pkg_zeromq="${_tools}/pkg/zeromq"
 	mosaic_pkg_jzmq="${_tools}/pkg/jzmq"
+	mosaic_pkg_jansson="${_tools}/pkg/jansson"
 	
 	mosaic_CFLAGS="-I${_tools}/include"
 	mosaic_LDFLAGS="-L${_tools}/lib"

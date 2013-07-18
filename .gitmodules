@@ -118,3 +118,6 @@
 [submodule "repositories/couchdb"]
 	path = repositories/couchdb
 	url = git://github.com/cipriancraciun/couchdb.git
+[submodule "repositories/jansson"]
+	path = repositories/jansson
+	url = git://github.com/akheron/jansson.git
