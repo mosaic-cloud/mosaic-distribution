@@ -77,21 +77,44 @@ _scripts_env=(
 	TMPDIR="${_temporary}"
 )
 
-if test "${_mosaic_do_all:-true}" == false ; then
-	_mosaic_do_prerequisites="${_mosaic_do_prerequisites:-false}"
-	_mosaic_do_node="${_mosaic_do_node:-false}"
-	_mosaic_do_components="${_mosaic_do_components:-false}"
-	_mosaic_do_java="${_mosaic_do_java:-false}"
-	_mosaic_do_examples="${_mosaic_do_examples:-false}"
-	_mosaic_do_feeds="${_mosaic_do_feeds:-false}"
-else
-	_mosaic_do_prerequisites="${_mosaic_do_prerequisites:-true}"
-	_mosaic_do_node="${_mosaic_do_node:-true}"
-	_mosaic_do_components="${_mosaic_do_components:-true}"
-	_mosaic_do_java="${_mosaic_do_java:-true}"
-	_mosaic_do_examples="${_mosaic_do_examples:-true}"
-	_mosaic_do_feeds="${_mosaic_do_feeds:-true}"
-fi
+case "${_mosaic_do_selection:-all}" in
+	
+	( all )
+		_mosaic_do_prerequisites="${_mosaic_do_prerequisites:-true}"
+		_mosaic_do_node="${_mosaic_do_node:-true}"
+		_mosaic_do_components="${_mosaic_do_components:-true}"
+		_mosaic_do_java="${_mosaic_do_java:-true}"
+		_mosaic_do_examples="${_mosaic_do_examples:-true}"
+		_mosaic_do_feeds="${_mosaic_do_feeds:-true}"
+	;;
+	
+	( core )
+		_mosaic_do_prerequisites="${_mosaic_do_prerequisites:-true}"
+		_mosaic_do_node="${_mosaic_do_node:-true}"
+		_mosaic_do_components="${_mosaic_do_components:-true}"
+		_mosaic_do_java="${_mosaic_do_java:-false}"
+		_mosaic_do_examples="${_mosaic_do_examples:-false}"
+		_mosaic_do_feeds="${_mosaic_do_feeds:-false}"
+	;;
+	
+	( core+java )
+		_mosaic_do_prerequisites="${_mosaic_do_prerequisites:-true}"
+		_mosaic_do_node="${_mosaic_do_node:-true}"
+		_mosaic_do_components="${_mosaic_do_components:-true}"
+		_mosaic_do_java="${_mosaic_do_java:-true}"
+		_mosaic_do_examples="${_mosaic_do_examples:-false}"
+		_mosaic_do_feeds="${_mosaic_do_feeds:-false}"
+	;;
+	
+	( none )
+		_mosaic_do_prerequisites="${_mosaic_do_prerequisites:-false}"
+		_mosaic_do_node="${_mosaic_do_node:-false}"
+		_mosaic_do_components="${_mosaic_do_components:-false}"
+		_mosaic_do_java="${_mosaic_do_java:-false}"
+		_mosaic_do_examples="${_mosaic_do_examples:-false}"
+		_mosaic_do_feeds="${_mosaic_do_feeds:-false}"
+	;;
+esac
 
 if test "${_mosaic_deploy_skip:-false}" == true ; then
 	_scripts_env+=(
