@@ -17,7 +17,7 @@ echo "[ii] fetching..." >&2
 
 mkdir -- "${_tools}/pkg/mvn"
 
-curl -s 'http://www.eu.apache.org/dist/maven/maven-3/3.0.4/binaries/apache-maven-3.0.4-bin.tar.gz' \
+curl -s 'http://www.eu.apache.org/dist/maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz' \
 | tar -xz -C "${_tools}/pkg/mvn" --strip-components 1
 
 echo "[ii] deploying..." >&2
