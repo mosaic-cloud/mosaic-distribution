@@ -58,6 +58,7 @@ _scripts_env=(
 	
 	mosaic_pkg_erlang="${_tools}/pkg/erlang"
 	mosaic_pkg_nodejs="${_tools}/pkg/nodejs"
+	mosaic_pkg_go="${_tools}/pkg/go"
 	mosaic_pkg_java="${_tools}/pkg/java"
 	mosaic_pkg_mvn="${_tools}/pkg/mvn"
 	mosaic_pkg_zeromq="${_tools}/pkg/zeromq"

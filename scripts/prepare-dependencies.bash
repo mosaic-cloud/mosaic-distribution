@@ -7,6 +7,7 @@ fi
 
 _script_exec "${_scripts}/compile-erlang"
 _script_exec "${_scripts}/compile-nodejs"
+_script_exec "${_scripts}/compile-go"
 _script_exec "${_scripts}/compile-maven"
 _script_exec "${_scripts}/compile-zeromq"
 _script_exec "${_scripts}/compile-jzmq"
