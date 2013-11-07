@@ -46,7 +46,8 @@ mv -t "${_tools}/pkg/go" -- \
 		"${_outputs}/bin" \
 		"${_outputs}/include" \
 		"${_outputs}/lib" \
-		"${_outputs}/pkg"
+		"${_outputs}/pkg" \
+		"${_outputs}/src"
 
 find -H "${_tools}/pkg/go/bin" -xtype f -executable \
 		-exec ln -s -t "${_tools}/bin" {} \;
