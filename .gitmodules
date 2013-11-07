@@ -121,3 +121,15 @@
 [submodule "repositories/jansson"]
 	path = repositories/jansson
 	url = git://github.com/akheron/jansson.git
+[submodule "repositories/mosaic-go-components"]
+	path = repositories/mosaic-go-components
+	url = git://github.com/cipriancraciun/mosaic-go-components.git
+[submodule "repositories/mosaic-components-mysql"]
+	path = repositories/mosaic-components-mysql
+	url = git://github.com/cipriancraciun/mosaic-components-mysql.git
+[submodule "repositories/mosaic-components-me2cp"]
+	path = repositories/mosaic-components-me2cp
+	url = git://github.com/cipriancraciun/mosaic-components-me2cp.git
+[submodule "repositories/volution-go-libraries"]
+	path = repositories/volution-go-libraries
+	url = git://github.com/cipriancraciun/volution-go-libraries.git
