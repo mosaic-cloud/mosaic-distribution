@@ -23,6 +23,10 @@ if test -z "${_mosaic_dependencies:-}" ; then
 	fi
 	echo "[ii] using mosaic-dependencies -> \`${_mosaic_dependencies}\`" >&2
 fi
+if test -z "${_temporary:-}" ; then
+	_temporary="/tmp/$( basename -- "${_workbench}" )--$( readlink -e -- "${_workbench}" | tr -d '\n' | md5sum -t | tr -d ' \n-' )"
+	echo "[ii] using temporary -> \`${_temporary}\`" >&2
+fi
 if test -z "${_tools:-}" ; then
 	if test -e "${_workbench}/.local-mosaic-tools" ; then
 		_tools="${_workbench}/.local-tools"
@@ -30,10 +34,6 @@ if test -z "${_tools:-}" ; then
 		_tools="${_temporary}/tools"
 	fi
 	echo "[ii] using tools -> \`${_tools}\`" >&2
-fi
-if test -z "${_temporary:-}" ; then
-	_temporary="/tmp/$( basename -- "${_workbench}" )--$( readlink -e -- "${_workbench}" | tr -d '\n' | md5sum -t | tr -d ' \n-' )"
-	echo "[ii] using temporary -> \`${_temporary}\`" >&2
 fi
 
 _PATH_EXTRA="${_mosaic_path_extra:-}"
