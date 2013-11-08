@@ -6,10 +6,8 @@ if ! test "${#}" -eq 0 ; then
 fi
 
 if test "${_mosaic_do_prerequisites}" == true ; then
-	"${_scripts}/prepare-tools"
 	"${_scripts}/prepare-workbench"
-	"${_scripts}/prepare-repositories"
-	"${_scripts}/prepare-dependencies"
+	"${_scripts}/prepare-tools-all"
 fi
 
 if test "${_mosaic_do_node}" == true ; then

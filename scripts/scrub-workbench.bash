@@ -5,7 +5,8 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
-echo "[ii] cleaning outputs and temporary..." >&2
+
+echo "[ii] scrubbing outputs..." >&2
 
 if test -e "${_outputs}" ; then
 	_outputs_store="$( readlink -e -- "${_outputs}" )"
@@ -16,6 +17,9 @@ if test -L "${_outputs}" ; then
 	rm -- "${_outputs}"
 fi
 
+
+echo "[ii] scrubbing temporary..." >&2
+
 if test -e "${_temporary}" ; then
 	_temporary_store="$( readlink -e -- "${_temporary}" )"
 	chmod -R u+w -- "${_temporary_store}"
@@ -25,9 +29,5 @@ if test -L "${_temporary}" ; then
 	rm -- "${_temporary}"
 fi
 
-echo "[ii] cleaning repositories..." >&2
-
-"${_git_bin}" submodule update --quiet --init --recursive
-"${_git_bin}" submodule foreach --quiet --recursive 'git reset -q --hard HEAD && git clean -q -f -d -x'
 
 exit 0

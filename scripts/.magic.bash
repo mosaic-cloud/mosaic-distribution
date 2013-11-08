@@ -11,9 +11,6 @@ fi
 
 echo "[ii] releasing \`$( cat "${_workbench}/version.txt" )\`..." >&2
 
-echo "[ii] cleaning..." >&2
-"${_scripts}/.clean"
-
 echo "[ii] preparing..." >&2
 "${_scripts}/prepare-all"
 

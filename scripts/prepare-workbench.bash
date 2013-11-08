@@ -5,7 +5,6 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
-
 if test ! -e "${_temporary}" ; then
 	if test -L "${_temporary}" ; then
 		_temporary_store="$( readlink -- "${_temporary}" )"
@@ -16,7 +15,6 @@ if test ! -e "${_temporary}" ; then
 		mkdir -- "${_temporary_store}"
 	fi
 fi
-
 
 if test ! -e "${_outputs}" ; then
 	if test -L "${_outputs}" ; then
@@ -29,6 +27,5 @@ if test ! -e "${_outputs}" ; then
 		mkdir -- "${_outputs_store}"
 	fi
 fi
-
 
 exit 0
