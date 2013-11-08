@@ -1,11 +1,27 @@
 #!/dev/null
 
 _distribution_archlinux_dependencies=(
-	# mOSAIC custom packages
 	# Archlinux tools packages
+		coreutils
+		util-linux
 		zip
+		unzip
+		cpio
+		tar
+		bash
+		grep
+		sed
+		findutils
+		which
+		gawk
+		gzip
+		bzip2
+		patch
+	# Archlinux network packages
+		wget
+		curl
 	# Archlinux language packages
-		jdk7-openjdk
+		jdk
 		python2
 		perl
 		gcc
@@ -17,7 +33,7 @@ _distribution_archlinux_dependencies=(
 		automake
 		pkg-config
 		make
+		diffutils
 	# Archlinux library packages
-		jansson
 		libxml2
 )

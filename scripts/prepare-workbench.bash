@@ -15,17 +15,8 @@ if test ! -e "${_temporary}" ; then
 		mkdir -- "${_temporary_store}"
 	fi
 fi
-
-if test ! -e "${_outputs}" ; then
-	if test -L "${_outputs}" ; then
-		_outputs_store="$( readlink -- "${_outputs}" )"
-	else
-		_outputs_store="${_temporary}/$( basename -- "${_workbench}" )--$( readlink -m -- "${_outputs}" | tr -d '\n' | md5sum -t | tr -d ' \n-' )"
-		ln -s -T -- "${_outputs_store}" "${_outputs}"
-	fi
-	if test ! -e "${_outputs_store}" ; then
-		mkdir -- "${_outputs_store}"
-	fi
+if test ! -e "${_workbench}/.temporary" ; then
+	ln -s -T -- "${_temporary}" "${_workbench}/.temporary"
 fi
 
 exit 0

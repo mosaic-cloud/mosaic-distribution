@@ -23,22 +23,31 @@ if test -z "${_mosaic_dependencies:-}" ; then
 	fi
 	echo "[ii] using mosaic-dependencies -> \`${_mosaic_dependencies}\`" >&2
 fi
-if test -z "${_temporary:-}" ; then
-	_temporary="/tmp/$( basename -- "${_workbench}" )--$( readlink -e -- "${_workbench}" | tr -d '\n' | md5sum -t | tr -d ' \n-' )"
-	echo "[ii] using temporary -> \`${_temporary}\`" >&2
-fi
 if test -z "${_tools:-}" ; then
-	if test -e "${_workbench}/.local-mosaic-tools" ; then
+	if test -e "${_workbench}/.local-tools" ; then
 		_tools="${_workbench}/.local-tools"
 	else
-		_tools="${_temporary}/tools"
+		_tools="${_workbench}/.tools"
 	fi
 	echo "[ii] using tools -> \`${_tools}\`" >&2
 fi
-
-_PATH_EXTRA="${_mosaic_path_extra:-}"
-_PATH_CLEAN="${_mosaic_path_clean:-/opt/bin:/usr/local/bin:/usr/bin:/bin}"
-_PATH="$( echo "${_tools}/bin:${_PATH_EXTRA}:${_PATH_CLEAN}" | tr -s ':' )"
+if test -z "${_temporary:-}" ; then
+	if test -e "${_workbench}/.temporary" ; then
+		_temporary="${_workbench}/.temporary"
+	else
+		_temporary="/tmp/$( basename -- "${_workbench}" )--$( readlink -e -- "${_workbench}" | tr -d '\n' | md5sum -t | tr -d ' \n-' )"
+	fi
+	echo "[ii] using temporary -> \`${_temporary}\`" >&2
+fi
+if test -z "${_PATH:-}" ; then
+	if test -e "${_tools}/.prepared" ; then
+		_PATH="${_tools}/bin"
+		_PATH_stable="${_PATH}"
+	else
+		_PATH="${_tools}/bin:/usr/local/bin:/usr/bin:/bin"
+	fi
+	echo "[ii] using path -> \`${_PATH}\`" >&2
+fi
 
 _distribution_version="$( cat "${_workbench}/version.txt" )"
 
@@ -97,6 +106,7 @@ _scripts_env=(
 	_mosaic_dependencies="${_mosaic_dependencies}"
 	_tools="${_tools}"
 	_temporary="${_temporary}"
+	_PATH="${_PATH_stable:-}"
 )
 
 case "${_mosaic_do_selection:-all}" in

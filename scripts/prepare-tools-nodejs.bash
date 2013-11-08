@@ -32,7 +32,7 @@ echo "[ii] building..." >&2
 (
 	export PATH="${_PATH}" CFLAGS="${_CFLAGS}" LDFLAGS="${_LDFLAGS}" LIBS="${_LIBS}"
 	./configure --prefix="${_tools}/pkg/nodejs" --shared-openssl || exit 1
-	make || exit 1
+	make -j 8 || exit 1
 	exit 0
 ) 2>&1 \
 | sed -u -r -e 's!^.*$![  ] &!g' >&2
