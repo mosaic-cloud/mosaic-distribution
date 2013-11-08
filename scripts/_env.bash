@@ -147,3 +147,15 @@ function _script_exec () {
 		return 0
 	fi
 }
+
+_git_bin="$( PATH="${_PATH}" type -P -- git || true )"
+if test -z "${_git_bin}" ; then
+	echo "[ww] missing \`git\` (Git DSCV) executable in path: \`${_PATH}\`; ignoring!" >&2
+	_git_bin=git
+fi
+
+_git_args=()
+_git_env=()
+while read _git_env_var ; do
+	_git_env+=( "${_git_env_var}" )
+done < <( env )
