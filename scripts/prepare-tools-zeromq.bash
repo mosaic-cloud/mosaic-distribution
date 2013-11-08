@@ -13,7 +13,7 @@ if test -e "${_tools}/pkg/zeromq" ; then
 	exit 0
 fi
 
-_outputs="${_outputs}/zeromq--build"
+_outputs="${_temporary}/zeromq--build"
 _repository="${_mosaic_repositories}/zeromq2"
 
 echo "[ii] preparing..." >&2

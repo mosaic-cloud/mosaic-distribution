@@ -5,7 +5,7 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
-_outputs="${_outputs}/mosaic-node-boot"
+_outputs="${_temporary}/mosaic-node-boot"
 
 if test "${_mosaic_deploy_cook:-true}" == true ; then
 	test -e "${_outputs}/package.tar.gz"

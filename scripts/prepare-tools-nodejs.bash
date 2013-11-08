@@ -13,7 +13,7 @@ if test -e "${_tools}/pkg/nodejs" ; then
 	exit 0
 fi
 
-_outputs="${_outputs}/nodejs--build"
+_outputs="${_temporary}/nodejs--build"
 _repository="${_mosaic_dependencies}/nodejs/0.10.21"
 
 echo "[ii] preparing..." >&2

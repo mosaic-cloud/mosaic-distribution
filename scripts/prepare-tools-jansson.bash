@@ -13,7 +13,7 @@ if test -e "${_tools}/pkg/jansson" ; then
 	exit 0
 fi
 
-_outputs="${_outputs}/jansson--build"
+_outputs="${_temporary}/jansson--build"
 _repository="${_mosaic_repositories}/jansson"
 
 echo "[ii] preparing..." >&2

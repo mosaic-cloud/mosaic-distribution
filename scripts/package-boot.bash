@@ -5,7 +5,7 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
-_outputs="${_outputs}/mosaic-node-boot"
+_outputs="${_temporary}/mosaic-node-boot"
 _package_name=mosaic-node-boot
 _package_version="${_distribution_version}"
 _utils_version="0.0.2"

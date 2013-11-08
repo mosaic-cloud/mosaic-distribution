@@ -13,7 +13,7 @@ if test -e "${_tools}/pkg/go" ; then
 	exit 0
 fi
 
-_outputs="${_outputs}/go--build"
+_outputs="${_temporary}/go--build"
 _repository="${_mosaic_dependencies}/go/1.1.2"
 
 echo "[ii] preparing..." >&2

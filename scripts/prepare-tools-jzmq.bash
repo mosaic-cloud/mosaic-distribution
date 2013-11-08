@@ -13,7 +13,7 @@ if test -e "${_tools}/pkg/jzmq" ; then
 	exit 0
 fi
 
-_outputs="${_outputs}/jzmq--build"
+_outputs="${_temporary}/jzmq--build"
 _repository="${_mosaic_repositories}/jzmq"
 
 echo "[ii] preparing..." >&2

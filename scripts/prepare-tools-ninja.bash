@@ -13,7 +13,7 @@ if test -e "${_tools}/bin/ninja" ; then
 	exit 0
 fi
 
-_outputs="${_outputs}/ninja--build"
+_outputs="${_temporary}/ninja--build"
 _repository="${_mosaic_repositories}/ninja"
 
 echo "[ii] preparing..." >&2

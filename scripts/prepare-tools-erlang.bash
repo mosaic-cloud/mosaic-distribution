@@ -13,7 +13,7 @@ if test -e "${_tools}/pkg/erlang" ; then
 	exit 0
 fi
 
-_outputs="${_outputs}/erlang--build"
+_outputs="${_temporary}/erlang--build"
 _repository="${_mosaic_dependencies}/otp/r15b03-1"
 
 echo "[ii] preparing..." >&2
