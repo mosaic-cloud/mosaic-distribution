@@ -14,7 +14,7 @@ if test -e "${_tools}/pkg/zeromq" ; then
 fi
 
 _outputs="${_outputs}/zeromq--build"
-_repository="${_repositories}/zeromq2"
+_repository="${_mosaic_repositories}/zeromq2"
 
 echo "[ii] preparing..." >&2
 

@@ -5,56 +5,64 @@ trap 'printf "[ee] failed: %s\n" "${BASH_COMMAND}" >&2' ERR || exit 1
 export -n BASH_ENV
 
 _workbench="$( readlink -e -- . )"
-_repositories="${_workbench}/repositories"
 _scripts="${_workbench}/scripts"
 _outputs="${_workbench}/.outputs"
 _tools="${_workbench}/.tools"
 _temporary="/tmp/$( basename -- "${_workbench}" )--$( readlink -e -- "${_workbench}" | tr -d '\n' | md5sum -t | tr -d ' \n-' )"
 
-_PATH_EXTRA="${PATH_EXTRA:-}"
-_PATH_CLEAN="/opt/bin:/usr/local/bin:/usr/bin:/bin"
+_PATH_EXTRA="${_mosaic_path_extra:-}"
+_PATH_CLEAN="${_mosaic_path_clean:-/opt/bin:/usr/local/bin:/usr/bin:/bin}"
 _PATH="$( echo "${_tools}/bin:${_PATH_EXTRA}:${_PATH_CLEAN}" | tr -s ':' )"
 
-_git_bin="$( PATH="${_PATH}" type -P -- git || true )"
-if test -z "${_git_bin}" ; then
-	echo "[ww] missing \`git\` (Git DSCV) executable in path: \`${_PATH}\`; ignoring!" >&2
-	_git_bin=git
+if test -z "${_mosaic_repositories:-}" ; then
+	if test -e "${_workbench}/.local-mosaic-repositories" ; then
+		_mosaic_repositories="${_workbench}/.local-mosaic-repositories"
+	else
+		_mosaic_repositories="${_workbench}/mosaic-repositories/repositories"
+	fi
+	echo "[ii] using mosaic-repositories -> \`${_mosaic_repositories}\`" >&2
+fi
+if test -z "${_mosaic_dependencies:-}" ; then
+	if test -e "${_workbench}/.local-mosaic-dependencies" ; then
+		_mosaic_dependencies="${_workbench}/.local-mosaic-dependencies"
+	else
+		_mosaic_dependencies="${_workbench}/mosaic-dependencies/dependencies"
+	fi
+	echo "[ii] using mosaic-dependencies -> \`${_mosaic_dependencies}\`" >&2
 fi
 
 _distribution_version="$( cat "${_workbench}/version.txt" )"
-_distribution_cook=cook@agent1.builder.mosaic.ieat.ro.
 
 if test -e /etc/mos-release ; then
-	_distribution_local_os_identifier="$( tr ':' '\n' </etc/mos-release | tail -n +2 | head -n 1 )"
-	_distribution_local_os_version="$( tr ':' '\n' </etc/mos-release | tail -n +3 | head -n 1 )"
+	_local_os_identifier="$( tr ':' '\n' </etc/mos-release | tail -n +2 | head -n 1 )"
+	_local_os_version="$( tr ':' '\n' </etc/mos-release | tail -n +3 | head -n 1 )"
 elif test -e /etc/slitaz-release ; then
-	_distribution_local_os_identifier=slitaz
-	_distribution_local_os_version="$( cat /etc/slitaz-release )"
+	_local_os_identifier=slitaz
+	_local_os_version="$( cat /etc/slitaz-release )"
 elif test -e /etc/arch-release ; then
-	_distribution_local_os_identifier=archlinux
-	_distribution_local_os_version=rolling
+	_local_os_identifier=archlinux
+	_local_os_version=rolling
 elif test -e /etc/lsb-release ; then
-	_distribution_local_os_identifier="$( . /etc/lsb-release ; echo "${DISTRIB_ID:-}" )"
-	_distribution_local_os_version="$( . /etc/lsb-release ; echo "${DISTRIB_RELEASE:-}" )"
+	_local_os_identifier="$( . /etc/lsb-release ; echo "${DISTRIB_ID:-}" )"
+	_local_os_version="$( . /etc/lsb-release ; echo "${DISTRIB_RELEASE:-}" )"
 else
-	_distribution_local_os_identifier=
-	_distribution_local_os_version=
+	_local_os_identifier=
+	_local_os_version=
 fi
 
-_distribution_local_os_identifier="${_distribution_local_os_identifier,,}"
-_distribution_local_os_version="${_distribution_local_os_version,,}"
-_distribution_local_os="${_distribution_local_os_identifier:-unknown}::${_distribution_local_os_version:-unknown}"
+_local_os_identifier="${_local_os_identifier,,}"
+_local_os_version="${_local_os_version,,}"
+_local_os="${_local_os_identifier:-unknown}::${_local_os_version:-unknown}"
 
 _scripts_env=(
 	
 	mosaic_distribution_version="${_distribution_version}"
-	mosaic_distribution_cook="${_distribution_cook}"
 	mosaic_distribution_tools="${_tools}"
 	mosaic_distribution_temporary="${_temporary}"
 	
-	mosaic_local_os_identifier="${_distribution_local_os_identifier}"
-	mosaic_local_os_version="${_distribution_local_os_version}"
-	mosaic_local_os="${_distribution_local_os}"
+	mosaic_local_os_identifier="${_local_os_identifier}"
+	mosaic_local_os_version="${_local_os_version}"
+	mosaic_local_os="${_local_os}"
 	
 	mosaic_pkg_erlang="${_tools}/pkg/erlang"
 	mosaic_pkg_nodejs="${_tools}/pkg/nodejs"
@@ -75,6 +83,9 @@ _scripts_env=(
 	MAVEN_HOME="${_tools}/pkg/mvn"
 	M2_HOME="${_tools}/pkg/mvn"
 	TMPDIR="${_temporary}"
+	
+	_mosaic_repositories="${_mosaic_repositories}"
+	_mosaic_dependencies="${_mosaic_dependencies}"
 )
 
 case "${_mosaic_do_selection:-all}" in
@@ -115,23 +126,6 @@ case "${_mosaic_do_selection:-all}" in
 		_mosaic_do_feeds="${_mosaic_do_feeds:-false}"
 	;;
 esac
-
-if test "${_mosaic_deploy_skip:-false}" == true ; then
-	_scripts_env+=(
-		_mosaic_deploy_cook="${_mosaic_deploy_cook:-false}"
-		_mosaic_deploy_artifactory="${_mosaic_deploy_artifactory:-false}"
-	)
-elif test "${_mosaic_deploy_all:-false}" == true ; then
-	_scripts_env+=(
-		_mosaic_deploy_cook="${_mosaic_deploy_cook:-true}"
-		_mosaic_deploy_artifactory="${_mosaic_deploy_artifactory:-true}"
-	)
-else
-	_scripts_env+=(
-		_mosaic_deploy_cook="${_mosaic_deploy_cook:-true}"
-		_mosaic_deploy_artifactory="${_mosaic_deploy_artifactory:-false}"
-	)
-fi
 
 if test -n "${SSH_AUTH_SOCK:-}" ; then
 	_scripts_env+=( SSH_AUTH_SOCK="${SSH_AUTH_SOCK}" )

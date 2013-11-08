@@ -14,7 +14,7 @@ if test -e "${_tools}/bin/ninja" ; then
 fi
 
 _outputs="${_outputs}/ninja--build"
-_repository="${_repositories}/ninja"
+_repository="${_mosaic_repositories}/ninja"
 
 echo "[ii] preparing..." >&2
 

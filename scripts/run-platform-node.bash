@@ -2,7 +2,7 @@
 
 _scripts_env=(
 	PATH="$(
-			find "${_repositories}" \
+			find "${_mosaic_repositories}" \
 					-xtype d \
 					-name '.outputs' \
 					-exec test -e {}/package/bin \; \

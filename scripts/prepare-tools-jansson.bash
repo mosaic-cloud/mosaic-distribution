@@ -14,7 +14,7 @@ if test -e "${_tools}/pkg/jansson" ; then
 fi
 
 _outputs="${_outputs}/jansson--build"
-_repository="${_repositories}/jansson"
+_repository="${_mosaic_repositories}/jansson"
 
 echo "[ii] preparing..." >&2
 

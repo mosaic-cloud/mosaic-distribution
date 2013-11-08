@@ -14,7 +14,7 @@ if test -e "${_tools}/pkg/nodejs" ; then
 fi
 
 _outputs="${_outputs}/nodejs--build"
-_repository="${_repositories}/mosaic-dependencies/nodejs/0.10.21"
+_repository="${_mosaic_dependencies}/nodejs/0.10.21"
 
 echo "[ii] preparing..." >&2
 

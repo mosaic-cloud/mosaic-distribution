@@ -14,7 +14,7 @@ if test -e "${_tools}/pkg/jzmq" ; then
 fi
 
 _outputs="${_outputs}/jzmq--build"
-_repository="${_repositories}/jzmq"
+_repository="${_mosaic_repositories}/jzmq"
 
 echo "[ii] preparing..." >&2
 

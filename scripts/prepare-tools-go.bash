@@ -14,7 +14,7 @@ if test -e "${_tools}/pkg/go" ; then
 fi
 
 _outputs="${_outputs}/go--build"
-_repository="${_repositories}/mosaic-dependencies/go/1.1.2"
+_repository="${_mosaic_dependencies}/go/1.1.2"
 
 echo "[ii] preparing..." >&2
 

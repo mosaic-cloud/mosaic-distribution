@@ -14,7 +14,7 @@ if test -e "${_tools}/pkg/erlang" ; then
 fi
 
 _outputs="${_outputs}/erlang--build"
-_repository="${_repositories}/mosaic-dependencies/otp/r15b03-1"
+_repository="${_mosaic_dependencies}/otp/r15b03-1"
 
 echo "[ii] preparing..." >&2
 
