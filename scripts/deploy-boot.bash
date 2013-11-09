@@ -6,6 +6,8 @@ if ! test "${#}" -eq 0 ; then
 fi
 
 _outputs="${_temporary}/mosaic-node-boot"
+_package_name=mosaic-node-boot
+_package_version="${_distribution_version}"
 
 if test "${_mosaic_deploy_cp:-false}" == true ; then
 	test -n "${_mosaic_deploy_cp_store}"
