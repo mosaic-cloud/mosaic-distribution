@@ -71,8 +71,8 @@ else
 	mosaic_node_ip="$( hostname -i | tr ' ' '\n' | head -n 1 || true )"
 fi
 
-mosaic_temporary="${mos_fs_tmp:-/tmp/mosaic}/platform"
-mosaic_log="${mos_fs_log:-${mos_fs_tmp:-/tmp/mosaic}}/platform.log"
+mosaic_temporary="${mosaic_temporary:-${mos_fs_tmp:-/tmp/mosaic}/platform}"
+mosaic_log="${mosaic_log:-${mos_fs_log:-${mos_fs_tmp:-/tmp/mosaic}}/platform.log}"
 
 if test -n "${mosaic_application_fqdn}" ; then
 	export mosaic_application_fqdn

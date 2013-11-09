@@ -7,49 +7,65 @@ export -n BASH_ENV
 _workbench="$( readlink -e -- . )"
 _scripts="${_workbench}/scripts"
 
-if test -z "${_mosaic_repositories:-}" ; then
+if test -z "${mosaic_distribution_repositories:-}" ; then
 	if test -e "${_workbench}/.local-mosaic-repositories" ; then
 		_mosaic_repositories="${_workbench}/.local-mosaic-repositories"
 	else
 		_mosaic_repositories="${_workbench}/mosaic-repositories/repositories"
 	fi
-	echo "[ii] using mosaic-repositories -> \`${_mosaic_repositories}\`" >&2
+	echo "[ii] using mosaic-distribution-repositories -> \`${_mosaic_repositories}\`;" >&2
+else
+	_mosaic_repositories="${mosaic_distribution_repositories}"
 fi
-if test -z "${_mosaic_dependencies:-}" ; then
+if test -z "${mosaic_distribution_dependencies:-}" ; then
 	if test -e "${_workbench}/.local-mosaic-dependencies" ; then
 		_mosaic_dependencies="${_workbench}/.local-mosaic-dependencies"
 	else
 		_mosaic_dependencies="${_workbench}/mosaic-dependencies/dependencies"
 	fi
-	echo "[ii] using mosaic-dependencies -> \`${_mosaic_dependencies}\`" >&2
+	echo "[ii] using mosaic-distribution-dependencies -> \`${_mosaic_dependencies}\`;" >&2
+else
+	_mosaic_dependencies="${mosaic_distribution_dependencies}"
 fi
-if test -z "${_tools:-}" ; then
+if test -z "${mosaic_distribution_tools:-}" ; then
 	if test -e "${_workbench}/.local-tools" ; then
 		_tools="${_workbench}/.local-tools"
 	else
 		_tools="${_workbench}/.temporary/__tools"
 	fi
-	echo "[ii] using tools -> \`${_tools}\`" >&2
+	echo "[ii] using mosaic-distribution-tools -> \`${_tools}\`;" >&2
+else
+	_tools="${mosaic_distribution_tools}"
 fi
-if test -z "${_temporary:-}" ; then
+if test -z "${mosaic_distribution_temporary:-}" ; then
 	if test -e "${_workbench}/.temporary" ; then
 		_temporary="${_workbench}/.temporary"
 	else
 		_temporary="/tmp/$( basename -- "${_workbench}" )--$( readlink -e -- "${_workbench}" | tr -d '\n' | md5sum -t | tr -d ' \n-' )"
 	fi
-	echo "[ii] using temporary -> \`${_temporary}\`" >&2
+	echo "[ii] using mosaic-distribution-temporary -> \`${_temporary}\`;" >&2
+else
+	_temporary="${mosaic_distribution_temporary}"
 fi
-if test -z "${_PATH:-}" ; then
+if test -z "${mosaic_distribution_path:-}" ; then
 	if test -e "${_tools}/.prepared" ; then
 		_PATH="${_tools}/bin"
 		_PATH_stable="${_PATH}"
 	else
 		_PATH="${_tools}/bin:/usr/local/bin:/usr/bin:/bin"
 	fi
-	echo "[ii] using path -> \`${_PATH}\`" >&2
+	echo "[ii] using mosaic-distribution-path -> \`${_PATH}\`;" >&2
+else
+	_PATH="${mosaic_distribution_path}"
+	_PATH_stable="${mosaic_distribution_path}"
 fi
 
-_distribution_version="$( cat "${_workbench}/version.txt" )"
+if test -z "${mosaic_distribution_version:-}" ; then
+	_distribution_version="$( cat "${_workbench}/version.txt" )"
+	echo "[ii] using mosaic-distribution-version -> \`${_distribution_version}\`;" >&2
+else
+	_distribution_version="${mosaic_distribution_version}"
+fi
 
 if test -e /etc/mos-release ; then
 	_local_os_identifier="$( tr ':' '\n' </etc/mos-release | tail -n +2 | head -n 1 )"
@@ -75,8 +91,11 @@ _local_os="${_local_os_identifier:-unknown}::${_local_os_version:-unknown}"
 _scripts_env=(
 	
 	mosaic_distribution_version="${_distribution_version}"
+	mosaic_distribution_repositories="${_mosaic_repositories}"
+	mosaic_distribution_dependencies="${_mosaic_dependencies}"
 	mosaic_distribution_tools="${_tools}"
 	mosaic_distribution_temporary="${_temporary}"
+	mosaic_distribution_path="${_PATH_stable}"
 	
 	mosaic_local_os_identifier="${_local_os_identifier}"
 	mosaic_local_os_version="${_local_os_version}"
@@ -101,12 +120,6 @@ _scripts_env=(
 	MAVEN_HOME="${_tools}/pkg/mvn"
 	M2_HOME="${_tools}/pkg/mvn"
 	TMPDIR="${_temporary}"
-	
-	_mosaic_repositories="${_mosaic_repositories}"
-	_mosaic_dependencies="${_mosaic_dependencies}"
-	_tools="${_tools}"
-	_temporary="${_temporary}"
-	_PATH="${_PATH_stable:-}"
 )
 
 case "${_mosaic_do_selection:-all}" in
@@ -150,9 +163,19 @@ esac
 
 while read _script_env_var ; do
 	_scripts_env+=( "${_script_env_var}" )
+	if test -z "${_mosaic_do_scripts_env_quiet:-}" ; then
+		echo "[ii] overriding scripts variable \`${_script_env_var}\`;" >&2
+	fi
 done < <(
-	env | grep -E -e '^_mosaic_deploy_[^=]+=.*$' || true
+	env \
+	| grep -E \
+			-e '^mosaic_[^=]+=.*$' \
+			-e '^_mosaic_[^=]+=.*$' \
+			-e '^mos_[^=]+=.*$' \
+			-e '^_mos_[^=]+=.*$' \
+	|| true
 )
+_scripts_env+=( _mosaic_do_scripts_env_quiet=true )
 
 if test -n "${SSH_AUTH_SOCK:-}" ; then
 	_scripts_env+=( SSH_AUTH_SOCK="${SSH_AUTH_SOCK}" )

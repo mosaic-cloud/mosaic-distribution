@@ -1,6 +1,6 @@
 #!/dev/null
 
-_scripts_env=(
+_scripts_env+=(
 	PATH="$(
 			find -L "${_mosaic_repositories}" -mindepth 1 \
 					\( -name '.*' -not -name '.outputs' -prune \) -o \
@@ -8,8 +8,6 @@ _scripts_env=(
 				2>/dev/null \
 			|| true
 	)${_PATH}"
-	HOME="${_tools}/home"
-	TMPDIR="${_temporary}"
 )
 
 if test -n "${_mosaic_log:-}" ; then
