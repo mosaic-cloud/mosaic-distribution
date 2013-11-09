@@ -53,6 +53,7 @@ if test -z "${mosaic_distribution_path:-}" ; then
 		_PATH_stable="${_PATH}"
 	else
 		_PATH="${_tools}/bin:/usr/local/bin:/usr/bin:/bin"
+		_PATH_stable=''
 	fi
 	echo "[ii] using mosaic-distribution-path -> \`${_PATH}\`;" >&2
 else
