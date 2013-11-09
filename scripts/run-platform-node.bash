@@ -2,11 +2,11 @@
 
 _scripts_env=(
 	PATH="$(
-			find "${_mosaic_repositories}" \
-					-xtype d \
-					-name '.outputs' \
-					-exec test -e {}/package/bin \; \
-					-printf "%p/package/bin:"
+			find -L "${_mosaic_repositories}" -mindepth 1 \
+					\( -name '.*' -not -name '.outputs' -prune \) -o \
+					\( -xtype d -path '*/.outputs/package/bin' -printf "%p:" \) \
+				2>/dev/null \
+			|| true
 	)${_PATH}"
 	HOME="${_tools}/home"
 	TMPDIR="${_temporary}"

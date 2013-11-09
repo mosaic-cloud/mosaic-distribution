@@ -27,7 +27,7 @@ if test -z "${_tools:-}" ; then
 	if test -e "${_workbench}/.local-tools" ; then
 		_tools="${_workbench}/.local-tools"
 	else
-		_tools="${_workbench}/.tools"
+		_tools="${_workbench}/.temporary/__tools"
 	fi
 	echo "[ii] using tools -> \`${_tools}\`" >&2
 fi
@@ -147,6 +147,12 @@ case "${_mosaic_do_selection:-all}" in
 		_mosaic_do_feeds="${_mosaic_do_feeds:-false}"
 	;;
 esac
+
+while read _script_env_var ; do
+	_scripts_env+=( "${_script_env_var}" )
+done < <(
+	env | grep -E -e '^_mosaic_deploy_[^=]+=.*$' || true
+)
 
 if test -n "${SSH_AUTH_SOCK:-}" ; then
 	_scripts_env+=( SSH_AUTH_SOCK="${SSH_AUTH_SOCK}" )
