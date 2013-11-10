@@ -11,9 +11,9 @@ if test "${_mosaic_do_prerequisites}" == true ; then
 fi
 
 if test "${_mosaic_do_node}" == true ; then
-	_script_exec "${_mosaic_repositories}/mosaic-erlang-tools/scripts/prepare"
 	_script_exec "${_mosaic_repositories}/mosaic-node/scripts/prepare"
 	_script_exec "${_mosaic_repositories}/mosaic-node-wui/scripts/prepare"
+	_script_exec "${_mosaic_repositories}/mosaic-node-boot/scripts/prepare"
 fi
 
 if test "${_mosaic_do_components}" == true ; then

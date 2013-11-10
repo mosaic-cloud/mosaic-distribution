@@ -6,9 +6,9 @@ if ! test "${#}" -eq 0 ; then
 fi
 
 if test "${_mosaic_do_node}" == true ; then
-	_script_exec "${_mosaic_repositories}/mosaic-erlang-tools/scripts/compile"
 	_script_exec "${_mosaic_repositories}/mosaic-node/scripts/compile"
 	_script_exec "${_mosaic_repositories}/mosaic-node-wui/scripts/compile"
+	_script_exec "${_mosaic_repositories}/mosaic-node-boot/scripts/compile"
 fi
 
 if test "${_mosaic_do_components}" == true ; then
