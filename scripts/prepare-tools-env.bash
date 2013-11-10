@@ -10,14 +10,11 @@ if test ! -e "${_tools}/.prepared" ; then
 	
 	echo "[ii] preparing tools..." >&2
 	
-	if test ! -e "${_tools}" ; then
-		mkdir -- "${_tools}"
-		mkdir -- "${_tools}/bin"
-		mkdir -- "${_tools}/lib"
-		mkdir -- "${_tools}/include"
-		mkdir -- "${_tools}/pkg"
-		mkdir -- "${_tools}/home"
-	fi
+	for _tools_folder in "${_tools}" "${_tools}/bin" "${_tools}/lib" "${_tools}/include" "${_tools}/pkg" "${_tools}/home" ; do
+		if test ! -e "${_tools_folder}" ; then
+			mkdir -m 0700 -- "${_tools_folder}"
+		fi
+	done
 	
 	_local_os_packages=()
 	
