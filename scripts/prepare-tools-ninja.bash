@@ -14,7 +14,7 @@ if test -e "${_tools}/bin/ninja" ; then
 fi
 
 _outputs="${_temporary}/ninja--build"
-_repository="${_mosaic_repositories}/ninja"
+_repository="${_repositories}/ninja"
 
 echo "[ii] preparing..." >&2
 
@@ -23,9 +23,9 @@ cd -- "${_repository}"
 find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
 cd -- "${_outputs}"
 
-_CFLAGS="${mosaic_CFLAGS}"
-_LDFLAGS="-static ${mosaic_LDFLAGS}"
-_LIBS="${mosaic_LIBS}"
+_CFLAGS="${pallur_CFLAGS}"
+_LDFLAGS="-static ${pallur_LDFLAGS}"
+_LIBS="${pallur_LIBS}"
 
 echo "[ii] building..." >&2
 

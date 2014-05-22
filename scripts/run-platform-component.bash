@@ -7,7 +7,7 @@ fi
 
 _scripts_env+=(
 	PATH="$(
-			find -L "${_mosaic_repositories}" -mindepth 1 \
+			find -L "${_repositories}" -mindepth 1 \
 					\( -name '.*' -not -name '.outputs' -prune \) -o \
 					\( -xtype d -path '*/.outputs/package/bin' -printf "%p:" \) \
 				2>/dev/null \

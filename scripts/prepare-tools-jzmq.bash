@@ -14,7 +14,7 @@ if test -e "${_tools}/pkg/jzmq" ; then
 fi
 
 _outputs="${_temporary}/jzmq--build"
-_repository="${_mosaic_repositories}/jzmq"
+_repository="${_repositories}/jzmq"
 
 echo "[ii] preparing..." >&2
 
@@ -24,16 +24,16 @@ find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
 cd -- "${_outputs}"
 
 _PATH="${JAVA_HOME}/bin:${_PATH}"
-_CFLAGS="-I${JAVA_HOME}/include ${mosaic_CFLAGS}"
-_LDFLAGS="-L${JAVA_HOME}/lib ${mosaic_LDFLAGS}"
-_LIBS="${mosaic_LIBS}"
+_CFLAGS="-I${JAVA_HOME}/include ${pallur_CFLAGS}"
+_LDFLAGS="-L${JAVA_HOME}/lib ${pallur_LDFLAGS}"
+_LIBS="${pallur_LIBS}"
 
 echo "[ii] building..." >&2
 
 (
 	export PATH="${_PATH}" CFLAGS="${_CFLAGS}" LDFLAGS="${_LDFLAGS}" LIBS="${_LIBS}"
 	./autogen.sh || exit 1
-	./configure --prefix="${_tools}/pkg/jzmq" --with-zeromq="${mosaic_pkg_zeromq}" || exit 1
+	./configure --prefix="${_tools}/pkg/jzmq" --with-zeromq="${pallur_pkg_zeromq}" || exit 1
 	make -j 1 || exit 1
 	exit 0
 ) 2>&1 \

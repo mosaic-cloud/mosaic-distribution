@@ -14,7 +14,7 @@ if test -e "${_tools}/bin/vbs" ; then
 fi
 
 _outputs="${_temporary}/volution-build-system--build"
-_repository="${_mosaic_repositories}/volution-build-system"
+_repository="${_repositories}/volution-build-system"
 
 echo "[ii] preparing..." >&2
 

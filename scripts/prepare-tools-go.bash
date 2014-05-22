@@ -14,7 +14,7 @@ if test -e "${_tools}/pkg/go" ; then
 fi
 
 _outputs="${_temporary}/go--build"
-_repository="${_mosaic_dependencies}/go/1.1.2"
+_repository="${_dependencies}/go/1.1.2"
 
 echo "[ii] preparing..." >&2
 
@@ -23,9 +23,9 @@ cd -- "${_repository}"
 find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
 cd -- "${_outputs}"
 
-_CFLAGS="${mosaic_CFLAGS}"
-_LDFLAGS="${mosaic_LDFLAGS}"
-_LIBS="${mosaic_LIBS}"
+_CFLAGS="${pallur_CFLAGS}"
+_LDFLAGS="${pallur_LDFLAGS}"
+_LIBS="${pallur_LIBS}"
 
 echo "[ii] building..." >&2
 

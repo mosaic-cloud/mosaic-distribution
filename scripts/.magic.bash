@@ -8,7 +8,7 @@ else
 	_scripts_roots=()
 	_scripts_suffix=''
 	for _repository in "${@}" ; do
-		_scripts_root="${_mosaic_repositories}/${_repository}/scripts"
+		_scripts_root="${_repositories}/${_repository}/scripts"
 		test -e "${_scripts_root}"
 		_scripts_roots+=( "${_scripts_root}" )
 	done
@@ -30,7 +30,7 @@ for _scripts_root in "${_scripts_roots[@]}" ; do
 	echo "[--]" >&2
 	
 	echo "[ii] deploying..." >&2
-	if test "${_mosaic_deploy_skip:-true}" != true ; then
+	if test "${pallur_deploy_skip:-true}" != true ; then
 		_script_exec "${_scripts_root}/deploy${_scripts_suffix}"
 	else
 		echo "[ww]   -- skipped!" >&2
