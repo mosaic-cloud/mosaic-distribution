@@ -113,6 +113,7 @@ _scripts_env=(
 	
 	pallur_PATH="${_PATH}"
 	pallur_CFLAGS="-I${_tools}/include"
+	pallur_CXXFLAGS="-I${_tools}/include"
 	pallur_LDFLAGS="-L${_tools}/lib"
 	pallur_LIBS=
 	
