@@ -24,14 +24,15 @@ find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
 cd -- "${_outputs}"
 
 _PATH="${JAVA_HOME}/bin:${_PATH}"
-_CFLAGS="-I${JAVA_HOME}/include ${pallur_CFLAGS}"
-_LDFLAGS="-L${JAVA_HOME}/lib ${pallur_LDFLAGS}"
+_CFLAGS="-I${pallur_pkg_java}/include ${pallur_CFLAGS}"
+_LDFLAGS="-L${pallur_pkg_java}/lib ${pallur_LDFLAGS}"
 _LIBS="${pallur_LIBS}"
+_JAVA_HOME="${pallur_pkg_java}"
 
 echo "[ii] building..." >&2
 
 (
-	export PATH="${_PATH}" CFLAGS="${_CFLAGS}" LDFLAGS="${_LDFLAGS}" LIBS="${_LIBS}"
+	export PATH="${_PATH}" CFLAGS="${_CFLAGS}" LDFLAGS="${_LDFLAGS}" LIBS="${_LIBS}" JAVA_HOME="${_JAVA_HOME}"
 	./autogen.sh || exit 1
 	./configure --prefix="${_tools}/pkg/jzmq" --with-zeromq="${pallur_pkg_zeromq}" || exit 1
 	make -j 1 || exit 1
@@ -44,7 +45,7 @@ echo "[ii] deploying..." >&2
 mkdir -- "${_tools}/pkg/jzmq"
 
 (
-	export PATH="${_PATH}"
+	export PATH="${_PATH}" JAVA_HOME="${_JAVA_HOME}"
 	make install || exit 1
 	exit 0
 ) 2>&1 \

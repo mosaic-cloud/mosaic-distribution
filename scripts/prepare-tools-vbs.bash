@@ -36,7 +36,9 @@ echo "[ii] building..." >&2
 
 echo "[ii] deploying..." >&2
 
-cp -T -- "./.outputs/vbs.elf" "${_tools}/bin/vbs"
+cp -T -- "./.outputs/vbs.elf" "${_tools}/pkg/miscellaneous/bin/vbs"
+
+ln -s -T -- "${_tools}/pkg/miscellaneous/bin/vbs" "${_tools}/bin/vbs"
 
 echo "[ii] cleaning..." >&2
 

@@ -19,4 +19,11 @@ if test ! -e "${_workbench}/.temporary" ; then
 	ln -s -T -- "${_temporary}" "${_workbench}/.temporary"
 fi
 
+if test ! -e "${_HOME}" ; then
+	mkdir -- "${_HOME}"
+fi
+if test ! -e "${_TMPDIR}" ; then
+	mkdir -- "${_TMPDIR}"
+fi
+
 exit 0

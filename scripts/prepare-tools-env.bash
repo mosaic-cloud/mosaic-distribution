@@ -10,7 +10,13 @@ if test ! -e "${_tools}/.prepared" ; then
 	
 	echo "[ii] preparing tools..." >&2
 	
-	for _tools_folder in "${_tools}" "${_tools}/bin" "${_tools}/lib" "${_tools}/include" "${_tools}/pkg" "${_tools}/home" ; do
+	for _tools_folder in "${_tools}" "${_tools}/bin" "${_tools}/lib" "${_tools}/include" "${_tools}/pkg" ; do
+		if test ! -e "${_tools_folder}" ; then
+			mkdir -m 0700 -- "${_tools_folder}"
+		fi
+	done
+	
+	for _tools_folder in "${_tools}/pkg/miscellaneous" "${_tools}/pkg/miscellaneous/bin" ; do
 		if test ! -e "${_tools_folder}" ; then
 			mkdir -m 0700 -- "${_tools_folder}"
 		fi
@@ -56,7 +62,7 @@ if test ! -e "${_tools}/.prepared" ; then
 			
 			if ! test -e "${_tools}/pkg/java" ; then
 				_local_os_packages+=( java )
-				ln -s -f -T -- /opt/java "${_tools}/pkg/java"
+				ln -s -f -T -- /usr/lib/jvm/java-7-openjdk "${_tools}/pkg/java"
 			fi
 		;;
 		

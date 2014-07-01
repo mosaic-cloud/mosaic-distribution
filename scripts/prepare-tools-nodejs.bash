@@ -55,4 +55,8 @@ echo "[ii] cleaning..." >&2
 
 rm -R -- "${_outputs}"
 
+echo "[ii] preparing..." >&2
+
+. "${_scripts}/prepare-tools-nodejs-caches.bash"
+
 exit 0

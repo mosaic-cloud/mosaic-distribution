@@ -21,7 +21,7 @@ _distribution_archlinux_dependencies=(
 		wget
 		curl
 	# Archlinux language packages
-		jdk
+		jdk7-openjdk
 		python2
 		perl
 		gcc

@@ -60,6 +60,22 @@ else
 	_PATH="${pallur_PATH}"
 	_PATH_stable="${pallur_PATH}"
 fi
+if test -z "${pallur_HOME:-}" ; then
+	if test -e "${_workbench}/.local-tools/home" ; then
+		_HOME="${_workbench}/.local-tools/home"
+	else
+		_HOME="${_workbench}/.temporary/__home"
+	fi
+	echo "[ii] using mosaic-HOME -> \`${_HOME}\`;" >&2
+else
+	_HOME="${pallur_HOME}"
+fi
+if test -z "${pallur_TMPDIR:-}" ; then
+	_TMPDIR="${_workbench}/.temporary/__tmpdir"
+	echo "[ii] using mosaic-TMPDIR -> \`${_TMPDIR}\`;" >&2
+else
+	_TMPDIR="${pallur_TMPDIR}"
+fi
 
 if test -z "${pallur_distribution_version:-}" ; then
 	_distribution_version="$( cat "${_workbench}/version.txt" )"
@@ -96,7 +112,6 @@ _scripts_env=(
 	pallur_dependencies="${_dependencies}"
 	pallur_tools="${_tools}"
 	pallur_temporary="${_temporary}"
-	pallur_path="${_PATH_stable}"
 	
 	pallur_local_os_identifier="${_local_os_identifier}"
 	pallur_local_os_version="${_local_os_version}"
@@ -112,20 +127,19 @@ _scripts_env=(
 	pallur_pkg_jansson="${_tools}/pkg/jansson"
 	
 	pallur_PATH="${_PATH}"
+	pallur_HOME="${_HOME}"
+	pallur_TMPDIR="${_TMPDIR}"
 	pallur_CFLAGS="-I${_tools}/include"
 	pallur_CXXFLAGS="-I${_tools}/include"
 	pallur_LDFLAGS="-L${_tools}/lib"
 	pallur_LIBS=
 	
 	PATH="${_PATH}"
-	HOME="${HOME:-${_tools}/home}"
-	JAVA_HOME="${_tools}/pkg/java"
-	MAVEN_HOME="${_tools}/pkg/mvn"
-	M2_HOME="${_tools}/pkg/mvn"
-	TMPDIR="${_temporary}"
+	HOME="${_HOME}"
+	TMPDIR="${_TMPDIR}"
 )
 
-case "${mosaic_do_selection:-all}" in
+case "${mosaic_do_selection:-core+java}" in
 	
 	( all )
 		_do_prerequisites="${mosaic_do_prerequisites:-true}"
@@ -154,6 +168,15 @@ case "${mosaic_do_selection:-all}" in
 		_do_feeds="${mosaic_do_feeds:-false}"
 	;;
 	
+	( java )
+		_do_prerequisites="${mosaic_do_prerequisites:-true}"
+		_do_node="${mosaic_do_node:-false}"
+		_do_components="${mosaic_do_components:-false}"
+		_do_java="${mosaic_do_java:-true}"
+		_do_examples="${mosaic_do_examples:-false}"
+		_do_feeds="${mosaic_do_feeds:-false}"
+	;;
+	
 	( none )
 		_do_prerequisites="${mosaic_do_prerequisites:-false}"
 		_do_node="${mosaic_do_node:-false}"
@@ -161,6 +184,10 @@ case "${mosaic_do_selection:-all}" in
 		_do_java="${mosaic_do_java:-false}"
 		_do_examples="${mosaic_do_examples:-false}"
 		_do_feeds="${mosaic_do_feeds:-false}"
+	;;
+	
+	( * )
+		false
 	;;
 esac
 

@@ -24,8 +24,23 @@ echo "[ii] deploying..." >&2
 
 ln -s -T -- "${_tools}/pkg/mvn/bin/mvn" "${_tools}/bin/mvn"
 
+echo "[ii] configuring..." >&2
+
+cat >|"${_tools}/pkg/mvn/conf/settings.xml" <<EOS
+<?xml version="1.0" encoding="UTF-8"?>
+<settings
+			xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+	<localRepository>${_tools}/pkg/mvn/repo</localRepository>
+	<offline>false</offline>
+</settings>
+EOS
+
 echo "[ii] preparing..." >&2
 
-"${_tools}/bin/mvn" --quiet help:help
+. "${_scripts}/prepare-tools-maven-caches.bash"
+
+# FIXME: Make Maven fetch all required "base" plugins!
+M2_HOME="${_tools}/pkg/mvn" "${_tools}/bin/mvn" --quiet help:help
 
 exit 0

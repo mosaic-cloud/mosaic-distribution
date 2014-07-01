@@ -38,7 +38,9 @@ echo "[ii] building..." >&2
 
 echo "[ii] deploying..." >&2
 
-cp -T -- "./ninja" "${_tools}/bin/ninja"
+cp -T -- "./ninja" "${_tools}/pkg/miscellaneous/bin/ninja"
+
+ln -s -T -- "${_tools}/pkg/miscellaneous/bin/ninja" "${_tools}/bin/ninja"
 
 echo "[ii] cleaning..." >&2
 
