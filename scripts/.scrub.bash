@@ -15,14 +15,4 @@ env -i "${_git_env[@]}" "${_git_bin}" \
 		submodule foreach --quiet --recursive \
 			"${_git_bin} clean -q -f -d -x"
 
-echo "[ii] scrubbing temporary..." >&2
-if test -e "${_temporary}" ; then
-	_temporary_store="$( readlink -e -- "${_temporary}" )"
-	chmod -R u+w -- "${_temporary_store}"
-	rm -Rf -- "${_temporary_store}"
-fi
-if test -L "${_temporary}" ; then
-	rm -- "${_temporary}"
-fi
-
 exit 0
