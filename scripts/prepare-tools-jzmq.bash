@@ -23,7 +23,6 @@ cd -- "${_repository}"
 find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
 cd -- "${_outputs}"
 
-_PATH="${JAVA_HOME}/bin:${_PATH}"
 _CFLAGS="-I${pallur_pkg_java}/include ${pallur_CFLAGS}"
 _LDFLAGS="-L${pallur_pkg_java}/lib ${pallur_LDFLAGS}"
 _LIBS="${pallur_LIBS}"
