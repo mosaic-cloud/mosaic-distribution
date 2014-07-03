@@ -6,19 +6,8 @@ if ! test "${#}" -eq 0 ; then
 fi
 
 if test ! -e "${_temporary}" ; then
-	if test -L "${_temporary}" ; then
-		_temporary_store="$( readlink -- "${_temporary}" )"
-	else
-		_temporary_store="${_temporary}"
-	fi
-	if test ! -e "${_temporary_store}" ; then
-		mkdir -- "${_temporary_store}"
-	fi
+	mkdir -- "${_temporary}"
 fi
-if test ! -e "${_workbench}/.temporary" ; then
-	ln -s -T -- "${_temporary}" "${_workbench}/.temporary"
-fi
-
 if test ! -e "${_HOME}" ; then
 	mkdir -- "${_HOME}"
 fi

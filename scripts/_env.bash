@@ -27,25 +27,25 @@ if test -z "${pallur_dependencies:-}" ; then
 else
 	_dependencies="${pallur_dependencies}"
 fi
-if test -z "${pallur_tools:-}" ; then
-	if test -e "${_workbench}/.local-tools" ; then
-		_tools="${_workbench}/.local-tools"
-	else
-		_tools="${_workbench}/.temporary/__tools"
-	fi
-	echo "[ii] using mosaic-tools -> \`${_tools}\`;" >&2
-else
-	_tools="${pallur_tools}"
-fi
 if test -z "${pallur_temporary:-}" ; then
 	if test -e "${_workbench}/.temporary" ; then
 		_temporary="${_workbench}/.temporary"
 	else
-		_temporary="/tmp/$( basename -- "${_workbench}" )--$( readlink -e -- "${_workbench}" | tr -d '\n' | md5sum -t | tr -d ' \n-' )"
+		_temporary="${TMPDIR:-/tmp}/$( basename -- "${_workbench}" )--$( readlink -e -- "${_workbench}" | tr -d '\n' | md5sum -t | tr -d ' \n-' )"
 	fi
 	echo "[ii] using mosaic-temporary -> \`${_temporary}\`;" >&2
 else
 	_temporary="${pallur_temporary}"
+fi
+if test -z "${pallur_tools:-}" ; then
+	if test -e "${_workbench}/.local-tools" ; then
+		_tools="${_workbench}/.local-tools"
+	else
+		_tools="${_temporary}/__tools"
+	fi
+	echo "[ii] using mosaic-tools -> \`${_tools}\`;" >&2
+else
+	_tools="${pallur_tools}"
 fi
 if test -z "${pallur_PATH:-}" ; then
 	if test -e "${_tools}/.prepared" ; then
@@ -64,14 +64,14 @@ if test -z "${pallur_HOME:-}" ; then
 	if test -e "${_workbench}/.local-tools/home" ; then
 		_HOME="${_workbench}/.local-tools/home"
 	else
-		_HOME="${_workbench}/.temporary/__home"
+		_HOME="${_temporary}/__home"
 	fi
 	echo "[ii] using mosaic-HOME -> \`${_HOME}\`;" >&2
 else
 	_HOME="${pallur_HOME}"
 fi
 if test -z "${pallur_TMPDIR:-}" ; then
-	_TMPDIR="${_workbench}/.temporary/__tmpdir"
+	_TMPDIR="${_temporary}/__tmpdir"
 	echo "[ii] using mosaic-TMPDIR -> \`${_TMPDIR}\`;" >&2
 else
 	_TMPDIR="${pallur_TMPDIR}"
