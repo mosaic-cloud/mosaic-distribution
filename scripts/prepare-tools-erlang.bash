@@ -27,11 +27,38 @@ _CFLAGS="${pallur_CFLAGS}"
 _LDFLAGS="${pallur_LDFLAGS}"
 _LIBS="${pallur_LIBS}"
 
+_disabled_applications=(
+		#
+		odbc gs wx
+		#
+		common_test eunit test_server
+		edoc erl_docgen
+		cosEvent cosEventDomain cosFileTransfer cosNotification cosProperty cosTime cosTransactions ic orber
+		#
+		hipe
+		#
+)
+
+_configure_arguments=(
+			--disable-hipe
+			--enable-m32-build
+			--without-javac
+			--enable-dynamic-ssl-lib
+			--disable-builtin-zlib
+			--without-wx
+)
+for _disabled_application in "${_disabled_applications[@]}" ; do
+	_configure_arguments+=( "--without-${_disabled_application}" )
+done
+
 echo "[ii] building..." >&2
 
 (
 	export PATH="${_PATH}" CFLAGS="${_CFLAGS}" LDFLAGS="${_LDFLAGS}" LIBS="${_LIBS}"
-	./configure --prefix="${_tools}/pkg/erlang" || exit 1
+	./configure \
+			--prefix="${_tools}/pkg/erlang" \
+			"${_configure_arguments[@]}" \
+		|| exit 1
 	make -j 8 || exit 1
 	exit 0
 ) 2>&1 \

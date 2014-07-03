@@ -12,13 +12,13 @@ if test ! -e "${_tools}/.prepared" ; then
 	
 	for _tools_folder in "${_tools}" "${_tools}/bin" "${_tools}/lib" "${_tools}/include" "${_tools}/pkg" ; do
 		if test ! -e "${_tools_folder}" ; then
-			mkdir -m 0700 -- "${_tools_folder}"
+			mkdir -- "${_tools_folder}"
 		fi
 	done
 	
 	for _tools_folder in "${_tools}/pkg/miscellaneous" "${_tools}/pkg/miscellaneous/bin" ; do
 		if test ! -e "${_tools_folder}" ; then
-			mkdir -m 0700 -- "${_tools_folder}"
+			mkdir -- "${_tools_folder}"
 		fi
 	done
 	

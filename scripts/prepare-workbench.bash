@@ -5,6 +5,8 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
+echo "[ii] preparing workbench..." >&2
+
 if test ! -e "${_temporary}" ; then
 	mkdir -- "${_temporary}"
 fi

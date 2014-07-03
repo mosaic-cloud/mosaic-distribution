@@ -7,6 +7,7 @@ fi
 
 if test "${_do_prerequisites}" == true ; then
 	_script_exec "${_scripts}/prepare-workbench"
+	_script_exec "${_scripts}/prepare-repositories"
 	_script_exec "${_scripts}/prepare-tools-all"
 fi
 
