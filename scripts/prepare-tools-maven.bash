@@ -13,14 +13,22 @@ if test -e "${_tools}/pkg/mvn" ; then
 	exit 0
 fi
 
-echo "[ii] fetching..." >&2
+_outputs="${_temporary}/mvn--build"
 
-mkdir -- "${_tools}/pkg/mvn"
+echo "[ii] preparing..." >&2
+
+mkdir -- "${_outputs}"
 
 curl -s 'http://www.eu.apache.org/dist/maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz' \
-| tar -xz -C "${_tools}/pkg/mvn" --strip-components 1
+| tar -xz -C "${_outputs}" --strip-components 1
+chmod -R a=rX,u=rwX -- "${_outputs}"
 
 echo "[ii] deploying..." >&2
+
+mkdir -- "${_tools}/pkg/mvn"
+( cd -- "${_outputs}" ; exec find . -not -name '.git' -print0 ; ) \
+| ( cd -- "${_outputs}" ; exec cpio -p -0 --quiet -- "${_tools}/pkg/mvn" ; )
+chmod -R a=rX,u=rwX -- "${_tools}/pkg/mvn"
 
 ln -s -T -- "${_tools}/pkg/mvn/bin/mvn" "${_tools}/bin/mvn"
 
@@ -36,11 +44,19 @@ cat >|"${_tools}/pkg/mvn/conf/settings.xml" <<EOS
 </settings>
 EOS
 
-echo "[ii] preparing..." >&2
+echo "[ii] bootstrapping..." >&2
 
 . "${_scripts}/prepare-tools-maven-caches.bash"
 
 # FIXME: Make Maven fetch all required "base" plugins!
 M2_HOME="${_tools}/pkg/mvn" "${_tools}/bin/mvn" --quiet help:help
+
+echo "[ii] sealing..." >&2
+
+chmod -R a=rX -- "${_tools}/pkg/mvn"
+
+echo "[ii] cleaning..." >&2
+
+rm -R -- "${_outputs}"
 
 exit 0

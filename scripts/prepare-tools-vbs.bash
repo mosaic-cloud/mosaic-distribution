@@ -21,6 +21,7 @@ echo "[ii] preparing..." >&2
 mkdir -- "${_outputs}"
 cd -- "${_repository}"
 find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
+chmod -R a=rX,u=rwX -- "${_outputs}"
 cd -- "${_outputs}"
 
 echo "[ii] building..." >&2
@@ -36,9 +37,16 @@ echo "[ii] building..." >&2
 
 echo "[ii] deploying..." >&2
 
-cp -T -- "./.outputs/vbs.elf" "${_tools}/pkg/miscellaneous/bin/vbs"
+mkdir -- "${_tools}/pkg/vbs"
+mkdir -- "${_tools}/pkg/vbs/bin"
 
-ln -s -T -- "${_tools}/pkg/miscellaneous/bin/vbs" "${_tools}/bin/vbs"
+cp -T -- "./.outputs/vbs.elf" "${_tools}/pkg/vbs/bin/vbs"
+
+ln -s -T -- "${_tools}/pkg/vbs/bin/vbs" "${_tools}/bin/vbs"
+
+echo "[ii] sealing..." >&2
+
+chmod -R a=rX -- "${_tools}/pkg/vbs"
 
 echo "[ii] cleaning..." >&2
 

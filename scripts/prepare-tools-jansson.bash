@@ -21,6 +21,7 @@ echo "[ii] preparing..." >&2
 mkdir -- "${_outputs}"
 cd -- "${_repository}"
 find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
+chmod -R a=rX,u=rwX -- "${_outputs}"
 cd -- "${_outputs}"
 
 _CFLAGS="${pallur_CFLAGS}"
@@ -48,6 +49,10 @@ mkdir -- "${_tools}/pkg/jansson"
 	exit 0
 ) 2>&1 \
 | sed -u -r -e 's!^.*$![  ] &!g' >&2
+
+echo "[ii] sealing..." >&2
+
+chmod -R a=rX -- "${_tools}/pkg/jansson"
 
 echo "[ii] cleaning..." >&2
 

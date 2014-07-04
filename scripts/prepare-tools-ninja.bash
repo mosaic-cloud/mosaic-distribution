@@ -21,6 +21,7 @@ echo "[ii] preparing..." >&2
 mkdir -- "${_outputs}"
 cd -- "${_repository}"
 find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
+chmod -R a=rX,u=rwX -- "${_outputs}"
 cd -- "${_outputs}"
 
 _CFLAGS="${pallur_CFLAGS}"
@@ -38,9 +39,16 @@ echo "[ii] building..." >&2
 
 echo "[ii] deploying..." >&2
 
-cp -T -- "./ninja" "${_tools}/pkg/miscellaneous/bin/ninja"
+mkdir -- "${_tools}/pkg/ninja"
+mkdir -- "${_tools}/pkg/ninja/bin"
 
-ln -s -T -- "${_tools}/pkg/miscellaneous/bin/ninja" "${_tools}/bin/ninja"
+cp -T -- "./ninja" "${_tools}/pkg/ninja/bin/ninja"
+
+ln -s -T -- "${_tools}/pkg/ninja/bin/ninja" "${_tools}/bin/ninja"
+
+echo "[ii] sealing..." >&2
+
+chmod -R a=rX -- "${_tools}/pkg/ninja"
 
 echo "[ii] cleaning..." >&2
 

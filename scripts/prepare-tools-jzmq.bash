@@ -21,6 +21,7 @@ echo "[ii] preparing..." >&2
 mkdir -- "${_outputs}"
 cd -- "${_repository}"
 find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
+chmod -R a=rX,u=rwX -- "${_outputs}"
 cd -- "${_outputs}"
 
 _CFLAGS="-I${pallur_pkg_java}/include ${pallur_CFLAGS}"
@@ -51,6 +52,10 @@ mkdir -- "${_tools}/pkg/jzmq"
 | sed -u -r -e 's!^.*$![  ] &!g' >&2
 
 ln -s -T -- "${_tools}/pkg/jzmq/lib/libjzmq.so" "${_tools}/lib/libjzmq.so"
+
+echo "[ii] sealing..." >&2
+
+chmod -R a=rX -- "${_tools}/pkg/jzmq"
 
 echo "[ii] cleaning..." >&2
 

@@ -8,15 +8,9 @@ fi
 
 if test ! -e "${_tools}/.prepared" ; then
 	
-	echo "[ii] preparing tools..." >&2
+	echo "[ii] preparing environment..." >&2
 	
 	for _tools_folder in "${_tools}" "${_tools}/bin" "${_tools}/lib" "${_tools}/include" "${_tools}/pkg" ; do
-		if test ! -e "${_tools_folder}" ; then
-			mkdir -- "${_tools_folder}"
-		fi
-	done
-	
-	for _tools_folder in "${_tools}/pkg/miscellaneous" "${_tools}/pkg/miscellaneous/bin" ; do
 		if test ! -e "${_tools_folder}" ; then
 			mkdir -- "${_tools_folder}"
 		fi
@@ -79,6 +73,9 @@ if test ! -e "${_tools}/.prepared" ; then
 	esac
 	
 	for _package in "${_local_os_packages[@]}" ; do
+		if test -d "${_tools}/pkg/${_package}" ; then
+			chmod -R a=rX -- "${_tools}/pkg/${_package}"
+		fi
 		if test ! -e "${_tools}/pkg/${_package}/bin" ; then
 			continue
 		fi

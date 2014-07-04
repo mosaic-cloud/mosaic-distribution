@@ -21,6 +21,7 @@ echo "[ii] preparing..." >&2
 mkdir -- "${_outputs}"
 cd -- "${_repository}"
 find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
+chmod -R a=rX,u=rwX -- "${_outputs}"
 cd -- "${_outputs}"
 
 _CFLAGS="${pallur_CFLAGS}"
@@ -50,6 +51,10 @@ mkdir -- "${_tools}/pkg/zeromq"
 | sed -u -r -e 's!^.*$![  ] &!g' >&2
 
 ln -s -T -- "${_tools}/pkg/zeromq/lib/libzmq.so.1" "${_tools}/lib/libzmq.so.1"
+
+echo "[ii] sealing..." >&2
+
+chmod -R a=rX -- "${_tools}/pkg/zeromq"
 
 echo "[ii] cleaning..." >&2
 

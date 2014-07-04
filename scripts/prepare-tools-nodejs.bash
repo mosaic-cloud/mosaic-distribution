@@ -21,6 +21,7 @@ echo "[ii] preparing..." >&2
 mkdir -- "${_outputs}"
 cd -- "${_repository}"
 find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
+chmod -R a=rX,u=rwX -- "${_outputs}"
 cd -- "${_outputs}"
 
 _CFLAGS="${pallur_CFLAGS}"
@@ -51,12 +52,18 @@ mkdir -- "${_tools}/pkg/nodejs"
 find -H "${_tools}/pkg/nodejs/bin" -xtype f -executable \
 		-exec ln -s -t "${_tools}/bin" {} \;
 
+echo "[ii] bootstrapping..." >&2
+
+. "${_scripts}/prepare-tools-nodejs-caches.bash"
+
+echo "[ii] sealing..." >&2
+
+chmod -R a=rX -- "${_tools}/pkg/nodejs"
+
 echo "[ii] cleaning..." >&2
 
 rm -R -- "${_outputs}"
 
 echo "[ii] preparing..." >&2
-
-. "${_scripts}/prepare-tools-nodejs-caches.bash"
 
 exit 0

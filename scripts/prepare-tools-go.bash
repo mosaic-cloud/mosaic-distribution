@@ -21,6 +21,7 @@ echo "[ii] preparing..." >&2
 mkdir -- "${_outputs}"
 cd -- "${_repository}"
 find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
+chmod -R a=rX,u=rwX -- "${_outputs}"
 cd -- "${_outputs}"
 
 _CFLAGS="${pallur_CFLAGS}"
@@ -51,6 +52,10 @@ mv -t "${_tools}/pkg/go" -- \
 
 find -H "${_tools}/pkg/go/bin" -xtype f -executable \
 		-exec ln -s -t "${_tools}/bin" {} \;
+
+echo "[ii] sealing..." >&2
+
+chmod -R a=rX -- "${_tools}/pkg/go"
 
 echo "[ii] cleaning..." >&2
 

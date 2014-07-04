@@ -5,9 +5,15 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
+echo "[ii] preparing tools..." >&2
+
 for _tool in env erlang nodejs nodejs-caches go maven maven-caches zeromq jzmq jansson ninja vbs ; do
 	env -i "${_scripts_env[@]}" BASH_ENV="${_scripts}/_env.bash" bash -- "${_scripts}/prepare-tools-${_tool}.bash"
 	echo "[--]" >&2
 done
+
+echo "[ii] sealing tools..." >&2
+
+chmod -R a=rX -- "${_tools}"
 
 exit 0
