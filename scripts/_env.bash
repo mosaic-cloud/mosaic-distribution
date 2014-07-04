@@ -13,7 +13,7 @@ if test -z "${pallur_repositories:-}" ; then
 	else
 		_repositories="${_workbench}/mosaic-repositories/repositories"
 	fi
-	echo "[ii] using mosaic-repositories -> \`${_repositories}\`;" >&2
+	echo "[dd] using mosaic-repositories -> \`${_repositories}\`;" >&2
 else
 	_repositories="${pallur_repositories}"
 fi
@@ -23,7 +23,7 @@ if test -z "${pallur_dependencies:-}" ; then
 	else
 		_dependencies="${_workbench}/mosaic-dependencies/dependencies"
 	fi
-	echo "[ii] using mosaic-dependencies -> \`${_dependencies}\`;" >&2
+	echo "[dd] using mosaic-dependencies -> \`${_dependencies}\`;" >&2
 else
 	_dependencies="${pallur_dependencies}"
 fi
@@ -33,7 +33,7 @@ if test -z "${pallur_temporary:-}" ; then
 	else
 		_temporary="${TMPDIR:-/tmp}/$( basename -- "${_workbench}" )--$( readlink -e -- "${_workbench}" | tr -d '\n' | md5sum -t | tr -d ' \n-' )"
 	fi
-	echo "[ii] using mosaic-temporary -> \`${_temporary}\`;" >&2
+	echo "[dd] using mosaic-temporary -> \`${_temporary}\`;" >&2
 else
 	_temporary="${pallur_temporary}"
 fi
@@ -43,7 +43,7 @@ if test -z "${pallur_tools:-}" ; then
 	else
 		_tools="${_temporary}/__tools"
 	fi
-	echo "[ii] using mosaic-tools -> \`${_tools}\`;" >&2
+	echo "[dd] using mosaic-tools -> \`${_tools}\`;" >&2
 else
 	_tools="${pallur_tools}"
 fi
@@ -55,7 +55,7 @@ if test -z "${pallur_PATH:-}" ; then
 		_PATH="${_tools}/bin:/usr/local/bin:/usr/bin:/bin"
 		_PATH_stable=''
 	fi
-	echo "[ii] using mosaic-PATH -> \`${_PATH}\`;" >&2
+	echo "[dd] using mosaic-PATH -> \`${_PATH}\`;" >&2
 else
 	_PATH="${pallur_PATH}"
 	_PATH_stable="${pallur_PATH}"
@@ -66,20 +66,20 @@ if test -z "${pallur_HOME:-}" ; then
 	else
 		_HOME="${_temporary}/__home"
 	fi
-	echo "[ii] using mosaic-HOME -> \`${_HOME}\`;" >&2
+	echo "[dd] using mosaic-HOME -> \`${_HOME}\`;" >&2
 else
 	_HOME="${pallur_HOME}"
 fi
 if test -z "${pallur_TMPDIR:-}" ; then
 	_TMPDIR="${_temporary}/__tmpdir"
-	echo "[ii] using mosaic-TMPDIR -> \`${_TMPDIR}\`;" >&2
+	echo "[dd] using mosaic-TMPDIR -> \`${_TMPDIR}\`;" >&2
 else
 	_TMPDIR="${pallur_TMPDIR}"
 fi
 
 if test -z "${pallur_distribution_version:-}" ; then
 	_distribution_version="$( cat "${_workbench}/version.txt" )"
-	echo "[ii] using mosaic-distribution-version -> \`${_distribution_version}\`;" >&2
+	echo "[dd] using mosaic-distribution-version -> \`${_distribution_version}\`;" >&2
 else
 	_distribution_version="${pallur_distribution_version}"
 fi
@@ -201,7 +201,7 @@ while read _script_env_var ; do
 		;;
 	esac
 	if test "${_do_scripts_env_quiet:-}" == false ; then
-		echo "[ii] overriding scripts variable \`${_script_env_var}\`;" >&2
+		echo "[dd] overriding scripts variable \`${_script_env_var}\`;" >&2
 	fi
 done < <(
 	env \
@@ -219,6 +219,18 @@ _scripts_env+=( mosaic_do_scripts_env_quiet=true )
 if test -n "${SSH_AUTH_SOCK:-}" ; then
 	_scripts_env+=( SSH_AUTH_SOCK="${SSH_AUTH_SOCK}" )
 fi
+
+_git_bin="$( PATH="${_PATH}" type -P -- git || true )"
+if test -z "${_git_bin}" ; then
+	echo "[ww] missing \`git\` (Git DSCV) executable in path: \`${_PATH}\`; ignoring!" >&2
+	_git_bin=git
+fi
+
+_git_args=()
+_git_env=()
+while read _git_env_var ; do
+	_git_env+=( "${_git_env_var}" )
+done < <( env )
 
 function _script_exec () {
 	test "${#}" -ge 1
@@ -263,15 +275,3 @@ function _script_exec1 () {
 		return 0
 	fi
 }
-
-_git_bin="$( PATH="${_PATH}" type -P -- git || true )"
-if test -z "${_git_bin}" ; then
-	echo "[ww] missing \`git\` (Git DSCV) executable in path: \`${_PATH}\`; ignoring!" >&2
-	_git_bin=git
-fi
-
-_git_args=()
-_git_env=()
-while read _git_env_var ; do
-	_git_env+=( "${_git_env_var}" )
-done < <( env )
