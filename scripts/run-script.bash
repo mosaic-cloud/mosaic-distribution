@@ -8,6 +8,6 @@ fi
 test -f "${1}"
 test -x "${1}"
 
-_script_exec "${@}"
+_script_exec1 "${@}"
 
 exit 0

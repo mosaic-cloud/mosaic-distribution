@@ -223,9 +223,36 @@ fi
 function _script_exec () {
 	test "${#}" -ge 1
 	echo "[ii] executing script \`${@:1}\`..." >&2
+	_script_exec_log="$( basename -- "${_workbench}" )--$( tr -d '\n' <<<"${*}" | md5sum -t | tr -d ' \n-' )--$( date '+%Y-%m-%d-%H-%M-%S-%N' ).log"
+	if test -e "${_temporary}" ; then
+		_script_exec_log="${_temporary}/${_script_exec_log}"
+	elif test -e "${_TMPDIR}" ; then
+		_script_exec_log="${_TMPDIR}/${_script_exec_log}"
+	elif test -e /tmp ; then
+		_script_exec_log="/tmp/${_script_exec_log}"
+	else
+		false
+	fi
 	_outcome=0
-	env -i "${_scripts_env[@]}" "${@}" 2>&1 \
-	| sed -u -r -e 's!^.*$![  ] &!g' >&2 \
+	env -i "${_scripts_env[@]}" "${@}" </dev/null >"${_script_exec_log}" 2>&1 \
+	|| _outcome="${?}"
+	if test "${_outcome}" -ne 0 ; then
+		echo "[ww] failed with ${_outcome}; log available at ${_script_exec_log}" >&2
+		tail -n 20 -- "${_script_exec_log}" | sed -u -r -e 's!^.*$![  ] &!g' >&2
+		echo "[--]" >&2
+		return "${_outcome}"
+	else
+		rm -- "${_script_exec_log}"
+		echo "[--]" >&2
+		return 0
+	fi
+}
+
+function _script_exec1 () {
+	test "${#}" -ge 1
+	echo "[ii] executing script \`${@:1}\`..." >&2
+	_outcome=0
+	env -i "${_scripts_env[@]}" "${@}" </dev/null \
 	|| _outcome="${?}"
 	if test "${_outcome}" -ne 0 ; then
 		echo "[ww] failed with ${_outcome}" >&2
