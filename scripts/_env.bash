@@ -49,16 +49,18 @@ else
 fi
 if test -z "${pallur_PATH:-}" ; then
 	if test -e "${_tools}/.prepared" ; then
-		_PATH="${_tools}/bin"
-		_PATH_stable="${_PATH}"
+		_PATH_export="${_tools}/bin"
+		_PATH="${_PATH_export}"
+		echo "[dd] using mosaic-PATH -> \`${_PATH}\`;" >&2
 	else
+		_PATH_export=''
 		_PATH="${_tools}/bin:/usr/local/bin:/usr/bin:/bin"
-		_PATH_stable=''
+		echo "[dd] using mosaic-PATH (temporary) -> \`${_PATH}\`;" >&2
 	fi
 	echo "[dd] using mosaic-PATH -> \`${_PATH}\`;" >&2
 else
-	_PATH="${pallur_PATH}"
-	_PATH_stable="${pallur_PATH}"
+	_PATH_export="${pallur_PATH}"
+	_PATH="${_PATH_export}"
 fi
 if test -z "${pallur_HOME:-}" ; then
 	if test -e "${_workbench}/.local-tools/home" ; then
@@ -126,7 +128,7 @@ _scripts_env=(
 	pallur_pkg_jzmq="${_tools}/pkg/jzmq"
 	pallur_pkg_jansson="${_tools}/pkg/jansson"
 	
-	pallur_PATH="${_PATH}"
+	pallur_PATH="${_PATH_export}"
 	pallur_HOME="${_HOME}"
 	pallur_TMPDIR="${_TMPDIR}"
 	pallur_CFLAGS="-I${_tools}/include"
@@ -234,7 +236,7 @@ done < <( env )
 
 function _script_exec () {
 	test "${#}" -ge 1
-	echo "[ii] executing script \`${@:1}\`..." >&2
+	echo "[ii] executing \`${@:1}\`..." >&2
 	_script_exec_log="$( basename -- "${_workbench}" )--$( tr -d '\n' <<<"${*}" | md5sum -t | tr -d ' \n-' )--$( date '+%Y-%m-%d-%H-%M-%S-%N' ).log"
 	if test -e "${_temporary}" ; then
 		_script_exec_log="${_temporary}/${_script_exec_log}"
@@ -249,29 +251,27 @@ function _script_exec () {
 	env -i "${_scripts_env[@]}" "${@}" </dev/null >"${_script_exec_log}" 2>&1 \
 	|| _outcome="${?}"
 	if test "${_outcome}" -ne 0 ; then
-		echo "[ww] failed with ${_outcome}; log available at ${_script_exec_log}" >&2
+		echo "[ee] failed with ${_outcome}; log available at ${_script_exec_log}" >&2
 		tail -n 20 -- "${_script_exec_log}" | sed -u -r -e 's!^.*$![  ] &!g' >&2
 		echo "[--]" >&2
 		return "${_outcome}"
 	else
 		rm -- "${_script_exec_log}"
-		echo "[--]" >&2
 		return 0
 	fi
 }
 
 function _script_exec1 () {
 	test "${#}" -ge 1
-	echo "[ii] executing script \`${@:1}\`..." >&2
+	echo "[ii] executing \`${@:1}\`..." >&2
 	_outcome=0
 	env -i "${_scripts_env[@]}" "${@}" </dev/null \
 	|| _outcome="${?}"
 	if test "${_outcome}" -ne 0 ; then
-		echo "[ww] failed with ${_outcome}" >&2
+		echo "[ee] failed with ${_outcome}" >&2
 		echo "[--]" >&2
 		return "${_outcome}"
 	else
-		echo "[--]" >&2
 		return 0
 	fi
 }

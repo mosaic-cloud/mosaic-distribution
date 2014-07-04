@@ -54,7 +54,7 @@ find -H "${_tools}/pkg/nodejs/bin" -xtype f -executable \
 
 echo "[ii] bootstrapping..." >&2
 
-. "${_scripts}/prepare-tools-nodejs-caches.bash"
+( . "${_scripts}/prepare-tools-nodejs-caches.bash" ; )
 
 echo "[ii] sealing..." >&2
 

@@ -1,6 +1,9 @@
 #!/dev/null
 
 
+echo "[--]" >&2
+
+
 if test "${#}" -eq 0 ; then
 	_scripts_roots=( "${_scripts}" )
 	_scripts_suffix='-all'
@@ -46,5 +49,6 @@ for _scripts_root in "${_scripts_roots[@]}" ; do
 	fi
 	
 done
+
 
 exit 0

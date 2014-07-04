@@ -46,7 +46,7 @@ EOS
 
 echo "[ii] bootstrapping..." >&2
 
-. "${_scripts}/prepare-tools-maven-caches.bash"
+( . "${_scripts}/prepare-tools-maven-caches.bash" ; )
 
 # FIXME: Make Maven fetch all required "base" plugins!
 M2_HOME="${_tools}/pkg/mvn" "${_tools}/bin/mvn" --quiet help:help
