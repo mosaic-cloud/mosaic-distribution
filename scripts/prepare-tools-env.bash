@@ -73,7 +73,7 @@ if test ! -e "${_tools}/.prepared" ; then
 	esac
 	
 	for _package in "${_local_os_packages[@]}" ; do
-		if test -d "${_tools}/pkg/${_package}" ; then
+		if test ! -L "${_tools}/pkg/${_package}" ; then
 			chmod -R a=rX -- "${_tools}/pkg/${_package}"
 		fi
 		if test ! -e "${_tools}/pkg/${_package}/bin" ; then
