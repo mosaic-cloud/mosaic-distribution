@@ -8,8 +8,7 @@ fi
 echo "[ii] preparing tools..." >&2
 
 for _tool in env erlang nodejs nodejs-caches go maven maven-caches zeromq jzmq jansson ninja vbs ; do
-	env -i "${_scripts_env[@]}" BASH_ENV="${_scripts}/_env.bash" bash -- "${_scripts}/prepare-tools-${_tool}.bash"
-	echo "[--]" >&2
+	_script_exec env BASH_ENV="${_scripts}/_env.bash" bash -- "${_scripts}/prepare-tools-${_tool}.bash"
 done
 
 echo "[ii] sealing tools..." >&2
