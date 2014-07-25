@@ -10,12 +10,15 @@ _scripts="${_workbench}/scripts"
 if test -z "${pallur_repositories:-}" ; then
 	if test -e "${_workbench}/.local-mosaic-repositories" ; then
 		_repositories="${_workbench}/.local-mosaic-repositories"
+		_repositories_safe=false
 	else
 		_repositories="${_workbench}/mosaic-repositories/repositories"
+		_repositories_safe=true
 	fi
 	echo "[dd] using mosaic-repositories -> \`${_repositories}\`;" >&2
 else
 	_repositories="${pallur_repositories}"
+	_repositories_safe=false
 fi
 if test -z "${pallur_dependencies:-}" ; then
 	if test -e "${_workbench}/.local-mosaic-dependencies" ; then
@@ -251,7 +254,7 @@ function _script_exec () {
 	env -i "${_scripts_env[@]}" "${@}" </dev/null >"${_script_exec_log}" 2>&1 \
 	|| _outcome="${?}"
 	if test "${_outcome}" -ne 0 ; then
-		echo "[ee] failed with ${_outcome}; log available at ${_script_exec_log}" >&2
+		echo "[ee] failed with ${_outcome}; log available at \`${_script_exec_log}\`" >&2
 		tail -n 20 -- "${_script_exec_log}" | sed -u -r -e 's!^.*$![  ] &!g' >&2
 		echo "[--]" >&2
 		return "${_outcome}"

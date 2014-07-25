@@ -7,6 +7,11 @@ fi
 
 echo "[ii] preparing repositories..." >&2
 
+if test "${_repositories_safe}" != true ; then
+	echo "[ww] skipping!" >&2
+	exit 0
+fi
+
 echo "[ii] initializing submodules..." >&2
 env -i "${_git_env[@]}" "${_git_bin}" \
 		submodule init --quiet
