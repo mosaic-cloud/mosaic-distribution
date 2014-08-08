@@ -50,6 +50,16 @@ if test -z "${pallur_tools:-}" ; then
 else
 	_tools="${pallur_tools}"
 fi
+if test -z "${pallur_artifacts:-}" ; then
+	if test -e "${_workbench}/.local-artifacts" ; then
+		_artifacts="${_workbench}/.local-artifacts"
+	else
+		_artifacts="${_temporary}/__artifacts"
+	fi
+	echo "[dd] using mosaic-artifacts -> \`${_artifacts}\`;" >&2
+else
+	_artifacts="${pallur_artifacts}"
+fi
 if test -z "${pallur_PATH:-}" ; then
 	if test -e "${_tools}/.prepared" ; then
 		_PATH_export="${_tools}/bin"
@@ -117,6 +127,7 @@ _scripts_env=(
 	pallur_dependencies="${_dependencies}"
 	pallur_tools="${_tools}"
 	pallur_temporary="${_temporary}"
+	pallur_artifacts="${_artifacts}"
 	
 	pallur_local_os_identifier="${_local_os_identifier}"
 	pallur_local_os_version="${_local_os_version}"

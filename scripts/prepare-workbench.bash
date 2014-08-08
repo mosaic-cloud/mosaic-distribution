@@ -10,6 +10,9 @@ echo "[ii] preparing workbench..." >&2
 if test ! -e "${_temporary}" ; then
 	mkdir -- "${_temporary}"
 fi
+if test ! -e "${_artifacts}" ; then
+	mkdir -- "${_artifacts}"
+fi
 if test ! -e "${_HOME}" ; then
 	mkdir -- "${_HOME}"
 fi
