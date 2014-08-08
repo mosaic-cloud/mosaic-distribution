@@ -92,7 +92,7 @@ done
 
 cat <<EOS
 
-pallur-bootstrap : pallur-workbench pallur-repositories pallur-environment
+pallur-bootstrap : pallur-workbench pallur-repositories pallur-environment pallur-packages
 
 pallur-workbench :
 	${_scripts}/prepare-workbench
@@ -121,8 +121,10 @@ for _tool in erlang nodejs nodejs-caches go maven maven-caches zeromq jzmq janss
 	
 	cat <<EOS
 
-pallur-packages@${_tool} : pallur-bootstrap
+pallur-packages@${_tool} : pallur-environment
 	env BASH_ENV=${_scripts}/_env.bash bash -- ${_scripts}/prepare-tools-${_tool}.bash
+
+pallur-packages : pallur-packages@{_tool}
 
 EOS
 	
