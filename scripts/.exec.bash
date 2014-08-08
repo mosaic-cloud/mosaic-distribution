@@ -5,9 +5,6 @@ if ! test "${#}" -ne 0 ; then
 	exit 1
 fi
 
-test -f "${1}"
-test -x "${1}"
-
-_script_exec1 "${@}"
+_script_exec "${@}"
 
 exit 0

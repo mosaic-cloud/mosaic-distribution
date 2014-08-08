@@ -8,25 +8,25 @@ _workbench="$( readlink -e -- . )"
 _scripts="${_workbench}/scripts"
 
 if test -z "${pallur_repositories:-}" ; then
-	if test -e "${_workbench}/.local-mosaic-repositories" ; then
-		_repositories="${_workbench}/.local-mosaic-repositories"
+	if test -e "${_workbench}/.local-repositories" ; then
+		_repositories="${_workbench}/.local-repositories"
 		_repositories_safe=false
 	else
 		_repositories="${_workbench}/mosaic-repositories/repositories"
 		_repositories_safe=true
 	fi
-	echo "[dd] using mosaic-repositories -> \`${_repositories}\`;" >&2
+	echo "[dd] using pallur-repositories -> \`${_repositories}\`;" >&2
 else
 	_repositories="${pallur_repositories}"
 	_repositories_safe=false
 fi
 if test -z "${pallur_dependencies:-}" ; then
-	if test -e "${_workbench}/.local-mosaic-dependencies" ; then
-		_dependencies="${_workbench}/.local-mosaic-dependencies"
+	if test -e "${_workbench}/.local-dependencies" ; then
+		_dependencies="${_workbench}/.local-dependencies"
 	else
 		_dependencies="${_workbench}/mosaic-dependencies/dependencies"
 	fi
-	echo "[dd] using mosaic-dependencies -> \`${_dependencies}\`;" >&2
+	echo "[dd] using pallur-dependencies -> \`${_dependencies}\`;" >&2
 else
 	_dependencies="${pallur_dependencies}"
 fi
@@ -36,7 +36,7 @@ if test -z "${pallur_temporary:-}" ; then
 	else
 		_temporary="${TMPDIR:-/tmp}/$( basename -- "${_workbench}" )--$( readlink -e -- "${_workbench}" | tr -d '\n' | md5sum -t | tr -d ' \n-' )"
 	fi
-	echo "[dd] using mosaic-temporary -> \`${_temporary}\`;" >&2
+	echo "[dd] using pallur-temporary -> \`${_temporary}\`;" >&2
 else
 	_temporary="${pallur_temporary}"
 fi
@@ -46,7 +46,7 @@ if test -z "${pallur_tools:-}" ; then
 	else
 		_tools="${_temporary}/__tools"
 	fi
-	echo "[dd] using mosaic-tools -> \`${_tools}\`;" >&2
+	echo "[dd] using pallur-tools -> \`${_tools}\`;" >&2
 else
 	_tools="${pallur_tools}"
 fi
@@ -56,7 +56,7 @@ if test -z "${pallur_artifacts:-}" ; then
 	else
 		_artifacts="${_temporary}/__artifacts"
 	fi
-	echo "[dd] using mosaic-artifacts -> \`${_artifacts}\`;" >&2
+	echo "[dd] using pallur-artifacts -> \`${_artifacts}\`;" >&2
 else
 	_artifacts="${pallur_artifacts}"
 fi
@@ -64,13 +64,13 @@ if test -z "${pallur_PATH:-}" ; then
 	if test -e "${_tools}/.prepared" ; then
 		_PATH_export="${_tools}/bin"
 		_PATH="${_PATH_export}"
-		echo "[dd] using mosaic-PATH -> \`${_PATH}\`;" >&2
+		echo "[dd] using pallur-PATH -> \`${_PATH}\`;" >&2
 	else
 		_PATH_export=''
 		_PATH="${_tools}/bin:/usr/local/bin:/usr/bin:/bin"
-		echo "[dd] using mosaic-PATH (temporary) -> \`${_PATH}\`;" >&2
+		echo "[dd] using pallur-PATH (temporary) -> \`${_PATH}\`;" >&2
 	fi
-	echo "[dd] using mosaic-PATH -> \`${_PATH}\`;" >&2
+	echo "[dd] using pallur-PATH -> \`${_PATH}\`;" >&2
 else
 	_PATH_export="${pallur_PATH}"
 	_PATH="${_PATH_export}"
@@ -81,20 +81,20 @@ if test -z "${pallur_HOME:-}" ; then
 	else
 		_HOME="${_temporary}/__home"
 	fi
-	echo "[dd] using mosaic-HOME -> \`${_HOME}\`;" >&2
+	echo "[dd] using pallur-HOME -> \`${_HOME}\`;" >&2
 else
 	_HOME="${pallur_HOME}"
 fi
 if test -z "${pallur_TMPDIR:-}" ; then
 	_TMPDIR="${_temporary}/__tmpdir"
-	echo "[dd] using mosaic-TMPDIR -> \`${_TMPDIR}\`;" >&2
+	echo "[dd] using pallur-TMPDIR -> \`${_TMPDIR}\`;" >&2
 else
 	_TMPDIR="${pallur_TMPDIR}"
 fi
 
 if test -z "${pallur_distribution_version:-}" ; then
 	_distribution_version="0.7.0_dev"
-	echo "[dd] using mosaic-distribution-version -> \`${_distribution_version}\`;" >&2
+	echo "[dd] using pallur-distribution-version -> \`${_distribution_version}\`;" >&2
 else
 	_distribution_version="${pallur_distribution_version}"
 fi
@@ -155,69 +155,12 @@ _scripts_env=(
 	TMPDIR="${_TMPDIR}"
 )
 
-case "${mosaic_do_selection:-core+java}" in
-	
-	( all )
-		_do_prerequisites="${mosaic_do_prerequisites:-true}"
-		_do_node="${mosaic_do_node:-true}"
-		_do_components="${mosaic_do_components:-true}"
-		_do_java="${mosaic_do_java:-true}"
-		_do_examples="${mosaic_do_examples:-true}"
-		_do_feeds="${mosaic_do_feeds:-true}"
-		_do_mos="${mosaic_do_mos:-true}"
-	;;
-	
-	( core )
-		_do_prerequisites="${mosaic_do_prerequisites:-true}"
-		_do_node="${mosaic_do_node:-true}"
-		_do_components="${mosaic_do_components:-true}"
-		_do_java="${mosaic_do_java:-false}"
-		_do_examples="${mosaic_do_examples:-false}"
-		_do_feeds="${mosaic_do_feeds:-false}"
-		_do_mos="${mosaic_do_mos:-true}"
-	;;
-	
-	( core+java )
-		_do_prerequisites="${mosaic_do_prerequisites:-true}"
-		_do_node="${mosaic_do_node:-true}"
-		_do_components="${mosaic_do_components:-true}"
-		_do_java="${mosaic_do_java:-true}"
-		_do_examples="${mosaic_do_examples:-false}"
-		_do_feeds="${mosaic_do_feeds:-false}"
-		_do_mos="${mosaic_do_mos:-true}"
-	;;
-	
-	( java )
-		_do_prerequisites="${mosaic_do_prerequisites:-true}"
-		_do_node="${mosaic_do_node:-false}"
-		_do_components="${mosaic_do_components:-false}"
-		_do_java="${mosaic_do_java:-true}"
-		_do_examples="${mosaic_do_examples:-false}"
-		_do_feeds="${mosaic_do_feeds:-false}"
-		_do_mos="${mosaic_do_mos:-true}"
-	;;
-	
-	( none )
-		_do_prerequisites="${mosaic_do_prerequisites:-false}"
-		_do_node="${mosaic_do_node:-false}"
-		_do_components="${mosaic_do_components:-false}"
-		_do_java="${mosaic_do_java:-false}"
-		_do_examples="${mosaic_do_examples:-false}"
-		_do_feeds="${mosaic_do_feeds:-false}"
-		_do_mos="${mosaic_do_mos:-false}"
-	;;
-	
-	( * )
-		false
-	;;
-esac
-
-_do_scripts_env_quiet="${mosaic_do_scripts_env_quiet:-true}"
+_do_scripts_env_quiet="${pallur_do_scripts_env_quiet:-true}"
 
 while read _script_env_var ; do
 	_scripts_env+=( "${_script_env_var}" )
 	case "${_script_env_var}" in
-		( _pallur_* | _mosaic_* | _mos_* )
+		( _pallur_* )
 			echo "[ww] exporting private scripts variable \`${_script_env_var}\`;" >&2
 		;;
 	esac
@@ -229,13 +172,9 @@ done < <(
 	| grep -E \
 			-e '^pallur_[^=]+=.*$' \
 			-e '^_pallur_[^=]+=.*$' \
-			-e '^mosaic_[^=]+=.*$' \
-			-e '^_mosaic_[^=]+=.*$' \
-			-e '^mos_[^=]+=.*$' \
-			-e '^_mos_[^=]+=.*$' \
 	|| true
 )
-_scripts_env+=( mosaic_do_scripts_env_quiet=true )
+_scripts_env+=( pallur_do_scripts_env_quiet=true )
 
 if test -n "${SSH_AUTH_SOCK:-}" ; then
 	_scripts_env+=( SSH_AUTH_SOCK="${SSH_AUTH_SOCK}" )
