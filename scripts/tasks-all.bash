@@ -92,7 +92,7 @@ done
 
 cat <<EOS
 
-pallur-bootstrap : pallur-workbench pallur-repositories pallur-environment pallur-packages
+pallur-bootstrap : pallur-workbench pallur-repositories pallur-environment
 
 pallur-workbench :
 	${_scripts}/prepare-workbench
