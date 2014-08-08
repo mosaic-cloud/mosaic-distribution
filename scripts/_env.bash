@@ -93,7 +93,7 @@ else
 fi
 
 if test -z "${pallur_distribution_version:-}" ; then
-	_distribution_version="$( cat "${_workbench}/version.txt" )"
+	_distribution_version="0.7.0_dev"
 	echo "[dd] using mosaic-distribution-version -> \`${_distribution_version}\`;" >&2
 else
 	_distribution_version="${pallur_distribution_version}"
