@@ -70,7 +70,6 @@ if test -z "${pallur_PATH:-}" ; then
 		_PATH="${_tools}/bin:/usr/local/bin:/usr/bin:/bin"
 		echo "[dd] using pallur-PATH (temporary) -> \`${_PATH}\`;" >&2
 	fi
-	echo "[dd] using pallur-PATH -> \`${_PATH}\`;" >&2
 else
 	_PATH_export="${pallur_PATH}"
 	_PATH="${_PATH_export}"

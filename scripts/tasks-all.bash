@@ -110,9 +110,9 @@ pallur-packages@rpm : pallur-environment
 pallur-packages@jzmq : pallur-packages@zeromq
 
 pallur-packages@mvn : pallur-packages@maven
-pallur-packages@maven : pallur-packages@maven-caches
+pallur-packages@maven-caches : pallur-packages@maven
 
-pallur-packages@nodejs : pallur-packages@nodejs-caches
+pallur-packages@nodejs-caches : pallur-packages@nodejs
 
 EOS
 
