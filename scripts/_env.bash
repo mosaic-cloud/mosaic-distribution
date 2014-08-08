@@ -164,6 +164,7 @@ case "${mosaic_do_selection:-core+java}" in
 		_do_java="${mosaic_do_java:-true}"
 		_do_examples="${mosaic_do_examples:-true}"
 		_do_feeds="${mosaic_do_feeds:-true}"
+		_do_mos="${mosaic_do_mos:-true}"
 	;;
 	
 	( core )
@@ -173,6 +174,7 @@ case "${mosaic_do_selection:-core+java}" in
 		_do_java="${mosaic_do_java:-false}"
 		_do_examples="${mosaic_do_examples:-false}"
 		_do_feeds="${mosaic_do_feeds:-false}"
+		_do_mos="${mosaic_do_mos:-true}"
 	;;
 	
 	( core+java )
@@ -182,6 +184,7 @@ case "${mosaic_do_selection:-core+java}" in
 		_do_java="${mosaic_do_java:-true}"
 		_do_examples="${mosaic_do_examples:-false}"
 		_do_feeds="${mosaic_do_feeds:-false}"
+		_do_mos="${mosaic_do_mos:-true}"
 	;;
 	
 	( java )
@@ -191,6 +194,7 @@ case "${mosaic_do_selection:-core+java}" in
 		_do_java="${mosaic_do_java:-true}"
 		_do_examples="${mosaic_do_examples:-false}"
 		_do_feeds="${mosaic_do_feeds:-false}"
+		_do_mos="${mosaic_do_mos:-true}"
 	;;
 	
 	( none )
@@ -200,6 +204,7 @@ case "${mosaic_do_selection:-core+java}" in
 		_do_java="${mosaic_do_java:-false}"
 		_do_examples="${mosaic_do_examples:-false}"
 		_do_feeds="${mosaic_do_feeds:-false}"
+		_do_mos="${mosaic_do_mos:-false}"
 	;;
 	
 	( * )

@@ -9,6 +9,9 @@ if test "${_do_node}" == true ; then
 	_script_exec "${_repositories}/mosaic-node/scripts/compile"
 	_script_exec "${_repositories}/mosaic-node-wui/scripts/compile"
 	_script_exec "${_repositories}/mosaic-node-boot/scripts/compile"
+	if test "${_do_mos}" == true ; then
+		_script_exec "${_repositories}/mosaic-mos-platform-packages/scripts/compile" mosaic-platform-controller
+	fi
 fi
 
 if test "${_do_components}" == true ; then
@@ -18,6 +21,14 @@ if test "${_do_components}" == true ; then
 	_script_exec "${_repositories}/mosaic-components-httpg/scripts/compile"
 	_script_exec "${_repositories}/mosaic-components-mysql/scripts/compile"
 	_script_exec "${_repositories}/mosaic-components-me2cp/scripts/compile"
+	if test "${_do_mos}" == true ; then
+		_script_exec "${_repositories}/mosaic-mos-platform-packages/scripts/compile" mosaic-components-rabbitmq
+		_script_exec "${_repositories}/mosaic-mos-platform-packages/scripts/compile" mosaic-components-riak-kv
+		_script_exec "${_repositories}/mosaic-mos-platform-packages/scripts/compile" mosaic-components-couchdb
+		_script_exec "${_repositories}/mosaic-mos-platform-packages/scripts/compile" mosaic-components-httpg
+		_script_exec "${_repositories}/mosaic-mos-platform-packages/scripts/compile" mosaic-components-mysql
+		_script_exec "${_repositories}/mosaic-mos-platform-packages/scripts/compile" mosaic-components-me2cp
+	fi
 fi
 
 if test "${_do_java}" == true ; then
@@ -26,6 +37,12 @@ if test "${_do_java}" == true ; then
 	_script_exec "${_repositories}/mosaic-java-platform/cloudlets/scripts/compile"
 	_script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/amqp/scripts/compile"
 	_script_exec "${_repositories}/mosaic-java-platform/drivers-stubs/riak/scripts/compile"
+	if test "${_do_mos}" == true ; then
+		_script_exec "${_repositories}/mosaic-mos-platform-packages/scripts/compile" mosaic-components-java-component-container
+		_script_exec "${_repositories}/mosaic-mos-platform-packages/scripts/compile" mosaic-components-java-cloudlet-container
+		_script_exec "${_repositories}/mosaic-mos-platform-packages/scripts/compile" mosaic-components-java-driver-amqp
+		_script_exec "${_repositories}/mosaic-mos-platform-packages/scripts/compile" mosaic-components-java-driver-riak
+	fi
 fi
 
 if test "${_do_feeds}" == true ; then
