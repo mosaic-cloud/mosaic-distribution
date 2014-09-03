@@ -5,12 +5,12 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
-echo "[ii] initializing repositories..." >&2
+echo "[ii] initializing submodules..." >&2
 env -i "${_git_env}" "${_git_bin}" \
 		submodule init --quiet
 
-echo "[ii] updating repositories..." >&2
+echo "[ii] updating submodules..." >&2
 env -i "${_git_env}" "${_git_bin}" \
-		submodule update --quiet --init --recursive
+		submodule update --quiet --recursive --init --force
 
 exit 0

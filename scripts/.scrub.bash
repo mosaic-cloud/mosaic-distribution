@@ -5,6 +5,10 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
+echo "[ii] updating submodules..." >&2
+env -i "${_git_env[@]}" "${_git_bin}" \
+		submodule update --quiet --recursive --force
+
 echo "[ii] resetting submodules..." >&2
 env -i "${_git_env[@]}" "${_git_bin}" \
 		submodule foreach --quiet --recursive \
