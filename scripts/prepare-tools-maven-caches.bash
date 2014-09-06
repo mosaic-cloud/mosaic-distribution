@@ -5,6 +5,10 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
+if test ! -e "${_tools}/pkg/mvn" ; then
+	exit 0
+fi
+
 if test ! -e "${_tools}/pkg/mvn/repo" ; then
 	if test -L "${_tools}/pkg/mvn/repo" ; then
 		_repo_store="$( readlink -- "${_tools}/pkg/mvn/repo" )"

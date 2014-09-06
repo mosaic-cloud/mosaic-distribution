@@ -30,8 +30,6 @@ mkdir -- "${_tools}/pkg/mvn"
 | ( cd -- "${_outputs}" ; exec cpio -p -0 --quiet -- "${_tools}/pkg/mvn" ; )
 chmod -R a=rX,u=rwX -- "${_tools}/pkg/mvn"
 
-ln -s -T -- "${_tools}/pkg/mvn/bin/mvn" "${_tools}/bin/mvn"
-
 echo "[ii] configuring..." >&2
 
 cat >|"${_tools}/pkg/mvn/conf/settings.xml" <<EOS
@@ -49,7 +47,9 @@ echo "[ii] bootstrapping..." >&2
 ( . "${_scripts}/prepare-tools-maven-caches.bash" ; )
 
 # FIXME: Make Maven fetch all required "base" plugins!
-M2_HOME="${_tools}/pkg/mvn" "${_tools}/bin/mvn" --quiet help:help
+_do_exec env \
+			M2_HOME="${_tools}/pkg/mvn" \
+	"${_tools}/pkg/mvn/bin/mvn" --quiet help:help
 
 echo "[ii] sealing..." >&2
 

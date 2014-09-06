@@ -8,7 +8,7 @@ fi
 echo "[ii] building \`go\` (Go Lang)..." >&2
 
 if test -e "${_tools}/pkg/go" ; then
-	echo "[ii] \`go\` already exists; aborting!" >&2
+	echo "[ii] \`go\` package already exists; aborting!" >&2
 	echo "[ii] (to force the build remove the folder \`${_tools}/pkg/go\`)" >&2
 	exit 0
 fi
@@ -30,14 +30,17 @@ _LIBS="${pallur_LIBS}"
 
 echo "[ii] building..." >&2
 
-(
-	export PATH="${_PATH}" CFLAGS="${_CFLAGS}" LDFLAGS="${_LDFLAGS}" LIBS="${_LIBS}"
-	export GOROOT="${_outputs}" GOROOT_FINAL="${_tools}/pkg/go"
-	cd ./src || exit 1
-	./all.bash || exit 1
-	exit 0
-) 2>&1 \
-| sed -u -r -e 's!^.*$![  ] &!g' >&2
+pushd -- ./src >/dev/null
+
+_do_exec env \
+			GOROOT="${_outputs}" \
+			GOROOT_FINAL="${_tools}/pkg/go" \
+			CFLAGS="${_CFLAGS}" \
+			LDFLAGS="${_LDFLAGS}" \
+			LIBS="${_LIBS}"
+	./make.bash
+
+popd >/dev/null
 
 echo "[ii] deploying..." >&2
 
@@ -49,9 +52,6 @@ mv -t "${_tools}/pkg/go" -- \
 		"${_outputs}/lib" \
 		"${_outputs}/pkg" \
 		"${_outputs}/src"
-
-find -H "${_tools}/pkg/go/bin" -xtype f -executable \
-		-exec ln -s -t "${_tools}/bin" {} \;
 
 echo "[ii] sealing..." >&2
 

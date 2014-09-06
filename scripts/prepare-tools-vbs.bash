@@ -7,9 +7,9 @@ fi
 
 echo "[ii] building \`vbs\` (Volution Build System)..." >&2
 
-if test -e "${_tools}/bin/vbs" ; then
-	echo "[ii] \`vbs\` executable already exists; aborting!" >&2
-	echo "[ii] (to force the build remove the file \`${_tools}/bin/vbs\`)" >&2
+if test -e "${_tools}/pkg/vbs" ; then
+	echo "[ii] \`vbs\` package already exists; aborting!" >&2
+	echo "[ii] (to force the build remove the folder \`${_tools}/pkg/vbs\`)" >&2
 	exit 0
 fi
 
@@ -26,23 +26,22 @@ cd -- "${_outputs}"
 
 echo "[ii] building..." >&2
 
-(
-	export PATH="${_PATH}"
-	./scripts/make-mk.bash || exit 1
-	./scripts/make-chicken.bash || exit 1
-	./scripts/make.bash || exit 1
-	exit 0
-) 2>&1 \
-| sed -u -r -e 's!^.*$![  ] &!g' >&2
+_do_exec \
+	./scripts/make-mk.bash
+
+_do_exec \
+	./scripts/make-chicken.bash
+
+_do_exec env \
+			vbs_mk_vbs_target="${_outputs}/vbs.elf" \
+	./scripts/make.bash vbs_deploy
 
 echo "[ii] deploying..." >&2
 
 mkdir -- "${_tools}/pkg/vbs"
 mkdir -- "${_tools}/pkg/vbs/bin"
 
-cp -T -- "./.outputs/vbs.elf" "${_tools}/pkg/vbs/bin/vbs"
-
-ln -s -T -- "${_tools}/pkg/vbs/bin/vbs" "${_tools}/bin/vbs"
+cp -T -- "${_outputs}/vbs.elf" "${_tools}/pkg/vbs/bin/vbs"
 
 echo "[ii] sealing..." >&2
 

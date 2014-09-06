@@ -7,9 +7,9 @@ fi
 
 echo "[ii] building \`ninja\` (Ninja build tool)..." >&2
 
-if test -e "${_tools}/bin/ninja" ; then
-	echo "[ii] \`ninja\` executable already exists; aborting!" >&2
-	echo "[ii] (to force the build remove the file \`${_tools}/bin/ninja\`)" >&2
+if test -e "${_tools}/pkg/ninja" ; then
+	echo "[ii] \`ninja\` package already exists; aborting!" >&2
+	echo "[ii] (to force the build remove the folder \`${_tools}/pkg/ninja\`)" >&2
 	exit 0
 fi
 
@@ -30,12 +30,11 @@ _LIBS="${pallur_LIBS}"
 
 echo "[ii] building..." >&2
 
-(
-	export PATH="${_PATH}" CFLAGS="${_CFLAGS}" LDFLAGS="${_LDFLAGS}" LIBS="${_LIBS}"
-	./bootstrap.sh || exit 1
-	exit 0
-) 2>&1 \
-| sed -u -r -e 's!^.*$![  ] &!g' >&2
+_do_exec env \
+			CFLAGS="${_CFLAGS}" \
+			LDFLAGS="${_LDFLAGS}" \
+			LIBS="${_LIBS}" \
+	./bootstrap.sh
 
 echo "[ii] deploying..." >&2
 
@@ -43,8 +42,6 @@ mkdir -- "${_tools}/pkg/ninja"
 mkdir -- "${_tools}/pkg/ninja/bin"
 
 cp -T -- "./ninja" "${_tools}/pkg/ninja/bin/ninja"
-
-ln -s -T -- "${_tools}/pkg/ninja/bin/ninja" "${_tools}/bin/ninja"
 
 echo "[ii] sealing..." >&2
 

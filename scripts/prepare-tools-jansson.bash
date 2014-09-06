@@ -8,7 +8,7 @@ fi
 echo "[ii] building \`jansson\` (C JSON library)..." >&2
 
 if test -e "${_tools}/pkg/jansson" ; then
-	echo "[ii] \`jansson\` libary already exists; aborting!" >&2
+	echo "[ii] \`jansson\` package already exists; aborting!" >&2
 	echo "[ii] (to force the build remove the folder \`${_tools}/pkg/jansson\`)" >&2
 	exit 0
 fi
@@ -30,25 +30,28 @@ _LIBS="${pallur_LIBS}"
 
 echo "[ii] building..." >&2
 
-(
-	export PATH="${_PATH}" CFLAGS="${_CFLAGS}" LDFLAGS="${_LDFLAGS}" LIBS="${_LIBS}"
-	autoreconf -i || exit 1
-	./configure --prefix="${_tools}/pkg/jansson" || exit 1
-	make -j 8 || exit 1
-	exit 0
-) 2>&1 \
-| sed -u -r -e 's!^.*$![  ] &!g' >&2
+_do_exec \
+	autoreconf -i
+
+_do_exec env \
+			CFLAGS="${_CFLAGS}" \
+			LDFLAGS="${_LDFLAGS}" \
+			LIBS="${_LIBS}" \
+	./configure \
+		--prefix="${_tools}/pkg/jansson"
+
+_do_exec env \
+			CFLAGS="${_CFLAGS}" \
+			LDFLAGS="${_LDFLAGS}" \
+			LIBS="${_LIBS}" \
+	make -j 8
 
 echo "[ii] deploying..." >&2
 
 mkdir -- "${_tools}/pkg/jansson"
 
-(
-	export PATH="${_PATH}"
-	make install || exit 1
-	exit 0
-) 2>&1 \
-| sed -u -r -e 's!^.*$![  ] &!g' >&2
+_do_exec \
+	make install
 
 echo "[ii] sealing..." >&2
 

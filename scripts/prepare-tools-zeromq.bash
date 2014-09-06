@@ -8,7 +8,7 @@ fi
 echo "[ii] building \`zeromq\` (ZeroMQ)..." >&2
 
 if test -e "${_tools}/pkg/zeromq" ; then
-	echo "[ii] \`zeromq\` libary already exists; aborting!" >&2
+	echo "[ii] \`zeromq\` package already exists; aborting!" >&2
 	echo "[ii] (to force the build remove the folder \`${_tools}/pkg/zeromq\`)" >&2
 	exit 0
 fi
@@ -30,25 +30,28 @@ _LIBS="${pallur_LIBS}"
 
 echo "[ii] building..." >&2
 
-(
-	export PATH="${_PATH}" CFLAGS="${_CFLAGS}" LDFLAGS="${_LDFLAGS}" LIBS="${_LIBS}"
-	./autogen.sh || exit 1
-	./configure --prefix="${_tools}/pkg/zeromq" || exit 1
-	make -j 8 || exit 1
-	exit 0
-) 2>&1 \
-| sed -u -r -e 's!^.*$![  ] &!g' >&2
+_do_exec \
+	./autogen.sh
+
+_do_exec env \
+			CFLAGS="${_CFLAGS}" \
+			LDFLAGS="${_LDFLAGS}" \
+			LIBS="${_LIBS}" \
+	./configure \
+		--prefix="${_tools}/pkg/zeromq"
+
+_do_exec env \
+			CFLAGS="${_CFLAGS}" \
+			LDFLAGS="${_LDFLAGS}" \
+			LIBS="${_LIBS}" \
+	make -j 8
 
 echo "[ii] deploying..." >&2
 
 mkdir -- "${_tools}/pkg/zeromq"
 
-(
-	export PATH="${_PATH}"
-	make install || exit 1
-	exit 0
-) 2>&1 \
-| sed -u -r -e 's!^.*$![  ] &!g' >&2
+_do_exec \
+	make install
 
 ln -s -T -- "${_tools}/pkg/zeromq/lib/libzmq.so.1" "${_tools}/lib/libzmq.so.1"
 

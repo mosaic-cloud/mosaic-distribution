@@ -5,6 +5,10 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
+if test ! -e "${_tools}/pkg/nodejs" ; then
+	exit 0
+fi
+
 if test ! -e "${_tools}/pkg/nodejs/cache" ; then
 	if test -L "${_tools}/pkg/nodejs/cache" ; then
 		_cache_store="$( readlink -- "${_tools}/pkg/nodejs/cache" )"

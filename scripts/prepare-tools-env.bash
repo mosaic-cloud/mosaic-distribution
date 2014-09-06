@@ -47,7 +47,7 @@ if test ! -e "${_tools}/.prepared" ; then
 				fi
 				for _dependency in "${_distribution_archlinux_dependencies[@]}" ; do
 					pacman -Q -l -q -- "${_dependency}" \
-					| grep -E -e '^/(bin|usr/bin|usr/local/bin|opt/[^/]+/bin)/[^/]+$' \
+					| ( grep -E -e '^/(bin|usr/bin|usr/local/bin|opt/[^/]+/bin)/[^/]+$' || true ) \
 					| while read _path ; do
 						ln -s -f -t "${_tools}/pkg/core/bin" -- "${_path}"
 					done

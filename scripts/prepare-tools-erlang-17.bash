@@ -5,16 +5,16 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
-echo "[ii] building \`nodejs\` (NodeJS)..." >&2
+echo "[ii] building \`erlang-17\` (OTP / Erlang)..." >&2
 
-if test -e "${_tools}/pkg/nodejs" ; then
-	echo "[ii] \`nodejs\` package already exists; aborting!" >&2
-	echo "[ii] (to force the build remove the folder \`${_tools}/pkg/nodejs\`)" >&2
+if test -e "${_tools}/pkg/erlang-17" ; then
+	echo "[ii] \`erlang-17\` package already exists; aborting!" >&2
+	echo "[ii] (to force the build remove the folder \`${_tools}/pkg/erlang-17\`)" >&2
 	exit 0
 fi
 
-_outputs="${_temporary}/nodejs--build"
-_repository="${_dependencies}/nodejs/0.10.21"
+_outputs="${_temporary}/erlang-17--build"
+_repository="${_dependencies}/otp/17.1"
 
 echo "[ii] preparing..." >&2
 
@@ -28,6 +28,16 @@ _CFLAGS="${pallur_CFLAGS}"
 _LDFLAGS="${pallur_LDFLAGS}"
 _LIBS="${pallur_LIBS}"
 
+_configure_arguments=(
+		--disable-hipe
+		--enable-m32-build
+		--enable-dynamic-ssl-lib
+		--disable-builtin-zlib
+		--without-wx
+		--without-odbc
+		--without-javac
+)
+
 echo "[ii] building..." >&2
 
 _do_exec env \
@@ -35,8 +45,8 @@ _do_exec env \
 			LDFLAGS="${_LDFLAGS}" \
 			LIBS="${_LIBS}" \
 	./configure \
-		--prefix="${_tools}/pkg/nodejs" \
-		--shared-openssl
+			--prefix="${_tools}/pkg/erlang-17" \
+			"${_configure_arguments[@]}"
 
 _do_exec env \
 			CFLAGS="${_CFLAGS}" \
@@ -46,23 +56,19 @@ _do_exec env \
 
 echo "[ii] deploying..." >&2
 
-mkdir -- "${_tools}/pkg/nodejs"
+mkdir -- "${_tools}/pkg/erlang-17"
 
 _do_exec \
 	make install
 
-echo "[ii] bootstrapping..." >&2
-
-( . "${_scripts}/prepare-tools-nodejs-caches.bash" ; )
+ln -s -T -- "${_tools}/pkg/erlang-17/lib/erlang/usr" "${_tools}/pkg/erlang-17/usr"
 
 echo "[ii] sealing..." >&2
 
-chmod -R a=rX -- "${_tools}/pkg/nodejs"
+chmod -R a=rX -- "${_tools}/pkg/erlang-17"
 
 echo "[ii] cleaning..." >&2
 
 rm -R -- "${_outputs}"
-
-echo "[ii] preparing..." >&2
 
 exit 0
