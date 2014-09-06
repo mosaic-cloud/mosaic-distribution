@@ -5,16 +5,22 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
+
+cat <<EOS
+
+default : default@prepare default@compile default@package default@deploy
+
+EOS
+
+
 for _task in requisites prepare compile package deploy ; do
-	
 	cat <<EOS
 
-default : mosaic-distribution@all@${_task}
+default@${_task} : mosaic-distribution@all@${_task}
 
 mosaic-distribution@all@${_task} : \
 		mosaic-distribution@platform-core@${_task} \
-		mosaic-distribution@platform-java@${_task} \
-		mosaic-distribution@applications@${_task}
+		mosaic-distribution@platform-java@${_task}
 
 mosaic-distribution@node@${_task} : \
 		mosaic-node@${_task} \
@@ -48,15 +54,13 @@ mosaic-distribution@applications@${_task} : \
 		mosaic-applications-realtime-feeds-indexer-java@${_task}
 
 EOS
-	
 done
 
 
 for _task in requisites prepare package deploy ; do
-	
 	cat <<EOS
 
-default : mosaic-distribution@all-rpm@${_task}
+default@${_task} : mosaic-distribution@all-rpm@${_task}
 
 mosaic-distribution@all-rpm@${_task} : \
 		mosaic-distribution@platform-core-rpm@${_task} \
@@ -89,7 +93,6 @@ mosaic-distribution@components-rpm@${_task} : \
 		mosaic-components-httpg-rpm@${_task}
 
 EOS
-	
 done
 
 
@@ -121,7 +124,6 @@ EOS
 
 
 for _tool in erlang-15 erlang-17 nodejs nodejs-caches go maven maven-caches zeromq jzmq jansson ninja vbs ; do
-	
 	cat <<EOS
 
 pallur-packages@${_tool} : pallur-environment
@@ -130,32 +132,32 @@ pallur-packages@${_tool} : pallur-environment
 pallur-packages : pallur-packages@{_tool}
 
 EOS
-	
 done
 
 
-_do_exec1 "${_repositories}/mosaic-node/scripts/tasks"
-_do_exec1 "${_repositories}/mosaic-node-wui/scripts/tasks"
-_do_exec1 "${_repositories}/mosaic-node-boot/scripts/tasks"
-
-_do_exec1 "${_repositories}/mosaic-components-couchdb/scripts/tasks"
-_do_exec1 "${_repositories}/mosaic-components-rabbitmq/scripts/tasks"
-_do_exec1 "${_repositories}/mosaic-components-riak-kv/scripts/tasks"
-_do_exec1 "${_repositories}/mosaic-components-mysql/scripts/tasks"
-_do_exec1 "${_repositories}/mosaic-components-me2cp/scripts/tasks"
-_do_exec1 "${_repositories}/mosaic-components-httpg/scripts/tasks"
-
-_do_exec1 "${_repositories}/mosaic-java-platform/artifacts/scripts/tasks"
-_do_exec1 "${_repositories}/mosaic-java-platform/components-container/scripts/tasks"
-_do_exec1 "${_repositories}/mosaic-java-platform/cloudlets/scripts/tasks"
-_do_exec1 "${_repositories}/mosaic-java-platform/drivers-stubs/amqp/scripts/tasks"
-_do_exec1 "${_repositories}/mosaic-java-platform/drivers-stubs/riak/scripts/tasks"
-
-_do_exec1 "${_repositories}/mosaic-mos-platform-packages/scripts/tasks"
-
-_do_exec1 "${_repositories}/mosaic-applications-realtime-feeds/backend/scripts/tasks"
-_do_exec1 "${_repositories}/mosaic-applications-realtime-feeds/frontend/scripts/tasks"
-_do_exec1 "${_repositories}/mosaic-applications-realtime-feeds/indexer/scripts/tasks"
+for _module in \
+		mosaic-node \
+		mosaic-node-wui \
+		mosaic-node-boot \
+		mosaic-components-couchdb \
+		mosaic-components-rabbitmq \
+		mosaic-components-riak-kv \
+		mosaic-components-mysql \
+		mosaic-components-me2cp \
+		mosaic-components-httpg \
+		mosaic-java-platform/artifacts \
+		mosaic-java-platform/components-container \
+		mosaic-java-platform/cloudlets \
+		mosaic-java-platform/drivers-stubs/amqp \
+		mosaic-java-platform/drivers-stubs/riak \
+		mosaic-mos-platform-packages \
+		mosaic-applications-realtime-feeds/backend \
+		mosaic-applications-realtime-feeds/frontend \
+		mosaic-applications-realtime-feeds/indexer \
+; do
+	_module="$( readlink -e -- "${_repositories}/${_module}" )"
+	_do_exec1 "${_module}/scripts/tasks"
+done
 
 
 exit 0

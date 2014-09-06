@@ -20,7 +20,7 @@ fi
 
 if test -z "${pallur_repositories:-}" -o "${pallur_repositories:-}" == '*' ; then
 	if test -e "${_workbench}/.local-repositories" -a "${pallur_repositories:-}" != '*' ; then
-		_repositories="${_workbench}/.local-repositories"
+		_repositories="$( readlink -e -- "${_workbench}/.local-repositories" )"
 		_repositories_safe=false
 	else
 		_repositories="${_workbench}/mosaic-repositories/repositories"
@@ -34,7 +34,7 @@ fi
 
 if test -z "${pallur_dependencies:-}" -o "${pallur_repositories:-}" == '*' ; then
 	if test -e "${_workbench}/.local-dependencies" -a "${pallur_repositories:-}" != '*' ; then
-		_dependencies="${_workbench}/.local-dependencies"
+		_dependencies="$( readlink -e -- "${_workbench}/.local-dependencies" )"
 	else
 		_dependencies="${_workbench}/mosaic-dependencies/dependencies"
 	fi
@@ -45,7 +45,7 @@ fi
 
 if test -z "${pallur_temporary:-}" -o "${pallur_temporary:-}" == '*' ; then
 	if test -e "${_workbench}/.temporary" -a "${pallur_temporary:-}" != '*' ; then
-		_temporary="${_workbench}/.temporary"
+		_temporary="$( readlink -e -- "${_workbench}/.temporary" )"
 	else
 		_temporary="${TMPDIR:-/tmp}/$( basename -- "${_workbench}" )--${_distribution_version}--$( readlink -e -- "${_workbench}" | tr -d '\n' | md5sum -t | tr -d ' \n-' )"
 	fi
@@ -56,7 +56,7 @@ fi
 
 if test -z "${pallur_tools:-}" -o "${pallur_tools:-}" == '*' ; then
 	if test -e "${_workbench}/.local-tools" -a "${pallur_tools:-}" != '*' ; then
-		_tools="${_workbench}/.local-tools"
+		_tools="$( readlink -e -- "${_workbench}/.local-tools" )"
 	else
 		_tools="${_temporary}/__tools"
 	fi
@@ -67,7 +67,7 @@ fi
 
 if test -z "${pallur_artifacts:-}" -o "${pallur_artifacts:-}" == '*' ; then
 	if test -e "${_workbench}/.local-artifacts" -a "${pallur_artifacts:-}" != '*' ; then
-		_artifacts="${_workbench}/.local-artifacts"
+		_artifacts="$( readlink -e -- "${_workbench}/.local-artifacts" )"
 	else
 		_artifacts="${_temporary}/__artifacts"
 	fi
@@ -92,8 +92,8 @@ else
 fi
 
 if test -z "${pallur_HOME:-}" -o "${pallur_HOME:-}" == '*' ; then
-	if test -e "${_workbench}/.local-tools/home" -a "${pallur_HOME:-}" != '*' ; then
-		_HOME="${_workbench}/.local-tools/home"
+	if test -e "${_workbench}/.local-home" -a "${pallur_HOME:-}" != '*' ; then
+		_HOME="$( readlink -e -- "${_workbench}/.local-home" )"
 	else
 		_HOME="${_temporary}/__home"
 	fi
@@ -109,13 +109,7 @@ else
 	_TMPDIR="${pallur_TMPDIR}"
 fi
 
-if test -e /etc/mos-release ; then
-	_local_os_identifier="$( tr ':' '\n' </etc/mos-release | tail -n +2 | head -n 1 )"
-	_local_os_version="$( tr ':' '\n' </etc/mos-release | tail -n +3 | head -n 1 )"
-elif test -e /etc/slitaz-release ; then
-	_local_os_identifier=slitaz
-	_local_os_version="$( cat /etc/slitaz-release )"
-elif test -e /etc/arch-release ; then
+if test -e /etc/arch-release ; then
 	_local_os_identifier=archlinux
 	_local_os_version=rolling
 elif test -e /etc/lsb-release ; then
