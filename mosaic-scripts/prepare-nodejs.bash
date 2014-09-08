@@ -53,7 +53,7 @@ _do_exec \
 
 echo "[ii] bootstrapping..." >&2
 
-( . "${_scripts}/prepare-tools-nodejs-caches.bash" ; )
+( . "${_workbench}/mosaic-scripts/prepare-nodejs-caches.bash" ; )
 
 echo "[ii] sealing..." >&2
 

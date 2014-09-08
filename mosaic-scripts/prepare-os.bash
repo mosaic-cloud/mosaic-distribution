@@ -24,7 +24,7 @@ if test ! -e "${_tools}/.prepared" ; then
 			
 			echo "[ii] preparing \`archlinux\` environment..." >&2
 			
-			. "${_scripts}/prepare-tools-env-archlinux.bash"
+			. "${_workbench}/mosaic-scripts/prepare-os-archlinux.bash"
 			
 			if test "${UID}" -eq 0 ; then
 				

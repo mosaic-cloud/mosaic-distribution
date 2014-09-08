@@ -35,28 +35,36 @@ _self_next_folder__realpath_basename="$( exec basename -- "${_self_next_folder__
 
 if test "${_self_folder__realpath_basename}" == scripts ; then
 	_workbench="$( exec readlink -e -- "${_self_folder__realpath}/.." )"
+	_scripts="${_workbench}/scripts"
+elif test "${_self_folder__realpath_basename}" == .scripts ; then
+	_workbench="$( exec readlink -e -- "${_self_folder__realpath}/.." )"
+	_scripts="${_workbench}/.scripts"
 elif test "${_self_next_folder__realpath_basename}" == scripts ; then
 	_workbench="$( exec readlink -e -- "${_self_next_folder__realpath}/.." )"
+	_scripts="${_workbench}/scripts"
+elif test "${_self_next_folder__realpath_basename}" == .scripts ; then
+	_workbench="$( exec readlink -e -- "${_self_next_folder__realpath}/.." )"
+	_scripts="${_workbench}/.scripts"
 else
-	echo "[ee] arg0 \`${_self}\` is expected to be a symlink to the \`_do.bash\` script inside the \`scripts\` folder inside the project's workbench; aborting!" >&2
+	echo "[ee] arg0 \`${_self}\` is expected to be a symlink to the \`_do.bash\` script inside the \`scripts\` (or \`.scripts\`) folder inside the project's workbench; aborting!" >&2
 	exit 1
 fi
 
-if test -f "${_workbench}/scripts/${_self__basename}.bash" ; then
-	_main="${_workbench}/scripts/${_self__basename}.bash"
+if test -f "${_scripts}/${_self__basename}.bash" ; then
+	_main="${_scripts}/${_self__basename}.bash"
 elif test -f "${_do__realpath_dirname}/${_self__basename}.bash" ; then
 	_main="${_do__realpath_dirname}/${_self__basename}.bash"
 else
-	echo "[ee] cannot locate \`${_self__basename}.bash\` script in either \`${_workbench}/scripts\` or \`${_do__realpath_dirname}\` folders; aborting!" >&2
+	echo "[ee] cannot locate \`${_self__basename}.bash\` script in either \`${_scripts}\` or \`${_do__realpath_dirname}\` folders; aborting!" >&2
 		exit 1
 fi
 
-if test -f "${_workbench}/scripts/_env.bash" ; then
-	_env="${_workbench}/scripts/_env.bash"
+if test -f "${_scripts}/_env.bash" ; then
+	_env="${_scripts}/_env.bash"
 elif test -f "${_do__realpath_dirname}/_env.bash" ; then
 	_env="${_do__realpath_dirname}/_env.bash"
 else
-	echo "[ee] cannot locate \`_env.bash\` script in either \`${_workbench}/scripts\` or \`${_do__realpath_dirname}\` folders; ignoring!" >&2
+	echo "[ee] cannot locate \`_env.bash\` script in either \`${_scripts}\` or \`${_do__realpath_dirname}\` folders; ignoring!" >&2
 	exit 1
 fi
 

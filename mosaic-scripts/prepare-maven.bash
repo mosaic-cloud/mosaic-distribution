@@ -44,7 +44,7 @@ EOS
 
 echo "[ii] bootstrapping..." >&2
 
-( . "${_scripts}/prepare-tools-maven-caches.bash" ; )
+( . "${_workbench}/mosaic-scripts/prepare-maven-caches.bash" ; )
 
 # FIXME: Make Maven fetch all required "base" plugins!
 _do_exec env \

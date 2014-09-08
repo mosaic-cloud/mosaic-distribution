@@ -18,8 +18,8 @@ _do_exec1 make -f <(
 EOS
 		_do_exec1 "${_scripts}/tasks-all" \
 		| sed -r \
-			-e 's#^\t!bash #\t'"${_scripts}/_do-bash"' #' -e 't' \
 			-e 's#^\t!exec #\t'"${_scripts}/_do-exec"' #' -e 't' \
+			-e 's#^\t!bash #\t'"${_scripts}/_do-bash"' #' -e 't' \
 			-e '/^\t/! b' \
 			-e 'w /dev/stderr' -e 'Q 1'
 ) \

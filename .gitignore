@@ -1,7 +1,8 @@
 
 .*
-!.gitignore
-!/scripts/*
+!/.gitignore
+!/.scripts
+!/.scripts/**
 
 *#
 *~

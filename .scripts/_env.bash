@@ -5,7 +5,7 @@ trap 'printf "[ee] failed: %s\n" "${BASH_COMMAND}" >&2' ERR || exit 1
 export -n BASH_ENV
 
 _workbench="$( readlink -e -- . )"
-_scripts="${_workbench}/scripts"
+_scripts="${_workbench}/.scripts"
 
 if test -e "${_workbench}/.local-env.bash" ; then
 	. "${_workbench}/.local-env.bash"
@@ -18,29 +18,32 @@ else
 	_distribution_version="${pallur_distribution_version}"
 fi
 
+_submodules_safe=true
+
 if test -z "${pallur_repositories:-}" -o "${pallur_repositories:-}" == '*' ; then
 	if test -e "${_workbench}/.local-repositories" -a "${pallur_repositories:-}" != '*' ; then
 		_repositories="$( readlink -e -- "${_workbench}/.local-repositories" )"
-		_repositories_safe=false
+		_submodules_safe=false
 	else
 		_repositories="${_workbench}/mosaic-repositories/repositories"
-		_repositories_safe=true
 	fi
 	echo "[dd] using pallur-repositories -> \`${_repositories}\`;" >&2
 else
 	_repositories="${pallur_repositories}"
-	_repositories_safe=false
+	_submodules_safe=false
 fi
 
 if test -z "${pallur_dependencies:-}" -o "${pallur_repositories:-}" == '*' ; then
 	if test -e "${_workbench}/.local-dependencies" -a "${pallur_repositories:-}" != '*' ; then
 		_dependencies="$( readlink -e -- "${_workbench}/.local-dependencies" )"
+		_submodules_safe=false
 	else
 		_dependencies="${_workbench}/mosaic-dependencies/dependencies"
 	fi
 	echo "[dd] using pallur-dependencies -> \`${_dependencies}\`;" >&2
 else
 	_dependencies="${pallur_dependencies}"
+	_submodules_safe=false
 fi
 
 if test -z "${pallur_temporary:-}" -o "${pallur_temporary:-}" == '*' ; then
@@ -155,6 +158,9 @@ _do_scripts_env=(
 	pallur_LDFLAGS="-L${_tools}/lib"
 	pallur_LIBS=
 	
+	pallur_do_exec="${_scripts}/_do-exec"
+	pallur_do_bash="${_scripts}/_do-bash"
+	
 	PATH="${_PATH}"
 	HOME="${_HOME}"
 	TMPDIR="${_TMPDIR}"
@@ -185,17 +191,7 @@ if test -n "${SSH_AUTH_SOCK:-}" ; then
 	_do_scripts_env+=( SSH_AUTH_SOCK="${SSH_AUTH_SOCK}" )
 fi
 
-_git_bin="$( PATH="${_PATH}" type -P -- git || true )"
-if test -z "${_git_bin}" ; then
-	echo "[ww] missing \`git\` (Git DSCV) executable in path: \`${_PATH}\`; ignoring!" >&2
-	_git_bin=git
-fi
-
-_git_args=()
-_git_env=()
-while read _git_env_var ; do
-	_git_env+=( "${_git_env_var}" )
-done < <( env )
+#### FIXME: Remove all environment variables and replace them with `_do_scripts_env`!
 
 function _do_exec () {
 	test "${#}" -ge 1
@@ -265,3 +261,35 @@ function _do_exec1 () {
 		return 0
 	fi
 }
+
+function _do_bash1 () {
+	test "${#}" -ge 1
+	echo "[ii] executing \`${@:1}\`..." >&2
+	_outcome=0
+	env -i "${_do_scripts_env[@]}" BASH_ENV="${_scripts}/_env.bash" bash -- "${@}" </dev/null \
+	|| _outcome="${?}"
+	if test "${_outcome}" -ne 0 ; then
+		echo "[ee] failed with ${_outcome}" >&2
+		echo "[--]" >&2
+		return "${_outcome}"
+	else
+		return 0
+	fi
+}
+
+_git_bin="$( PATH="${_PATH}" type -P -- git || true )"
+if test -z "${_git_bin}" ; then
+	echo "[ww] missing \`git\` (Git DSCV) executable in path: \`${_PATH}\`; ignoring!" >&2
+	_git_bin=git
+fi
+
+_generic_env=(
+		PATH="${_PATH}"
+		HOME="${_HOME}"
+		TMPDIR="${_TMPDIR}"
+)
+
+_git_args=()
+_git_env=(
+		"${_generic_env[@]}"
+)
