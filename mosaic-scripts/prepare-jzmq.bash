@@ -50,15 +50,31 @@ _do_exec env \
 			JAVA_HOME="${_JAVA_HOME}" \
 	make -j 1
 
+_do_exec \
+	gcc -shared -o ./libjzmq.so \
+		-I "${_JAVA_HOME}/include" \
+		-L "${_JAVA_HOME}/lib" \
+		-I "${pallur_pkg_zeromq}/include" \
+		-L "${pallur_pkg_zeromq}/lib" \
+		-I ./src \
+		-w \
+		${CFLAGS:-} ${LDFLAGS:-} \
+		./src/ZMQ.cpp \
+		./src/Context.cpp \
+		./src/Socket.cpp \
+		./src/Poller.cpp \
+		./src/util.cpp \
+		${pallur_LIBS:-} \
+		-Wl,-Bstatic -lzmq -luuid -Wl,-Bdynamic \
+		-Wl,-Bstatic -lstdc++ -Wl,-Bdynamic \
+		-static-libgcc -static-libstdc++
+
 echo "[ii] deploying..." >&2
 
 mkdir -- "${_tools}/pkg/jzmq"
+mkdir -- "${_tools}/pkg/jzmq/lib"
 
-_do_exec env \
-			JAVA_HOME="${_JAVA_HOME}" \
-	make install
-
-ln -s -T -- "${_tools}/pkg/jzmq/lib/libjzmq.so" "${_tools}/lib/libjzmq.so"
+cp -T -- ./libjzmq.so "${_tools}/pkg/jzmq/lib/libjzmq.so"
 
 echo "[ii] sealing..." >&2
 
