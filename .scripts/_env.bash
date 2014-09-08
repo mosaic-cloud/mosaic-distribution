@@ -149,7 +149,9 @@ _do_scripts_env=(
 	pallur_pkg_zeromq="${_tools}/pkg/zeromq"
 	pallur_pkg_jzmq="${_tools}/pkg/jzmq"
 	pallur_pkg_jansson="${_tools}/pkg/jansson"
+	pallur_pkg_js_1_8_0="${_tools}/pkg/js-1.8.0"
 	pallur_pkg_js_1_8_5="${_tools}/pkg/js-1.8.5"
+	pallur_pkg_nspr_4_8="${_tools}/pkg/nspr-4.8"
 	pallur_pkg_nspr_4_9="${_tools}/pkg/nspr-4.9"
 	
 	pallur_PATH="${_PATH_export}"

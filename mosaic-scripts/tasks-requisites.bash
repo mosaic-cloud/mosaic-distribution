@@ -19,7 +19,9 @@ _packages=(
 		ninja
 		vbs
 		js-1.8.5
+		js-1.8.0
 		nspr-4.9
+		nspr-4.8
 )
 
 _os_packages=(
@@ -53,6 +55,7 @@ cat <<EOS
 
 pallur-packages@jzmq : pallur-packages@zeromq
 pallur-packages@js-1.8.5 : pallur-packages@nspr-4.9
+pallur-packages@js-1.8.0 : pallur-packages@nspr-4.8
 pallur-packages@maven : pallur-packages@maven-caches
 pallur-packages@nodejs : pallur-packages@nodejs-caches
 
