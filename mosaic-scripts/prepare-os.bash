@@ -10,7 +10,7 @@ if test ! -e "${_tools}/.prepared" ; then
 	
 	echo "[ii] preparing environment..." >&2
 	
-	for _tools_folder in "${_tools}" "${_tools}/bin" "${_tools}/lib" "${_tools}/include" "${_tools}/pkg" ; do
+	for _tools_folder in "${_tools}" "${_tools}/bin" "${_tools}/pkg" ; do
 		if test ! -e "${_tools_folder}" ; then
 			mkdir -- "${_tools_folder}"
 		fi

@@ -53,8 +53,6 @@ mkdir -- "${_tools}/pkg/zeromq"
 _do_exec \
 	make install
 
-ln -s -T -- "${_tools}/pkg/zeromq/lib/libzmq.so.1" "${_tools}/lib/libzmq.so.1"
-
 echo "[ii] sealing..." >&2
 
 chmod -R a=rX -- "${_tools}/pkg/zeromq"
