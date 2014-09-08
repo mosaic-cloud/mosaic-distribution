@@ -19,7 +19,7 @@ env -i "${_git_env[@]}" "${_git_bin}" \
 			orig_path="$( readlink -e ../mosaic-distribution-dependencies )"
 		;;
 		( * )
-			exit 1
+			false
 		;;
 	esac
 	if test "${orig_path}" == "${path}" ; then

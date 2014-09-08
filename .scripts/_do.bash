@@ -60,7 +60,7 @@ elif test -f "${_do__realpath_dirname}/${_self__basename}.bash" ; then
 	_main="${_do__realpath_dirname}/${_self__basename}.bash"
 else
 	echo "[ee] cannot locate \`${_self__basename}.bash\` script in either \`${_scripts}\` or \`${_do__realpath_dirname}\` folders; aborting!" >&2
-		exit 1
+	exit 1
 fi
 
 if test -f "${_scripts}/_env.bash" ; then
