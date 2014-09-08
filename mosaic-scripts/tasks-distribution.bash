@@ -5,7 +5,7 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
-for _task in requisites prepare compile package deploy ; do
+for _task in requisites prepare compile package publish ; do
 	cat <<EOS
 
 mosaic-distribution@${_task} : \
