@@ -4,26 +4,30 @@ set -e -E -u -o pipefail -o noclobber -o noglob +o braceexpand || exit 1
 trap 'printf "[ee] failed: %s\n" "${BASH_COMMAND}" >&2' ERR || exit 1
 
 _self="${0}"
-_self__basename="$( exec basename -- "${_self}" )"
-_self__dirname="$( exec dirname -- "${_self}" )"
 
-if ! test -h "${_self}" ; then
-	echo "[ee] arg0 \`${_self}\` is expected to be a symlink to the \`_do.bash\` script; aborting!" >&2
-	exit 1
-fi
-
-_self_next="$( exec readlink -- "${_self}" )"
-_self_next__basename="$( exec basename -- "${_self_next}" )"
-_self_next__dirname="$( exec dirname -- "${_self_next}" )"
-_self_next__realpath="$( cd -- "${_self__dirname}" ; exec readlink -e -- "${_self_next}" )"
-_self_next__realpath_dirname="$( exec dirname -- "${_self_next__realpath}" )"
-
-if test "${_self_next__basename}" == '_do.bash' ; then
-	_do="${_self_next}"
-else
-	echo "[ee] arg0 \`${_self}\` is expected to be a symlink to the \`_do.bash\` script; aborting!" >&2
-	exit 1
-fi
+while true ; do
+	
+	_self__basename="$( exec basename -- "${_self}" )"
+	_self__dirname="$( exec dirname -- "${_self}" )"
+	
+	if ! test -h "${_self}" ; then
+		echo "[ee] arg0 \`${_self}\` is expected to be a symlink to the \`_do.bash\` script; aborting!" >&2
+		exit 1
+	fi
+	
+	_self_next="$( exec readlink -- "${_self}" )"
+	_self_next__basename="$( exec basename -- "${_self_next}" )"
+	_self_next__dirname="$( exec dirname -- "${_self_next}" )"
+	_self_next__realpath="$( cd -- "${_self__dirname}" ; exec readlink -e -- "${_self_next}" )"
+	_self_next__realpath_dirname="$( exec dirname -- "${_self_next__realpath}" )"
+	
+	if test "${_self_next__basename}" == '_do.bash' ; then
+		_do="${_self_next}"
+		break
+	else
+		_self="${_self_next}"
+	fi
+done
 
 _do__realpath="${_self_next__realpath}"
 _do__realpath_dirname="${_self_next__realpath_dirname}"

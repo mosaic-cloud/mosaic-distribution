@@ -29,10 +29,10 @@ _os_packages=(
 for _package in "${_packages[@]}" ; do
 	cat <<EOS
 
-pallur-packages : pallur-packages@{_package}
+pallur-packages : pallur-packages@${_package}
 
 pallur-packages@${_package} : pallur-environment
-	!bash ${_workbench}/mosaic-scripts/prepare-${_package}
+	!bash ${_workbench}/mosaic-scripts/prepare-${_package}.bash
 
 EOS
 done
@@ -40,9 +40,9 @@ done
 for _package in "${_os_packages[@]}" ; do
 	cat <<EOS
 
-pallur-packages : pallur-package@${_package}
+pallur-packages : pallur-packages@${_package}
 
-pallur-packages@{_package} : pallur-os
+pallur-packages@${_package} : pallur-os
 
 EOS
 done
@@ -60,7 +60,7 @@ cat <<EOS
 pallur-packages : pallur-os
 
 pallur-os :
-	#!bash ${_workbench}/mosaic-scripts/prepare-os
+	!bash ${_workbench}/mosaic-scripts/prepare-os.bash
 
 EOS
 

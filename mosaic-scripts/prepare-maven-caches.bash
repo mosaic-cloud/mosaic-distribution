@@ -5,16 +5,16 @@ if ! test "${#}" -eq 0 ; then
 	exit 1
 fi
 
-if test ! -e "${_tools}/pkg/mvn" ; then
+if test ! -e "${_tools}/pkg/maven" ; then
 	exit 0
 fi
 
-if test ! -e "${_tools}/pkg/mvn/repo" ; then
-	if test -L "${_tools}/pkg/mvn/repo" ; then
-		_repo_store="$( readlink -- "${_tools}/pkg/mvn/repo" )"
+if test ! -e "${_tools}/pkg/maven/repo" ; then
+	if test -L "${_tools}/pkg/maven/repo" ; then
+		_repo_store="$( readlink -- "${_tools}/pkg/maven/repo" )"
 	else
 		_repo_store="${_temporary}/mvn--repository"
-		ln -s -T -- "${_repo_store}" "${_tools}/pkg/mvn/repo"
+		ln -s -T -- "${_repo_store}" "${_tools}/pkg/maven/repo"
 	fi
 	if test ! -e "${_repo_store}" ; then
 		mkdir -- "${_repo_store}"
