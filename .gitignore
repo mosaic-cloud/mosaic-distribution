@@ -1,8 +1,12 @@
 
 .*
 !/.gitignore
+!/.gitmodules
 !/.scripts
 !/.scripts/**
+
+!/.mosaic-repositories
+!/.mosaic-dependencies
 
 *#
 *~
