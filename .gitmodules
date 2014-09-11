@@ -1,6 +1,6 @@
 [submodule "mosaic-repositories"]
 	path = mosaic-repositories
-	url = git://github.com/cipriancraciun/mosaic-distribution-repositories.git
+	url = ../mosaic-distribution-repositories.git
 [submodule "mosaic-dependencies"]
 	path = mosaic-dependencies
-	url = git://github.com/cipriancraciun/mosaic-distribution-dependencies.git
+	url = ../mosaic-distribution-dependencies.git
