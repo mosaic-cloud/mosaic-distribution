@@ -30,7 +30,7 @@ while read -r _script ; do
 			fi
 		;;
 	esac
-done < <( find "${_workbench}/tasks" -xtype f -print | sort )
+done < <( find "${_workbench}/distribution-tasks" -xtype f -print | sort )
 
 
 exit 0
