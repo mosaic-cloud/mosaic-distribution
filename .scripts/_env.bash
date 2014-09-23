@@ -9,6 +9,8 @@ _scripts="${_workbench}/.scripts"
 
 if test -e "${_workbench}/.local-env.bash" ; then
 	. "${_workbench}/.local-env.bash"
+elif test -e "${_workbench}/../.pallur-local-env.bash" ; then
+	. "${_workbench}/../.pallur-local-env.bash"
 fi
 
 if test -z "${pallur_distribution_version:-}" ; then
@@ -24,6 +26,9 @@ if test -z "${pallur_repositories:-}" -o "${pallur_repositories:-}" == '*' ; the
 	if test -e "${_workbench}/.local-repositories" -a "${pallur_repositories:-}" != '*' ; then
 		_repositories="$( readlink -e -- "${_workbench}/.local-repositories" )"
 		_submodules_safe=false
+	elif test -e "${_workbench}/../.pallur-local-repositories" -a "${pallur_repositories:-}" != '*' ; then
+		_repositories="$( readlink -e -- "${_workbench}/../.pallur-local-repositories" )"
+		_submodules_safe=false
 	else
 		_repositories="${_workbench}/distribution-repositories/repositories"
 	fi
@@ -33,9 +38,12 @@ else
 	_submodules_safe=false
 fi
 
-if test -z "${pallur_dependencies:-}" -o "${pallur_repositories:-}" == '*' ; then
-	if test -e "${_workbench}/.local-dependencies" -a "${pallur_repositories:-}" != '*' ; then
+if test -z "${pallur_dependencies:-}" -o "${pallur_dependencies:-}" == '*' ; then
+	if test -e "${_workbench}/.local-dependencies" -a "${pallur_dependencies:-}" != '*' ; then
 		_dependencies="$( readlink -e -- "${_workbench}/.local-dependencies" )"
+		_submodules_safe=false
+	elif test -e "${_workbench}/../.pallur-local-dependencies" -a "${pallur_dependencies:-}" != '*' ; then
+		_dependencies="$( readlink -e -- "${_workbench}/../.pallur-local-dependencies" )"
 		_submodules_safe=false
 	else
 		_dependencies="${_workbench}/distribution-dependencies/dependencies"
@@ -60,6 +68,8 @@ fi
 if test -z "${pallur_tools:-}" -o "${pallur_tools:-}" == '*' ; then
 	if test -e "${_workbench}/.local-tools" -a "${pallur_tools:-}" != '*' ; then
 		_tools="$( readlink -e -- "${_workbench}/.local-tools" )"
+	elif test -e "${_workbench}/../.pallur-local-tools" -a "${pallur_tools:-}" != '*' ; then
+		_tools="$( readlink -e -- "${_workbench}/../.pallur-local-tools" )"
 	else
 		_tools="${_temporary}/__tools"
 	fi
@@ -71,6 +81,8 @@ fi
 if test -z "${pallur_artifacts:-}" -o "${pallur_artifacts:-}" == '*' ; then
 	if test -e "${_workbench}/.local-artifacts" -a "${pallur_artifacts:-}" != '*' ; then
 		_artifacts="$( readlink -e -- "${_workbench}/.local-artifacts" )"
+	elif test -e "${_workbench}/../.pallur-local-artifacts" -a "${pallur_artifacts:-}" != '*' ; then
+		_artifacts="$( readlink -e -- "${_workbench}/../.pallur-local-artifacts" )"
 	else
 		_artifacts="${_temporary}/__artifacts"
 	fi
@@ -97,6 +109,8 @@ fi
 if test -z "${pallur_HOME:-}" -o "${pallur_HOME:-}" == '*' ; then
 	if test -e "${_workbench}/.local-home" -a "${pallur_HOME:-}" != '*' ; then
 		_HOME="$( readlink -e -- "${_workbench}/.local-home" )"
+	elif test -e "${_workbench}/../.pallur-local-home" -a "${pallur_HOME:-}" != '*' ; then
+		_HOME="$( readlink -e -- "${_workbench}/../.pallur-local-home" )"
 	else
 		_HOME="${_temporary}/__home"
 	fi
