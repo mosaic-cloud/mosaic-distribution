@@ -18,16 +18,17 @@ while true ; do
 	_self_next="$( exec readlink -- "${_self}" )"
 	_self_next__basename="$( exec basename -- "${_self_next}" )"
 	_self_next__dirname="$( exec dirname -- "${_self_next}" )"
-	_self_next__realpath="$( cd -- "${_self__dirname}" ; exec readlink -e -- "${_self_next}" )"
-	_self_next__realpath_dirname="$( exec dirname -- "${_self_next__realpath}" )"
 	
 	if test "${_self_next__basename}" == '_do.bash' ; then
 		_do="${_self_next}"
 		break
 	else
-		_self="${_self_next}"
+		_self="$( cd -- "${_self__dirname}" ; exec realpath -s -- "${_self_next}" )"
 	fi
 done
+
+_self_next__realpath="$( cd -- "${_self__dirname}" ; exec readlink -e -- "${_self_next}" )"
+_self_next__realpath_dirname="$( exec dirname -- "${_self_next__realpath}" )"
 
 _do__realpath="${_self_next__realpath}"
 _do__realpath_dirname="${_self_next__realpath_dirname}"

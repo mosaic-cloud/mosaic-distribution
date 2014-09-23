@@ -30,7 +30,7 @@ if test -z "${pallur_repositories:-}" -o "${pallur_repositories:-}" == '*' ; the
 		_repositories="$( readlink -e -- "${_workbench}/../.pallur-local-repositories" )"
 		_submodules_safe=false
 	else
-		_repositories="${_workbench}/distribution-repositories/repositories"
+		_repositories="${_workbench}/distribution-repositories"
 	fi
 	echo "[dd] using pallur-repositories -> \`${_repositories}\`;" >&2
 else
@@ -46,7 +46,7 @@ if test -z "${pallur_dependencies:-}" -o "${pallur_dependencies:-}" == '*' ; the
 		_dependencies="$( readlink -e -- "${_workbench}/../.pallur-local-dependencies" )"
 		_submodules_safe=false
 	else
-		_dependencies="${_workbench}/distribution-dependencies/dependencies"
+		_dependencies="${_workbench}/distribution-dependencies"
 	fi
 	echo "[dd] using pallur-dependencies -> \`${_dependencies}\`;" >&2
 else
