@@ -1,7 +1,7 @@
 #!/dev/null
 
-_distribution_archlinux_dependencies=(
-	# Archlinux tools packages
+_distribution_opensuse_dependencies=(
+	# OpenSUSE tools packages
 		coreutils
 		util-linux
 		zip
@@ -17,16 +17,17 @@ _distribution_archlinux_dependencies=(
 		gzip
 		bzip2
 		patch
-	# Archlinux network packages
+	# OpenSUSE network packages
 		wget
 		curl
-	# Archlinux language packages
-		jdk7-openjdk
-		python2
-		perl
-		gcc
-	# Archlinux development packages
-		git
+	# OpenSUSE language packages
+		java-1_7_0-openjdk-devel
+		python-base python
+		perl-base perl
+		gcc-32bit gcc
+		gcc-c++-32bit gcc-c++
+	# OpenSUSE development packages
+		git-core
 		binutils
 		libtool
 		autoconf
@@ -34,18 +35,20 @@ _distribution_archlinux_dependencies=(
 		pkg-config
 		make
 		diffutils
-	# Archlinux library packages
-		libxml2
-		ncurses
+	# OpenSUSE library packages
+		glibc-devel-static
+		glibc-devel-static-32bit
+		ncurses-devel-32bit
+		libxml2-devel-32bit
 )
 
 if test "${UID}" -eq 0 ; then
 	
-	pacman -Sy --noconfirm
-	pacman -Su --noconfirm
+	zypper -n refresh
+	zypper -n --no-refresh update
 	
-	for _dependency in "${_distribution_archlinux_dependencies[@]}" ; do
-		pacman -S --noconfirm --needed -- "${_dependency}"
+	for _dependency in "${_distribution_opensuse_dependencies[@]}" ; do
+		zypper -n --no-refresh install -- "${_dependency}"
 	done
 	
 else
@@ -58,8 +61,8 @@ if true ; then
 		mkdir -- "${_tools}/pkg/core"
 		mkdir -- "${_tools}/pkg/core/bin"
 	fi
-	for _dependency in "${_distribution_archlinux_dependencies[@]}" ; do
-		pacman -Q -l -q -- "${_dependency}" \
+	for _dependency in "${_distribution_opensuse_dependencies[@]}" ; do
+		rpm -q -l -q -- "${_dependency}" \
 		| ( grep -E -e '^/(bin|usr/bin|usr/local/bin|opt/[^/]+/bin)/[^/]+$' || true ) \
 		| while read _path ; do
 			ln -s -f -t "${_tools}/pkg/core/bin" -- "${_path}"
@@ -69,5 +72,5 @@ fi
 
 if ! test -e "${_tools}/pkg/java" ; then
 	_local_os_packages+=( java )
-	ln -s -f -T -- /usr/lib/jvm/java-7-openjdk "${_tools}/pkg/java"
+	ln -s -f -T -- /usr/lib64/jvm/java-1.7.0-openjdk-1.7.0 "${_tools}/pkg/java"
 fi
