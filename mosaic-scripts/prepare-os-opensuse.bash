@@ -11,6 +11,7 @@ _distribution_opensuse_dependencies=(
 		grep sed gawk
 		findutils
 		gzip bzip2
+		which
 	# OpenSUSE network packages
 		wget
 		curl
@@ -19,36 +20,37 @@ _distribution_opensuse_dependencies=(
 		patch
 		diffutils
 	# OpenSUSE language packages
-		python-base python
+		python-base python #32bit
+		perl-base perl #32bit
 		java-1_7_0-openjdk-devel
-		perl-base perl
 	# OpenSUSE C/C++ packages
 		gcc-32bit gcc
 		gcc-c++-32bit gcc-c++
 		binutils-devel-32bit binutils
 	# OpenSUSE development packages
 		make
-		libtool
 		autoconf
 		automake
+		libtool-32bit libtool
 	# OpenSUSE library packages
 		glibc-devel-static-32bit
 		libopenssl-devel-32bit
+		zlib-devel-32bit
 		ncurses-devel-32bit
+		libuuid-devel-32bit
 		libxml2-devel-32bit
 )
 
-if test "${UID}" -eq 0 ; then
-	
+if test "${pallur_local_os_packages_skip_installation:-false}" == true ; then
+	echo "[ii] package installation disabled; skipping package installation!" >&2
+elif test "${UID}" -ne 0 ; then
+	echo "[ww] running without root priviledges; skipping package installation!" >&2
+else
 	zypper -n refresh
 	# zypper -n --no-refresh update
-	
 	for _dependency in "${_distribution_opensuse_dependencies[@]}" ; do
 		zypper -n --no-refresh install -- "${_dependency}"
 	done
-	
-else
-	echo "[ww] running without root priviledges; skipping!" >&2
 fi
 
 if true ; then

@@ -17,6 +17,7 @@ _distribution_archlinux_dependencies=(
 		gzip
 		bzip2
 		patch
+		which
 	# Archlinux network packages
 		wget
 		curl
@@ -39,17 +40,16 @@ _distribution_archlinux_dependencies=(
 		ncurses
 )
 
-if test "${UID}" -eq 0 ; then
-	
+if test "${pallur_local_os_packages_skip_installation:-false}" == true ; then
+	echo "[ii] package installation disabled; skipping package installation!" >&2
+elif test "${UID}" -ne 0 ; then
+	echo "[ww] running without root priviledges; skipping package installation!" >&2
+else
 	pacman -Sy --noconfirm
 	# pacman -Su --noconfirm
-	
 	for _dependency in "${_distribution_archlinux_dependencies[@]}" ; do
 		pacman -S --noconfirm --needed -- "${_dependency}"
 	done
-	
-else
-	echo "[ww] running without root priviledges; skipping!" >&2
 fi
 
 if true ; then
