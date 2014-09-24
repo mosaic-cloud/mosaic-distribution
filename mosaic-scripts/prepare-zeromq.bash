@@ -29,6 +29,7 @@ chmod -R a=rX,u=rwX -- "${_outputs}"
 cd -- "${_outputs}"
 
 _CFLAGS="${pallur_CFLAGS}"
+_CXXFLAGS="${pallur_CXXFLAGS}"
 _LDFLAGS="${pallur_LDFLAGS}"
 _LIBS="${pallur_LIBS}"
 
@@ -39,6 +40,7 @@ _do_exec \
 
 _do_exec env \
 			CFLAGS="${_CFLAGS}" \
+			CXXFLAGS="${_CXXFLAGS}" \
 			LDFLAGS="${_LDFLAGS}" \
 			LIBS="${_LIBS}" \
 	./configure \
@@ -46,6 +48,7 @@ _do_exec env \
 
 _do_exec env \
 			CFLAGS="${_CFLAGS}" \
+			CXXFLAGS="${_CXXFLAGS}" \
 			LDFLAGS="${_LDFLAGS}" \
 			LIBS="${_LIBS}" \
 	make -j 8
