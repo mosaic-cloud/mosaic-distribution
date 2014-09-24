@@ -170,10 +170,10 @@ _do_scripts_env=(
 	pallur_PATH="${_PATH_export}"
 	pallur_HOME="${_HOME}"
 	pallur_TMPDIR="${_TMPDIR}"
-	pallur_CFLAGS="-I${_tools}/include"
-	pallur_CXXFLAGS="-I${_tools}/include"
-	pallur_LDFLAGS="-L${_tools}/lib"
-	pallur_LIBS=
+	pallur_CFLAGS="-I${_tools}/include -m32"
+	pallur_CXXFLAGS="-I${_tools}/include -m32"
+	pallur_LDFLAGS="-L${_tools}/lib -m32"
+	pallur_LIBS=''
 	
 	pallur_do_exec="${_scripts}/_do-exec"
 	pallur_do_bash="${_scripts}/_do-bash"
