@@ -28,8 +28,19 @@ find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
 chmod -R a=rX,u=rwX -- "${_outputs}"
 cd -- "${_outputs}"
 
-_CFLAGS="-I${_tools}/pkg/nspr-4.8/include/nspr -include unistd.h -include string.h -w ${pallur_CFLAGS}"
-_CXXFLAGS="-I${_tools}/pkg/nspr-4.8/include/nspr -include unistd.h -include string.h -w ${pallur_CXXFLAGS}"
+case "${_local_os}" in
+	( archlinux::* )
+		_CFLAGS="-I${_tools}/pkg/nspr-4.8/include/nspr -include unistd.h -include string.h -w ${pallur_CFLAGS}"
+		_CXXFLAGS="-I${_tools}/pkg/nspr-4.8/include/nspr -include unistd.h -include string.h -w ${pallur_CXXFLAGS}"
+	;;
+	( opensuse::* )
+		_CFLAGS="-I${_tools}/pkg/nspr-4.8/include/nspr -w ${pallur_CFLAGS}"
+		_CXXFLAGS="-I${_tools}/pkg/nspr-4.8/include/nspr -w ${pallur_CXXFLAGS}"
+	;;
+	( * )
+		false
+	;;
+esac
 _LDFLAGS="-L${_tools}/pkg/nspr-4.8/lib ${pallur_LDFLAGS}"
 _LIBS="${pallur_LIBS}"
 
