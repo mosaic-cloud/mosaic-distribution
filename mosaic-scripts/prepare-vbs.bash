@@ -36,11 +36,14 @@ _do_exec \
 _do_exec \
 	./scripts/make-chicken.bash
 
+_do_exec \
+	./scripts/make.bash
+
+echo "[ii] deploying..." >&2
+
 _do_exec env \
 			vbs_mk_vbs_target="${_outputs}/vbs.elf" \
 	./scripts/make.bash vbs_deploy
-
-echo "[ii] deploying..." >&2
 
 mkdir -- "${_tools}/pkg/vbs"
 mkdir -- "${_tools}/pkg/vbs/bin"
