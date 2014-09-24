@@ -14,7 +14,7 @@ if test -e "${_tools}/pkg/nodejs" ; then
 fi
 
 _outputs="${_temporary}/nodejs--build"
-_repository="${_dependencies}/nodejs/0.10.21"
+_repository="${_dependencies}/nodejs/0.10.32"
 
 echo "[ii] preparing..." >&2
 
@@ -29,6 +29,7 @@ chmod -R a=rX,u=rwX -- "${_outputs}"
 cd -- "${_outputs}"
 
 _CFLAGS="${pallur_CFLAGS}"
+_CXXFLAGS="${pallur_CXXFLAGS}"
 _LDFLAGS="${pallur_LDFLAGS}"
 _LIBS="${pallur_LIBS}"
 
@@ -36,14 +37,15 @@ echo "[ii] building..." >&2
 
 _do_exec env \
 			CFLAGS="${_CFLAGS}" \
+			CXXFLAGS="${_CXXFLAGS}" \
 			LDFLAGS="${_LDFLAGS}" \
 			LIBS="${_LIBS}" \
 	./configure \
-		--prefix="${_tools}/pkg/nodejs" \
-		--shared-openssl
+		--prefix="${_tools}/pkg/nodejs"
 
 _do_exec env \
 			CFLAGS="${_CFLAGS}" \
+			CXXFLAGS="${_CXXFLAGS}" \
 			LDFLAGS="${_LDFLAGS}" \
 			LIBS="${_LIBS}" \
 	make -j 8
