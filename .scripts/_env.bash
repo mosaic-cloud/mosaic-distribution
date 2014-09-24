@@ -126,20 +126,21 @@ else
 	_TMPDIR="${pallur_TMPDIR}"
 fi
 
-if test -e /etc/arch-release ; then
-	_local_os_identifier=archlinux
-	_local_os_version=rolling
-elif test -e /etc/lsb-release ; then
-	_local_os_identifier="$( . /etc/lsb-release ; echo "${DISTRIB_ID:-}" )"
-	_local_os_version="$( . /etc/lsb-release ; echo "${DISTRIB_RELEASE:-}" )"
+if test -z "${pallur_local_os:-}" ; then
+	if test -e /etc/os-release ; then
+		_local_os_identifier="$( . /etc/os-release ; echo "${ID:-}" )"
+		_local_os_version="$( . /etc/os-release ; echo "${VERSION_ID:-}" )"
+	else
+		_local_os_identifier=
+		_local_os_version=
+	fi
+	_local_os_identifier="${_local_os_identifier,,}"
+	_local_os_version="${_local_os_version,,}"
+	_local_os="${_local_os_identifier:-unknown}::${_local_os_version:-unknown}"
+	echo "[dd] using pallur-local-OS -> \`${_local_os}\`;" >&2
 else
-	_local_os_identifier=
-	_local_os_version=
+	_local_os="${pallur_local_os}"
 fi
-
-_local_os_identifier="${_local_os_identifier,,}"
-_local_os_version="${_local_os_version,,}"
-_local_os="${_local_os_identifier:-unknown}::${_local_os_version:-unknown}"
 
 _do_scripts_env=(
 	
@@ -150,8 +151,6 @@ _do_scripts_env=(
 	pallur_temporary="${_temporary}"
 	pallur_artifacts="${_artifacts}"
 	
-	pallur_local_os_identifier="${_local_os_identifier}"
-	pallur_local_os_version="${_local_os_version}"
 	pallur_local_os="${_local_os}"
 	
 	pallur_pkg_erlang_15="${_tools}/pkg/erlang-15"
