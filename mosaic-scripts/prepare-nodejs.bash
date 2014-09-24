@@ -18,7 +18,11 @@ _repository="${_dependencies}/nodejs/0.10.21"
 
 echo "[ii] preparing..." >&2
 
+if test -e "${_outputs}" ; then
+	rm -R -- "${_outputs}"
+fi
 mkdir -- "${_outputs}"
+
 cd -- "${_repository}"
 find . -not -name '.git' -print0 | cpio -p -0 --quiet -- "${_outputs}"
 chmod -R a=rX,u=rwX -- "${_outputs}"

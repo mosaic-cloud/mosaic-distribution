@@ -17,6 +17,9 @@ _outputs="${_temporary}/mvn--build"
 
 echo "[ii] preparing..." >&2
 
+if test -e "${_outputs}" ; then
+	rm -R -- "${_outputs}"
+fi
 mkdir -- "${_outputs}"
 
 curl -s 'http://www.eu.apache.org/dist/maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz' \
