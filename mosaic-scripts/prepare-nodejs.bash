@@ -41,7 +41,8 @@ _do_exec env \
 			LDFLAGS="${_LDFLAGS}" \
 			LIBS="${_LIBS}" \
 	./configure \
-		--prefix="${_tools}/pkg/nodejs"
+		--prefix="${_tools}/pkg/nodejs" \
+		--dest-cpu=ia32
 
 _do_exec env \
 			CFLAGS="${_CFLAGS}" \
