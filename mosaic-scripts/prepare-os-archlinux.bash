@@ -42,7 +42,7 @@ _distribution_archlinux_dependencies=(
 if test "${UID}" -eq 0 ; then
 	
 	pacman -Sy --noconfirm
-	pacman -Su --noconfirm
+	# pacman -Su --noconfirm
 	
 	for _dependency in "${_distribution_archlinux_dependencies[@]}" ; do
 		pacman -S --noconfirm --needed -- "${_dependency}"

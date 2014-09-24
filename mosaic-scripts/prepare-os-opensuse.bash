@@ -45,7 +45,7 @@ _distribution_opensuse_dependencies=(
 if test "${UID}" -eq 0 ; then
 	
 	zypper -n refresh
-	zypper -n --no-refresh update
+	# zypper -n --no-refresh update
 	
 	for _dependency in "${_distribution_opensuse_dependencies[@]}" ; do
 		zypper -n --no-refresh install -- "${_dependency}"
@@ -72,5 +72,5 @@ fi
 
 if ! test -e "${_tools}/pkg/java" ; then
 	_local_os_packages+=( java )
-	ln -s -f -T -- /usr/lib64/jvm/java-1.7.0-openjdk-1.7.0 "${_tools}/pkg/java"
+	ln -s -f -T -- /usr/lib64/jvm/java-1.7.0-openjdk "${_tools}/pkg/java"
 fi
