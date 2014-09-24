@@ -224,7 +224,9 @@ function _do_exec () {
 		false
 	fi
 	_outcome=0
-	nice -n 19 env -i "${_do_scripts_env[@]}" "${@}" </dev/null >"${_do_exec_log}" 2>&1 \
+	setarch i686 --32bit --3gb -- \
+	nice -n 19 -- \
+	env -i "${_do_scripts_env[@]}" "${@}" </dev/null >"${_do_exec_log}" 2>&1 \
 	|| _outcome="${?}"
 	if test "${_outcome}" -ne 0 ; then
 		echo "[ee] failed with ${_outcome}; log available at \`${_do_exec_log}\`" >&2
@@ -251,7 +253,9 @@ function _do_bash () {
 		false
 	fi
 	_outcome=0
-	nice -n 19 env -i "${_do_scripts_env[@]}" BASH_ENV="${_scripts}/_env.bash" bash -- "${@}" </dev/null >"${_do_exec_log}" 2>&1 \
+	setarch i686 --32bit --3gb \
+	nice -n 19 -- \
+	env -i "${_do_scripts_env[@]}" BASH_ENV="${_scripts}/_env.bash" bash -- "${@}" </dev/null >"${_do_exec_log}" 2>&1 \
 	|| _outcome="${?}"
 	if test "${_outcome}" -ne 0 ; then
 		echo "[ee] failed with ${_outcome}; log available at \`${_do_exec_log}\`" >&2
@@ -268,7 +272,9 @@ function _do_exec1 () {
 	test "${#}" -ge 1
 	echo "[ii] executing \`${@:1}\`..." >&2
 	_outcome=0
-	nice -n 19 env -i "${_do_scripts_env[@]}" "${@}" </dev/null \
+	setarch i686 --32bit --3gb -- \
+	nice -n 19 -- \
+	env -i "${_do_scripts_env[@]}" "${@}" </dev/null \
 	|| _outcome="${?}"
 	if test "${_outcome}" -ne 0 ; then
 		echo "[ee] failed with ${_outcome}" >&2
@@ -283,7 +289,9 @@ function _do_bash1 () {
 	test "${#}" -ge 1
 	echo "[ii] executing \`${@:1}\`..." >&2
 	_outcome=0
-	nice -n 19 env -i "${_do_scripts_env[@]}" BASH_ENV="${_scripts}/_env.bash" bash -- "${@}" </dev/null \
+	setarch i686 --32bit --3gb -- \
+	nice -n 19 -- \
+	env -i "${_do_scripts_env[@]}" BASH_ENV="${_scripts}/_env.bash" bash -- "${@}" </dev/null \
 	|| _outcome="${?}"
 	if test "${_outcome}" -ne 0 ; then
 		echo "[ee] failed with ${_outcome}" >&2
