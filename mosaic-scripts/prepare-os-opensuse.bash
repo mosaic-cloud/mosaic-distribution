@@ -32,6 +32,7 @@ _distribution_opensuse_dependencies=(
 		autoconf
 		automake
 		libtool-32bit libtool
+		pkg-config
 	# OpenSUSE library packages
 		glibc-devel-static-32bit
 		libopenssl-devel-32bit
