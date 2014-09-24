@@ -56,6 +56,7 @@ chmod -R a=rX -- "${_tools}/pkg/vbs"
 
 echo "[ii] cleaning..." >&2
 
+rm -R -- "${_TMPDIR}/volution-build-system"
 rm -R -- "${_outputs}"
 
 exit 0
