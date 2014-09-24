@@ -57,7 +57,8 @@ _do_exec env \
 			BUILD_OPT=1 \
 			XCFLAGS="-DHAVE_VA_COPY -DVA_COPY=va_copy ${_CFLAGS}" \
 			XCXXFLAGS="-DHAVE_VA_COPY -DVA_COPY=va_copy ${_CXXFLAGS}" \
-			XLDFLAGS="${_LDFLAGS}"
+			XLDFLAGS="${_LDFLAGS}" \
+			CC=gcc LD=gcc
 
 echo "[ii] deploying..." >&2
 
