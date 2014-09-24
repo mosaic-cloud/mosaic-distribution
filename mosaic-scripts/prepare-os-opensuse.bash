@@ -1,43 +1,39 @@
 #!/dev/null
 
 _distribution_opensuse_dependencies=(
-	# OpenSUSE tools packages
+	# OpenSUSE core packages
+		bash
 		coreutils
 		util-linux
-		zip
-		unzip
-		cpio
-		tar
-		bash
-		grep
-		sed
+	# OpenSUSE tools packages
+		zip unzip
+		tar cpio
+		grep sed gawk
 		findutils
-		which
-		gawk
-		gzip
-		bzip2
-		patch
+		gzip bzip2
 	# OpenSUSE network packages
 		wget
 		curl
+	# OpenSUSE miscellaneous packages
+		git-core
+		patch
+		diffutils
 	# OpenSUSE language packages
-		java-1_7_0-openjdk-devel
 		python-base python
+		java-1_7_0-openjdk-devel
 		perl-base perl
+	# OpenSUSE C/C++ packages
 		gcc-32bit gcc
 		gcc-c++-32bit gcc-c++
+		binutils-devel-32bit binutils
 	# OpenSUSE development packages
-		git-core
-		binutils
+		make
 		libtool
 		autoconf
 		automake
-		pkg-config
-		make
-		diffutils
 	# OpenSUSE library packages
-		glibc-devel-static
 		glibc-devel-static-32bit
+		libopenssl-devel-32bit
 		ncurses-devel-32bit
 		libxml2-devel-32bit
 )
