@@ -43,7 +43,7 @@ env -i "${_git_env[@]}" "${_git_bin}" \
 		echo "[ww] ## ${name} -> ${origin_sha1}" >&2
 		(
 			cd "${path}"
-			exec env -i "${_git_env[@]}" "${_git_bin}" fetch
+			exec env -i "${_git_env[@]}" "${_git_bin}" fetch "${orig_path}/.git" development
 		)
 		if (
 				cd "${path}"
@@ -64,7 +64,7 @@ done
 if test "${_advance_auto_init:-false}" == true ; then
 	echo "[ww] deinitializing submodules..." >&2
 	env -i "${_git_env[@]}" "${_git_bin}" \
-			submodule deinit --quiet .
+			submodule deinit --quiet --force .
 fi
 
 exit 0
