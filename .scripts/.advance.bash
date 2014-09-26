@@ -44,7 +44,10 @@ env -i "${_git_env[@]}" "${_git_bin}" \
 				exec env -i "${_git_env[@]}" "${_git_bin}" cat-file -e "${origin_sha1}"
 		) ; then (
 				cd "${path}"
-				exec env -i "${_git_env[@]}" "${_git_bin}" checkout "${origin_sha1}"
+				env -i "${_git_env[@]}" "${_git_bin}" \
+						checkout "${origin_sha1}"
+				env -i "${_git_env[@]}" "${_git_bin}" \
+						submodule update --quiet --recursive --init --force
 		) ; else
 			echo "[ee] #### !!!!" >&2
 		fi
