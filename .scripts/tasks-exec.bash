@@ -9,7 +9,7 @@ _make_jobs=4
 _make_load=8
 
 _make_arguments=(
-	--directory="${_temporary}"
+	--directory="/tmp"
 	--jobs="${_make_jobs}"
 	--load-average="${_make_load}"
 	--keep-going
@@ -38,7 +38,8 @@ EOS
 			-e 's#^\t!exec #\t'"${_scripts}/_do-exec"' #' -e 't' \
 			-e 's#^\t!bash #\t'"${_scripts}/_do-bash"' #' -e 't' \
 			-e '/^\t/! b' \
-			-e 'w /dev/stderr' -e 'Q 1'
+			-e 'w /dev/stderr' \
+			-e 'Q 1'
 ) \
 	-- "${@}"
 
