@@ -15,6 +15,7 @@ _modules=(
 		mosaic-components-mysql
 		mosaic-components-me2cp
 		mosaic-components-httpg
+		mosaic-object-store
 		mosaic-java-platform/artifacts
 		mosaic-java-platform/components-container
 		mosaic-java-platform/cloudlets

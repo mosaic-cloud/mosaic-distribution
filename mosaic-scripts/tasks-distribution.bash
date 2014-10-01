@@ -28,7 +28,8 @@ mosaic-distribution@components@${_task} : \
 		mosaic-components-riak-kv@${_task} \
 		mosaic-components-mysql@${_task} \
 		mosaic-components-me2cp@${_task} \
-		mosaic-components-httpg@${_task}
+		mosaic-components-httpg@${_task} \
+		mosaic-object-store@${_task}
 
 mosaic-distribution@platform-core@${_task} : \
 		mosaic-distribution@node@${_task} \

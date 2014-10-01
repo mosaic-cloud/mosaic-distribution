@@ -41,7 +41,8 @@ mosaic-distribution@components-rpm@${_task} : \
 		mosaic-components-riak-kv-rpm@${_task} \
 		mosaic-components-mysql-rpm@${_task} \
 		mosaic-components-me2cp-rpm@${_task} \
-		mosaic-components-httpg-rpm@${_task}
+		mosaic-components-httpg-rpm@${_task} \
+		mosaic-object-store-rpm@${_task}
 
 EOS
 done
