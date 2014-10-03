@@ -6,6 +6,15 @@ if ! test "${#}" -eq 0 ; then
 fi
 
 
+if test -e "${_temporary}/tasks.txt" ; then
+	exec cat -- "${_temporary}/tasks.txt"
+fi
+
+if test -e "${_temporary}" ; then
+	exec 3>&1 >|"${_temporary}/tasks.txt.tmp"
+fi
+
+
 cat <<EOS
 
 default : default@prepare default@compile default@package
@@ -32,5 +41,11 @@ while read -r _script ; do
 	esac
 done < <( find "${_workbench}/distribution-tasks" -xtype f -print | sort )
 
+
+if test -e "${_temporary}/tasks.txt.tmp" ; then
+	mv -T -- "${_temporary}/tasks.txt.tmp" "${_temporary}/tasks.txt"
+	exec cat -- "${_temporary}/tasks.txt" >&3
+	exit 1
+fi
 
 exit 0
