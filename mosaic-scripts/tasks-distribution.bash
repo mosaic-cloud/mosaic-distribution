@@ -44,11 +44,6 @@ mosaic-distribution@platform-java@${_task} : \
 		mosaic-distribution@node@${_task} \
 		mosaic-distribution@components@${_task}
 
-mosaic-distribution@applications@${_task} : \
-		mosaic-applications-realtime-feeds-backend@${_task} \
-		mosaic-applications-realtime-feeds-frontend-java@${_task} \
-		mosaic-applications-realtime-feeds-indexer-java@${_task}
-
 EOS
 done
 

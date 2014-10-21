@@ -22,9 +22,6 @@ _modules=(
 		mosaic-java-platform/drivers-stubs/amqp
 		mosaic-java-platform/drivers-stubs/riak
 		mosaic-mos-platform-packages
-		mosaic-applications-realtime-feeds/backend
-		mosaic-applications-realtime-feeds/frontend
-		mosaic-applications-realtime-feeds/indexer
 )
 
 for _module in "${_modules[@]}" ; do
