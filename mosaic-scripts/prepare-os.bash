@@ -21,7 +21,7 @@ _local_os_packages=()
 
 case "${_local_os}" in
 	
-	( archlinux::rolling | archlinux::unknown )
+	( arch::unknown )
 		
 		echo "[ii] preparing \`archlinux\` environment..." >&2
 		

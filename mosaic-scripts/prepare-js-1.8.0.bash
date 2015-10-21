@@ -29,7 +29,7 @@ chmod -R a=rX,u=rwX -- "${_outputs}"
 cd -- "${_outputs}"
 
 case "${_local_os}" in
-	( archlinux::* )
+	( arch::* )
 		_CFLAGS="-I${_tools}/pkg/nspr-4.8/include/nspr -include unistd.h -include string.h -w ${pallur_CFLAGS}"
 		_CXXFLAGS="-I${_tools}/pkg/nspr-4.8/include/nspr -include unistd.h -include string.h -w ${pallur_CXXFLAGS}"
 	;;

@@ -35,6 +35,7 @@ _distribution_archlinux_dependencies=(
 		pkg-config
 		make
 		diffutils
+		m4
 	# Archlinux library packages
 		libxml2
 		ncurses
