@@ -21,12 +21,19 @@ _make_arguments=(
 )
 
 if test "${_make_quiet}" == true ; then
-	_make_arguments+=( --silent --output-sync=target )
-else
-	_make_arguments+=( --output-sync=none )
+	_make_arguments+=( --silent )
 fi
 if test "${_make_continue}" == true ; then
 	_make_arguments+=( --keep-going )
+fi
+if test "${_make_quiet}" == true ; then
+	if test "${_make_jobs}" -ge 1 ; then
+		_make_arguments+=( --output-sync=target )
+	else
+		_make_arguments+=( --output-sync=line )
+	fi
+else
+	_make_arguments+=( --output-sync=none )
 fi
 
 _do_exec1 make \

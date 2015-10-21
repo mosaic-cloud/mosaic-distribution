@@ -231,7 +231,7 @@ function _do_exec () {
 	_outcome=0
 	setarch i686 --32bit --3gb -- \
 	nice -n 19 -- \
-	env -i "${_do_scripts_env[@]}" "${@}" </dev/null >"${_do_exec_log}" 2>&1 \
+	env -i "${_do_scripts_env[@]}" "${@}" </dev/null >|"${_do_exec_log}" 2>&1 \
 	|| _outcome="${?}"
 	if test "${_outcome}" -ne 0 ; then
 		if test "${_do_scripts_do_quiet}" == true ; then
@@ -268,7 +268,7 @@ function _do_bash () {
 	_outcome=0
 	setarch i686 --32bit --3gb \
 	nice -n 19 -- \
-	env -i "${_do_scripts_env[@]}" BASH_ENV="${_scripts}/_env.bash" bash -- "${@}" </dev/null >"${_do_exec_log}" 2>&1 \
+	env -i "${_do_scripts_env[@]}" BASH_ENV="${_scripts}/_env.bash" bash -- "${@}" </dev/null >|"${_do_exec_log}" 2>&1 \
 	|| _outcome="${?}"
 	if test "${_outcome}" -ne 0 ; then
 		if test "${_do_scripts_do_quiet}" == true ; then
