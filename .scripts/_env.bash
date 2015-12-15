@@ -291,7 +291,7 @@ function _do_exec1 () {
 	_outcome=0
 	setarch i686 --32bit --3gb -- \
 	nice -n 19 -- \
-	env -i "${_do_scripts_env[@]}" "${@}" </dev/null \
+	env -i "${_do_scripts_env[@]}" "${@}" \
 	|| _outcome="${?}"
 	if test "${_outcome}" -ne 0 ; then
 		echo "[ee] failed with ${_outcome}" >&2
